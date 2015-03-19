@@ -40,8 +40,8 @@
     <body oncontextmenu="return false">
         <div id="content">
         <table width="349" height="244" border="1" align="center">
-            <tr bgcolor="#E88B24">
-                <th colspan="2" bgcolor="#2F4D84" >
+            <tr>
+                <th colspan="2">
             <div align="center">  <strong>
                     Lista de certificaciones Presupuestarias de la tarea
                     <br>
