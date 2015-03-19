@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="AdministrarUsuarios">
+    <!-- _ _ - Administracion de usuarios *******************    -->
+    <result-map name="get_usuarios" class="org.springframework.eam.domain.Usuarios">
+        <property name="id_usuario" column="ID_USUARIO" />
+        <property name="nombres" column="NOMBRES" />
+        <property name="cargo" column="CARGO" />
+        <property name="id_turno" column="ID_TURNO" />
+    </result-map>
+
+    <mapped-statement name="getUsuariosPrograma" result-map="get_usuarios">
+        SELECT u.id_usuario, (p.paterno||' '||p.materno||' '||p.nombres)::varchar as nombres, a.cargo, u.id_turno
+        FROM _usuarios u, administrativos a, personas p
+        WHERE id_tipo_usuario = 'adm'
+        AND u.id_usuario = a.id_administrativo
+        AND a.id_persona = p.id_persona
+        AND u.id_estado = 'A'
+        AND u.id_programa = #id_programa#;
+    </mapped-statement>
+
+    <!-- Cambiar turno -->
+    <mapped-statement name="setCambiarTurno">
+        UPDATE _usuarios SET id_turno = #id_turno# WHERE id_usuario = #id_usuario#
+    </mapped-statement>
+    <!-- Fin Cambiar turno -->
+
+    <!-- Modulo turnos -->
+    <mapped-statement name="setTurno" result-class="java.lang.Integer">
+        SELECT * FROM set_turno(#id_usuario#::varchar,#id_turno#::varchar,#fec_asignacion#::varchar,#fec_caducidad#::varchar);
+    </mapped-statement>
+  
+    <mapped-statement name="setTurno2" result-class="java.lang.Integer">
+        SELECT * FROM set_turno2(#id_usuario#::varchar,#id_turno#::varchar);
+    </mapped-statement>
+  
+    <mapped-statement name="setTurnoTmp" result-class="java.lang.Integer">
+        SELECT * FROM set_turno_tmp(#id_usuario#::varchar,#id_turno#::varchar,#fec_asignacion#::varchar,#fec_caducidad#::varchar);
+    </mapped-statement>
+
+    <mapped-statement name="getTurnoActual" result-class="java.lang.Integer">
+        SELECT * FROM get_turno_actual(#id_usuario#);
+    </mapped-statement>
+  
+    <mapped-statement name="getTurno" result-class="java.lang.Integer">
+        SELECT * FROM get_turno(#id_usuario#);
+    </mapped-statement>
+
+    <result-map name="get_turno" class="org.springframework.eam.domain.Turno">
+        <property name="id_usuario" column="ID_USUARIO" />
+        <property name="id_turno" column="ID_TURNO" />
+        <property name="fec_asignacion" column="FEC_ASIGNACION" />
+        <property name="fec_caducidad" column="FEC_CADUCIDAD" />
+        <property name="id_estado" column="ID_ESTADO" />
+    </result-map>
+  
+    <mapped-statement name="getTurnoTmp" result-map="get_turno">
+        SELECT * FROM get_turno_tmp(#id_usuario#) as (id_usuario varchar, id_turno integer, fec_asignacion timestamp, fec_caducidad timestamp, id_estado did_estado, dias integer);
+    </mapped-statement>
+
+
+    <!-- Jes -->
+    <result-map name="tares" class="org.springframework.eam.domain.ProActTar">
+        <property name="codtar"     column="CODTAR"		 	/>
+        <property name="descripcion" column="DESCRIPCION"		 />
+        <property name="codacti"  column="CODACTI"    	 />
+        <property name="fecha_act"  column="FECHA_ACT"  	/>
+        <property name="correlativo"  column="CORRELATIVO"               	/>
+        <property name="num_tarea"  column="NUM_TAREA"               	/>
+        <property name="aper_prog"  column="APER_PROG"               	/>
+    </result-map>
+    <mapped-statement name="getListarTareas" result-map="tares">
+        select * from tarea order by codtar ASC
+    </mapped-statement>
+
+    <mapped-statement name="getTarea" result-map="tares">
+        select * from tarea where codtar=#codtar#
+    </mapped-statement>
+
+    <result-map name="actividades" class="org.springframework.eam.domain.ProActTar">
+        <property name="descripcion" column="DESCRIPCION"		 />
+        <property name="codacti"  column="CODACTI"    	 />
+        <property name="codpro"  column="CODPRO"               	/>
+        <property name="apertura_prog"  column="APERTURA_PROG"               	/>
+    </result-map>
+    <mapped-statement name="getActividad" result-map="actividades">
+        select * from actividad where codacti = (select codacti from tarea where codtar=#codtar#);
+    </mapped-statement>
+
+    <result-map name="usuario_tareas" class="org.springframework.eam.domain.carreras">
+        <property name="codacti" column="CODACTI"/>
+        <property name="codtar"  column="CODTAR"/>
+        <property name="idcarrera"  column="IDCARRERA"/>
+        <property name="num_tarea"  column="NUM_TAREA"/>
+    </result-map>
+    <mapped-statement name="getListaTareasUsuario" result-map="usuario_tareas">
+        select * from carreras_pass where idcarrera=#idcarrera#
+    </mapped-statement>
+    <mapped-statement name="setCarreasRelacionUsuario">
+        INSERT INTO carreras_pass(codacti, codtar, idcarrera, num_tarea) VALUES (#codacti#, #codtar#, #idcarrera#, #num_tarea#);
+    </mapped-statement>
+
+    <mapped-statement name="setEliminaRelacionTareasUsuarios">
+        DELETE FROM carreras_pass WHERE idcarrera=#idcarrera#;
+    </mapped-statement>
+    <!-- Fin Jes -->
+
+
+    <result-map name="get_usuarios_turno" class="org.springframework.eam.domain.Usuarios">
+        <property name="id_usuario" column="ID_USUARIO" />
+        <property name="nombres" column="NOMBRES" />
+        <property name="cargo" column="CARGO" />
+        <property name="id_turno_actual" column="ID_TURNO_ACTUAL" />
+        <property name="id_turno" column="ID_TURNO" />
+        <property name="id_turno_tmp" column="ID_TURNO_TMP" />
+        <property name="dias" column="DIAS" />
+    </result-map>
+  
+    <mapped-statement name="getUsuariosTurno" result-map="get_usuarios_turno">
+        SELECT * FROM get_usuarios_turno() as (id_usuario varchar, nombres varchar, cargo varchar, id_turno_actual integer, id_turno integer, id_turno_tmp integer, dias integer);
+    </mapped-statement>
+    <!-- Fin Modulo turnos -->
+
+    <mapped-statement name="setRegistrarUsuariosAdm" result-class="java.lang.Integer">
+        SELECT registrar_usuarios_adm(#id_usuario#,#clave#,#recordatorio#,#id_programa#,#ult_usuario#);
+    </mapped-statement>
+
+    <mapped-statement name="getId_usuario" result-class="java.lang.Integer">
+        SELECT (CASE WHEN count(id_usuario) > 0 THEN 1 ELSE 0 END) AS valor 
+        FROM _usuarios WHERE id_usuario = #id_usuario#
+    </mapped-statement>
+
+    <mapped-statement name="setRegistrarUsuariosRoles" result-class="java.lang.Integer">
+        <!-- SELECT registrar_usr_roles(#id_usuario#,#id_rol#,#id_programa#,#fec_expiracion#,#ult_usuario#);-->
+        SELECT registrar_usr_roles(#id_usuario#,#id_rol#,#id_programa#,#fec_expiracion#);
+    </mapped-statement>
+    <!--Jes -->
+    <mapped-statement name="setRegistrarUsuariosyRoles">
+        INSERT INTO _usr_roles(id_usuario, id_rol, id_programa, fec_expiracion) VALUES (#id_usuario#,#id_rol#,#id_programa#,#fec_expiracion#);
+    </mapped-statement>
+
+
+
+    <mapped-statement name="setActualizarUsuariosRoles" result-class="java.lang.Integer">
+        SELECT actualizar_usr_roles(#id_usuario#,#id_rol#,#id_programa#,#fec_expiracion#,#ult_usuario#);
+    </mapped-statement>
+
+    <mapped-statement name="setEliminarUsuariosRoles" result-class="java.lang.Integer">
+        SELECT eliminar_usr_roles(#id_usuario#,#id_rol#,#id_programa#);
+    </mapped-statement>
+
+    <mapped-statement name="setRegistrarAdministrativo" result-class="java.lang.Integer">
+        <!--
+            SELECT registrar_cuenta(#dip#,#paterno#,#materno#,#nombres#,#correo#,#telefono#,#id_usuario#,#clave#,#cargo#,#id_turno#,#ult_usuario#);
+        -->
+        SELECT registrar_administrativos(#id_administrativo#,#id_persona#,#cargo#,#id_programa#,#ult_usuario#);
+
+    </mapped-statement>
+
+    <result-map name="get_roles" class="org.springframework.eam.domain.Usuarios">
+        <property name="id_estado" column="ID_ESTADO" />
+        <property name="id_rol" column="ID_ROL" />
+        <property name="rol" column="ROL" />
+        <property name="descripcion" column="DESCRIPCION" />
+        <property name="anio" column="ANIO" />
+        <property name="mes" column="MES" />
+        <property name="dia" column="DIA" />
+        <property name="estado" column="ESTADO" />
+    </result-map>
+
+    <mapped-statement name="getRolesUsuario" result-map="get_roles">
+        select * from get_roles_del_usuario(#id_usuario#,#id_programa#) as (id_estado varchar,id_rol varchar,
+        rol varchar,descripcion varchar,
+        anio varchar,mes varchar,dia varchar,
+        estado varchar);
+    </mapped-statement>
+
+    <mapped-statement name="getKeySecurity" result-class="java.lang.Integer">
+        SELECT get_key_security(#id_programa#,#ruta_enlace#,#id_rol#,#ult_usuario#);    
+    </mapped-statement>
+
+    <mapped-statement name="setActualizarUsuarioAdm" result-class="java.lang.Integer">
+        SELECT actualizar_usuarios_adm(#id_usuario#,#clave#,#id_programa#,#ult_usuario#);
+    </mapped-statement>
+
+    <mapped-statement name="setActualizarAdministrativo" result-class="java.lang.Integer">
+        SELECT actualizar_administrativos(#id_administrativo#,#cargo#,#ult_usuario#);
+    </mapped-statement>
+
+    <mapped-statement name="setBorrarRolesUsuario">
+        DELETE FROM _usr_roles WHERE id_usuario = #id_usuario# AND id_programa = #id_programa#;
+    </mapped-statement>
+
+    <mapped-statement name="setBorrarLoginHistorico">
+        DELETE FROM login_historico WHERE id_usuario = #id_usuario#;
+    </mapped-statement>
+
+    <mapped-statement name="setEliminarLoginStatus">
+        DELETE FROM loginstatus WHERE id_usuario = #id_usuario#;
+    </mapped-statement>
+
+    <mapped-statement name="setElimiarAdministrativo">
+        DELETE FROM administrativos WHERE id_administrativo = #id_administrativo#;
+    </mapped-statement>
+
+    <mapped-statement name="setEliminaPersona">
+        DELETE FROM personas WHERE id_persona = #id_persona#;
+    </mapped-statement>
+    <!-- Administracion DE USUARIOS -->
+
+    <mapped-statement name="setActualizarClaveKar" result-class="java.lang.Integer">
+        SELECT actualizar_clave_kardex(#clave#,#id_usuario#,#id_programa#,#ult_usuario#);
+    </mapped-statement>
+
+    <result-map name="get_administrativo" class="org.springframework.eam.domain.Administrativos">
+        <property name="id_administrativo" column="ID_ADMINISTRATIVO"/>
+        <property name="id_persona" column="ID_PERSONA"/>
+        <property name="cargo" column="CARGO"/>
+    </result-map>
+  
+    <mapped-statement name="getAdministrativo" result-map="get_administrativo">
+        <!--
+            SELECT * FROM obtener_cuenta_usuarios(#id_usuario#::varchar) as (id_persona did_persona,dip varchar,paterno varchar,materno varchar,nombres varchar,correo varchar,
+            telefono varchar,id_usuario did_usuario,clave varchar,cargo varchar,id_turno integer);
+        -->
+        select * from _get_administrativo(#id_persona#) as (id_administrativo did_usuario,id_persona did_persona,cargo varchar);
+    
+    </mapped-statement>
+
+
+
+
+    <result-map name="get_servidor" class="org.springframework.eam.domain.Servidor">
+        <property name="id_servidor" column="ID_SERVER"/>
+        <property name="servidor" column="SERVER"/>
+        <property name="ip" column="IP"/>
+        <property name="puerto" column="PORT"/>
+        <property name="usuario" column="USERNAME"/>
+        <property name="password"  column="PASS"/>
+        <property name="total" column="TOTAL_TARJETAS"/>
+        <property name="transcritas" column="TRANSCRITAS"/>
+        <property name="anuladas" column="ANULADAS"/>
+        <property name="transcripcion" column="DEFAULT"/>
+    </result-map>
+  
+    <mapped-statement name="getServidor" result-map="get_servidor">
+        select * from servers_img where id_server = #id_servidor#;
+    </mapped-statement>
+  
+    <mapped-statement name="getListaServidores" result-map="get_servidor">
+        select * from servers_img order by id_server;
+    </mapped-statement>
+  
+    <mapped-statement name="setServidor" result-class="java.lang.String">
+        select _set_servidor_img(#id_servidor#,#servidor#,#ip#,#puerto#,#usuario#,#password#,#total#,#transcritas#);
+    </mapped-statement>
+    <mapped-statement name="setCajaServidor" result-class="java.lang.String">
+        select _set_caja_servidor(#id_servidor#,#caja#);
+    </mapped-statement>
+
+    <mapped-statement name="setDefaultServer" result-class="java.lang.String">
+        select _set_default_server(#id_servidor#);
+    </mapped-statement>
+
+    <mapped-statement name="getIdSrvByBoxName" result-class="java.lang.String">
+        select _get_id_server_por_caja(#cod_img#);
+    </mapped-statement>
+
+    <mapped-statement name="getDefaultServer" result-map="get_servidor">
+        select * from servers_img where "default"=1 limit 1;
+    </mapped-statement>
+  
+  
+    <result-map name="ActividadAll" class="org.springframework.eam.domain.ProActTar">
+        <property name="descripcion" column="DESCRIPCION"/>
+        <property name="codacti"  column="CODACTI"/>
+    </result-map>
+    <mapped-statement name="getListActividad" result-map="ActividadAll">
+        select * from actividad order by codacti asc;
+    </mapped-statement>
+    
+    
+    
+    <result-map name="FuenteEconnomicaAll"    class="org.springframework.eam.domain.FuenteEconomica">
+        <property name="codfueneco" column="CODFUENECO"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+    </result-map>
+    <mapped-statement name="getListAllFuentesFinanciamiento" result-map="FuenteEconnomicaAll">
+        select distinct mi.codfueneco, (select descripcion from fuenteseconomicas where codfueneco=mi.codfueneco) as descripcion from montosingreso as mi WHERE EXISTS (select cp.codtar from carreras_pass as cp ) order by codfueneco asc
+    </mapped-statement>
+    
+    
+    <result-map name="TareasAllByActi" class="org.springframework.eam.domain.ProActTar">
+        <property name="codtar"     column="CODTAR"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+    </result-map>
+    <mapped-statement name="getListAllTareaByActividad" result-map="TareasAllByActi">
+        select * from tarea where codacti=#codacti# order by codtar ASC
+    </mapped-statement>
+  
+</sql-map>

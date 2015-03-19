@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Registro">
+
+  <mapped-statement name="setActualizarParametros">
+    UPDATE _parametros SET valor = #gestion#, ult_usuario = #ult_usuario#
+    WHERE campo = 'gestion'
+    AND id_programa = #region#;
+
+    UPDATE _parametros SET valor = #periodo#, ult_usuario = #ult_usuario#
+    WHERE campo = 'periodo'
+    AND id_programa = #region#;
+  </mapped-statement>
+
+</sql-map>

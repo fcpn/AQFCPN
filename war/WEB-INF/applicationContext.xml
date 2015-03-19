@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for EAM's business layer.
+  - Contains bean references to the transaction manager and to the DAOs in
+  - dataAccessContext-local/jta.xml (see web.xml's "contextConfigLocation").
+-->
+<beans>
+
+	<!-- ========================= GENERAL DEFINITIONS ========================= -->
+
+	<!-- Configurer that replaces ${...} placeholders with values from properties files -->
+	<!-- (in this case, mail and JDBC related properties) -->
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+	<value>WEB-INF/jdbc.properties</value>
+      </list>
+    </property>
+  </bean>
+	
+	<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+
+  <!-- EAM primary business object: default implementation -->
+  <bean id="eamTarget" class="org.springframework.eam.domain.logic.EamImpl">
+    <property name="menuesDao">              <ref bean="menuesDao"/>               </property>   <!-- Menues, Categorias, Enlaces --> 
+    <property name="usuariosDao">            <ref bean="usuariosDao"/>             </property>   <!-- Usuarios -->
+    <property name="personasDao">            <ref bean="personasDao"/>             </property>   <!-- Personas -->
+    <property name="rolesDao">               <ref bean="rolesDao"/>                </property>   <!-- Roles -->
+    <property name="registroDao">            <ref bean="registroDao"/>             </property>   <!-- Registro -->
+    <property name="administrarUsuariosDao"> <ref bean="administrarUsuariosDao"/>  </property>   <!-- Administrar Paralelos -->
+    <property name="transcripcionesDao">     <ref bean="transcripcionesDao"/>  	   </property>   <!-- Administrar Paralelos -->
+  </bean>
+
+  <!-- Transactional proxy for the EAM primary business object -->
+  <bean id="eam" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager"><ref bean="transactionManager"/></property>
+    <property name="target"><ref local="eamTarget"/></property>  
+    <property name="transactionAttributes">
+      <props>
+	<prop key="insert*">PROPAGATION_REQUIRED</prop>
+	<prop key="update*">PROPAGATION_REQUIRED</prop>
+	<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+      </props>
+    </property>
+  </bean>
+
+</beans>

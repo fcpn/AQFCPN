@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map-config
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config.dtd">
+
+<sql-map-config>
+  <!-- PLATAFORMA PRINCIPAL -->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Menues.xml"/>               <!--Menues, Categorias, Enlaces-->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Usuarios.xml"/>             <!--Usuarios-->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Personas.xml"/>             <!--Personas-->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Roles.xml"/>                <!--Roles-->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Registro.xml"/>             <!--Registro-->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/AdministrarUsuarios.xml"/>  <!--Administrar Usuarios-->
+
+  <!-- MAPS - Dominios -->
+  <sql-map resource="org/springframework/eam/dao/ibatis/maps/Transcripciones.xml"/>      <!-- MODULO DE TRANSCRIPCONES -->
+</sql-map-config>

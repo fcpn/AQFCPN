@@ -1,0 +1,181 @@
+/* ##### Hur body ska se ut ##### */
+
+
+/* ##### Hur input-rutor ska se ut ##### */
+		
+input{font-family:verdana; font-size: 12px; border-width: 1px; border-color: Black; font-weight: normal;}
+
+.input_not_same{
+	font-family:verdana;
+	font-size: 12px;
+	border-width: 2px;
+	border-color: #FF0000;
+	font-weight: normal;
+	border: 1;
+	border-top-color: #FF0000;
+	border-right-color: #FF0000;
+	border-bottom-color: #FF0000;
+	border-left-color: #FF0000;
+	background-color: #FF6666;
+}
+.tabelstyle{
+	border-right-color: #000000;
+	border-right-style: dashed;
+	border-right-width: thin;
+	border-top-color: #000000;
+	border-top-style: dashed;
+	border-top-width: thin;
+	border-bottom-color: #000000;
+	border-bottom-style: dashed;
+	border-bottom-width: thin;
+	border-left-color: #000000;
+	border-left-style: dashed;
+	border-left-width: thin;
+}
+.tabeltopborder{
+	border-bottom-style: solid;
+	border-bottom-width: medium;
+	border-bottom-color: #000000;
+	background-color: #CCCCCC;
+}
+button{
+	background-color: #FFFFFF;
+	border: 0;
+	border-color: #FFFFFF;
+}
+	
+textarea            {
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	border-width: 1px ;
+	border-color: Black;
+	font-weight: normal;
+	}
+
+/************ subglobalNav styles **************/
+
+.Menu a:link, .Menu a:visited {
+	font-size: 80%;
+	color: #FF0033;
+}
+
+.Menu a:hover{
+	color: #cccccc;
+}
+
+
+/******* hyperlink and anchor tag styles *******/
+
+a:link, a:visited{
+	color: #005FA9;
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: none;
+}
+			
+/* ##### Texttyper till main-delen ##### */			
+			
+h1			{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			font-size:120%;
+			color:red;
+			text-decoration:none;
+			font-weight:bold;
+			}
+			
+h2			{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			font-size : 120%;
+			color : gray;
+			text-decoration : none;
+			font-weight : bold;
+			}
+			
+.text{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 90%;
+			text-decoration : none;
+			font-weight : normal;
+			}
+/*********
+Text specification for product
+.text, .prodspechead, .artteknik, .artteknikspec, .artikelhead, .artikelnr, .artikelnrspec
+************/
+.prodspechead{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color:white;
+			font-size : 95%;
+			text-decoration : none;
+			font-weight : bold;
+}			
+.prodtablecell{
+	background-color: #334d55;
+	background-image: url(img/bg_header.gif);		
+}
+.artteknik{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 90%;
+			text-decoration : none;
+			font-weight : bold;
+			}
+.artteknikspec{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 90%;
+			text-decoration : none;
+			font-weight : normal;
+			}
+.artikelhead{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 80%;
+			text-decoration : none;
+			font-weight : bold;
+			}
+.artikelnr{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 80%;
+			text-decoration : none;
+			font-weight : normal;
+			}
+.artikelnrspec{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 80%;
+			text-decoration : none;
+			font-weight : normal;
+			}								
+
+
+/*********
+Text specification for product Matrix
+.prodmatrixhead, .prodmatrixtext
+************/
+.prodmatrixhead{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color:white;
+			font-size : 60%;
+			text-decoration : none;
+			font-weight : bold;
+}			
+.prodmatrixtext{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			color : black;
+			font-size : 65%;
+			text-decoration : none;
+			font-weight : normal;
+			}
+
+
+.copyright{
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			font-size :20%;
+			color : gray;
+			text-decoration : none;
+			font-weight : normal;
+}

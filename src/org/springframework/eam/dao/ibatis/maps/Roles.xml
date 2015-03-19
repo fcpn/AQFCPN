@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Roles">
+<!-- _ _ -->
+  <result-map name="listaroles" class="org.springframework.eam.domain.Roles">
+    <property name="id_rol"      column="ID_ROL"/>
+    <property name="rol"         column="ROL"/>
+    <property name="descripcion" column="DESCRIPCION" />
+  </result-map>
+  
+  <mapped-statement name="getRolesPrograma" result-map="listaroles">
+    SELECT c.id_rol, c.rol, (CASE WHEN c.descripcion IS NULL THEN '(null)' ELSE c.descripcion END) AS descripcion
+    FROM _roles c 
+    WHERE c.id_programa = #id_programa#
+    AND c.id_rol &#60;&#62; 'doc'
+    AND c.id_rol &#60;&#62; 'est'
+    AND c.id_estado = 'A'
+    ORDER BY c.rol 
+  </mapped-statement>
+
+</sql-map>

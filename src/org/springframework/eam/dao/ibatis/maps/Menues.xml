@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Menues">
+
+<!-- SECCION DE LA TABLA CATEGORIAS-->
+  <result-map name="categorias" class="org.springframework.eam.domain.Menues">
+    <property name="id_categoria" column="ID_CATEGORIA" />
+    <property name="categoria"    column="CATEGORIA" />
+    <property name="imagen"       column="IMAGEN" />
+  </result-map>
+
+  <mapped-statement name="getCategorias" result-map="categorias">
+    SELECT distinct c.id_categoria, c.categoria, (CASE WHEN c.imagen IS NULL THEN 'categoria.gif' ELSE c.imagen END) AS imagen
+    FROM _categorias c INNER JOIN 
+    ( SELECT id_categoria FROM _enlaces e INNER JOIN 
+      (  SELECT id_enlace FROM _menues
+         WHERE id_programa = #id_programa#
+         AND id_rol = #id_rol#
+         AND now()::date between fec_activacion AND fec_desactivacion
+         AND id_estado = 'A'
+      ) m
+      ON m.id_enlace = e.id_enlace 
+    ) menu
+    ON menu.id_categoria = c.id_categoria
+  </mapped-statement>
+
+<!-- SECCION DE LA TABLA ENLACES -->
+  <result-map name="enlaces" class="org.springframework.eam.domain.Menues">
+    <property name="id_enlace"     column="ID_ENLACE"     columnIndex="1"/>
+    <property name="nombre_enlace" column="NOMBRE_ENLACE" columnIndex="2"/>
+    <property name="imagen"        column="IMAGEN"        columnIndex="3"/>
+    <property name="ruta_enlace"   column="RUTA_ENLACE"   columnIndex="4"/>
+    <property name="orden"         column="ORDEN"         columnIndex="5"/>
+  </result-map>
+
+  <mapped-statement name="getEnlaces" result-map="enlaces">
+    SELECT e.id_enlace, e.nombre_enlace, (CASE WHEN e.imagen IS NULL THEN 'enlace.gif' ELSE e.imagen END) AS imagen, e.ruta_enlace, e.orden 
+    FROM _enlaces e INNER JOIN _menues m
+    ON e.id_enlace = m.id_enlace
+    WHERE e.id_categoria = #id_categoria#
+      AND e.id_programa = #id_programa#
+      AND m.id_rol = #id_rol#
+      AND m.id_estado = 'A'
+      AND now()::date between fec_activacion and fec_desactivacion
+    ORDER BY ORDEN
+
+  </mapped-statement>
+  
+<!-- ADMINISTRAR MENUES  -->
+  <result-map name="enlacesroles" class="org.springframework.eam.domain.Menues">
+    <property name="id_rol"    	   column="ID_ROL" 	   	 columnIndex="1"/>
+    <property name="id_enlace"     column="ID_ENLACE"		 columnIndex="2"/>
+    <property name="id_programa"   column="ID_PROGRAMA"	         columnIndex="3"/>
+    <property name="nombre_enlace" column="NOMBRE_ENLACE"	 columnIndex="4"/>
+    <property name="fec_activacion"  column="FEC_ACTIVACION"     columnIndex="5"/>
+    <property name="fec_desactivacion"  column="FEC_DESACTIVACION"  columnIndex="6"/>    
+    <property name="id_estado"  column="ID_ESTADO"               columnIndex="7"/>
+  </result-map>
+
+  <mapped-statement name="getEnlacesRoles" result-map="enlacesroles">
+    SELECT m.id_rol::varchar,m.id_enlace::integer,m.id_programa::varchar,e.nombre_enlace::varchar,m.fec_activacion::date,m.fec_desactivacion::date,m.id_estado::varchar
+    FROM _enlaces AS e, (SELECT * FROM _menues WHERE id_rol=#id_rol#) AS m
+    WHERE e.id_enlace = m.id_enlace
+    and e.id_programa = #id_programa#;
+  </mapped-statement>
+
+  <result-map name="fechasenlaces" class="org.springframework.eam.domain.Menues">
+    <property name="id_enlace"     column="ID_ENLACE"		 	/>
+    <property name="nombre_enlace" column="NOMBRE_ENLACE"		 />
+    <property name="fec_activacion"  column="FEC_ACTIVACION"    	 />
+    <property name="fec_desactivacion"  column="FEC_DESACTIVACION"  	/>    
+    <property name="id_estado"  column="ID_ESTADO"               	/>
+  </result-map>  
+
+  <mapped-statement name="getFechasEnlaces" result-map="fechasenlaces">
+    SELECT m.id_enlace,e.nombre_enlace, m.fec_activacion, m.fec_desactivacion, m.id_estado
+    FROM _enlaces AS e, (SELECT id_enlace,fec_activacion, fec_desactivacion, id_estado FROM _menues WHERE id_enlace=#id_enlace#) AS m
+    WHERE e.id_enlace = m.id_enlace
+  </mapped-statement>
+  
+  
+<!--
+  <result-map name="Menu" class="org.springframework.eam.domain.Menues">
+    <property name="id_rol"    	   column="ID_ROL" 	   	 columnIndex="1"/>
+    <property name="id_enlace"     column="ID_ENLACE"		 columnIndex="2"/>
+    <property name="id_programa"   column="ID_PROGRAMA"	         columnIndex="3"/>
+    <property name="fec_activacion"  column="FEC_ACTIVACION"     columnIndex="4"/>
+    <property name="fec_desactivacion"  column="FEC_DESACTIVACION"  columnIndex="5"/>
+  </result-map>
+-->
+   <mapped-statement name="setAdministrarMenues">
+
+   INSERT INTO _menues(id_rol, id_enlace, id_programa, fec_activacion, fec_desactivacion, ult_usuario)
+    VALUES (#id_rol#,#id_enlace#,#id_programa#,#fec_activacion#,#fec_desactivacion#,#ult_usuario#)	
+    
+   </mapped-statement>
+
+   <mapped-statement name="setActualizarMenues">
+     UPDATE _menues SET fec_activacion = #fec_activacion#, fec_desactivacion= #fec_desactivacion#, id_estado= #id_estado#
+     WHERE id_enlace = #id_enlace#
+   </mapped-statement>
+  
+</sql-map>

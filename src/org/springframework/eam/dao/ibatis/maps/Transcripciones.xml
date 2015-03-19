@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Transcripciones">
+  
+  <result-map name="get_pais" class="org.springframework.eam.domain.Pais">
+    <property name="cod_pais" column="COD_PAIS" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaPais" result-map="get_pais">
+    select * from get_Pais() as (cod_pais varchar,descripcion varchar);
+  </mapped-statement>
+
+  
+  <result-map name="get_depto" class="org.springframework.eam.domain.Departamento">
+    <property name="cod_depto" column="COD_DEPTO" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaDepto" result-map="get_depto">
+    select * from get_Departamentos() as (cod_depto integer,descripcion varchar);
+  </mapped-statement>
+
+  <result-map name="get_provincia" class="org.springframework.eam.domain.Tarjeta">
+    <property name="id_provincia" column="ID_PROVINCIA" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaProvincia" result-map="get_provincia">
+<!--      select id_departamento||':'||id_provincia as id_provincia, descripcion from provincias where #cod_depto#=id_departamento or id_departamento=0 order by descripcion; -->
+      select * from _get_provincias(#cod_depto#) as (id_provincia varchar, descripcion varchar) order by descripcion;
+  </mapped-statement>
+  
+  <result-map name="get_seccion" class="org.springframework.eam.domain.Departamento">
+    <property name="cod_seccion" column="COD_SECCION" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaSeccion" result-map="get_seccion">
+    select * from get_seccion() as (cod_seccion integer,descripcion varchar);
+  </mapped-statement>
+  
+  
+  <result-map name="get_canton" class="org.springframework.eam.domain.Departamento">
+    <property name="cod_canton" column="COD_CANTON" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaCanton" result-map="get_canton">
+    select * from get_canton() as (cod_canton integer,descripcion varchar);
+  </mapped-statement>
+  
+  
+  <result-map name="get_localidad" class="org.springframework.eam.domain.Tarjeta">
+    <property name="id_localidad" column="ID_LOCALIDAD" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaLocalidad" result-map="get_localidad">
+<!--    select id_departamento||':'||id_provincia||':'||id_seccion||':'||id_canton||':'||id_localidad as id_localidad, descripcion from localidades where id_departamento||':'||id_provincia=#cod_depto# or id_departamento=0 order by descripcion;; -->
+    select * from _get_localidades(#cod_depto#) as (id_localidad varchar, descripcion varchar) order by descripcion;
+
+  </mapped-statement>
+  
+  <result-map name="get_nacionalidad" class="org.springframework.eam.domain.Personas">
+    <property name="cod_nacionalidad" column="COD_NACIONALIDAD" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaNacionalidad" result-map="get_nacionalidad">
+    select * from getNacionalidad() as (cod_nacionalidad integer,descripcion varchar);
+  </mapped-statement>
+  
+  <result-map name="get_estcivil" class="org.springframework.eam.domain.Personas">
+    <property name="cod_estcivil" column="COD_ESTCIVIL" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaEstcivil" result-map="get_estcivil">
+    select * from get_estado_civil() as (cod_estcivil integer,descripcion varchar);
+  </mapped-statement>
+  
+  <result-map name="get_profesion" class="org.springframework.eam.domain.Personas">
+    <property name="cod_profesion" column="COD_PROFESION" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaProfesion" result-map="get_profesion">
+    select * from getProfesion() as (cod_profesion integer,descripcion varchar);
+  </mapped-statement>
+  
+  <result-map name="get_filiacion" class="org.springframework.eam.domain.Personas">
+    <property name="cod_filiacion" column="COD_FILIACION" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaFiliacion" result-map="get_filiacion">
+    select * from get_causa_filiacion() as (cod_filiacion integer,descripcion varchar);
+  </mapped-statement>
+  
+  <result-map name="get_parientes" class="org.springframework.eam.domain.Tarjeta">
+    <property name="cod_parentesco" column="COD_PARENTESCO" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaParientes" result-map="get_parientes">
+    select id_pariente as cod_parentesco, descripcion from parientes order by descripcion;
+  </mapped-statement>
+  
+  
+  <result-map name="get_lista_tramite" class="org.springframework.eam.domain.Tarjeta">
+    <property name="cod_tramite" column="COD_TRAMITE" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaTramite" result-map="get_lista_tramite">
+    select id_tramite as cod_tramite, descripcion from tramites;
+  </mapped-statement>
+  
+  
+  <mapped-statement name="getCodigoImg" result-class="java.lang.String">
+   SELECT * FROM get_codigo_imagen(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="setDatosTemporal" result-class="java.lang.Integer">
+     SELECT set_datos_temporal(#cod_registro#,#id_usuario#,#columna#,#dato#);
+  </mapped-statement>
+
+  <!-- parientes-->  
+
+  <result-map name="lst_parientes" class="org.springframework.eam.domain.Tarjeta">
+    <property name="descripcion" column="DESCRIPCION" />
+    <property name="id_tarjeta" column="ID_TARJETA" /> 
+    <property name="codigo" column="CODIGO" />     
+    <property name="ap_paterno" column="AP_PATERNO" /> 
+    <property name="ap_materno" column="AP_MATERNO" /> 
+    <property name="nombre1" column="NOMBRE1" /> 
+    <property name="direccion" column="DIRECCION" /> 
+    <property name="cedula" column="CEDULA" /> 
+    <property name="id_pais" column="ID_PAIS" />                
+  </result-map>
+  <!-- relaciones -->
+  <mapped-statement name="add_rel" result-map="lst_parientes">
+    SELECT * FROM set_relaciones_temporal(#cod_img#,#descripcion#,#ap_paterno#,#ap_materno#,#nombre1#,#direccion#,#id_pais#,#id_usuario#,#cedula#) 
+    AS (descripcion varchar,id_tarjeta varchar,codigo integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar,cedula did_cedula);
+  </mapped-statement>
+
+  <mapped-statement name="less_rel" result-map="lst_parientes">
+    SELECT * FROM eliminar_relaciones_temporal(#cod_img#,#codigo#)
+    AS (descripcion varchar,id_tarjeta varchar,codigo integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar,cedula did_cedula);      
+  </mapped-statement>
+
+  <!-- parientes -->
+  <mapped-statement name="add_par" result-map="lst_parientes">
+    SELECT * FROM set_parientes_temporal(#cod_img#,#descripcion#,#ap_paterno#,#ap_materno#,#nombre1#,#direccion#,#id_pais#,#id_usuario#,#cedula#) 
+    AS (descripcion varchar,id_tarjeta varchar,codigo integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar,cedula did_cedula);
+  </mapped-statement>
+
+  <mapped-statement name="less_par" result-map="lst_parientes">
+    SELECT * FROM eliminar_parientes_temporal(#cod_img#,#codigo#)
+    AS (descripcion varchar,id_tarjeta varchar,codigo integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar,cedula did_cedula);      
+  </mapped-statement>
+
+  <!-- tramites -->
+  <result-map name="lst_tramites" class="org.springframework.eam.domain.Tarjeta">
+    <property name="descripcion" column="DESCRIPCION" />
+    <property name="codigo" column="CODIGO" />     
+    <property name="direccion" column="DIRECCION" /> 
+  </result-map>
+
+  <mapped-statement name="add_tra" result-map="lst_tramites">
+     SELECT * FROM set_tramites_temporal(#cod_img#,#descripcion#,#direccion#,#id_usuario#) 
+    AS (descripcion varchar,codigo integer,direccion varchar);
+  </mapped-statement>
+
+  <mapped-statement name="less_tra" result-map="lst_tramites">
+    SELECT * FROM eliminar_tramites_temporal(#cod_img#,#codigo#)
+    AS (descripcion varchar,codigo integer,direccion varchar);      
+  </mapped-statement>
+
+
+
+
+  <mapped-statement name="quitarRelaciones" result-class="java.lang.Integer">
+     SELECT * from eliminar_relaciones_temporal(#cod_img#,#codigo#);
+  </mapped-statement>
+  
+  <mapped-statement name="quitarParientes" result-class="java.lang.Integer">
+     SELECT * from eliminar_parientes_temporal(#cod_img#,#codigo#);
+  </mapped-statement>
+
+
+    
+  <mapped-statement name="op2" result-map="get_pparientes">
+    select * from get_lista_parientes_temporal(#cod_img#) as (descripcion varchar,cod_registro varchar,cod_parientes integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar) ;
+  </mapped-statement>
+
+
+  <result-map name="get_relaciones" class="org.springframework.eam.domain.Tarjeta">
+    <property name="descripcion" column="DESCRIPCION" />
+    <property name="cod_registro" column="COD_REGISTRO" /> 
+    <property name="cod_relaciones" column="COD_RELACIONES" />     
+    <property name="ap_paterno" column="AP_PATERNO" /> 
+    <property name="ap_materno" column="AP_MATERNO" /> 
+    <property name="nombre1" column="NOMBRE1" /> 
+    <property name="direccion" column="DIRECCION" /> 
+    <property name="id_pais" column="ID_PAIS" />                
+  </result-map>
+    
+  <mapped-statement name="op1" result-map="get_relaciones">
+    <!-- select * from getListareltem('741-902') as (descripcion varchar,cod_registro varchar,cod_relaciones integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,nombre2 varchar,nombre3 varchar);-->
+    select * from get_lista_relaciones_temporal(#cod_img#) as (descripcion varchar,cod_registro varchar,cod_relaciones integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar);
+  </mapped-statement>
+
+
+  <mapped-statement name="setTramitesTemporal" result-class="java.lang.Integer">
+     SELECT set_tramites_temporal(#cod_img#,#codigo#,#id_usuario#,#descripcion#);
+  </mapped-statement>
+
+  <mapped-statement name="quitarTramitesTemporal" result-class="java.lang.Integer">
+     SELECT eliminar_tramites_temporal(#cod_img#,#codigo#);
+  </mapped-statement>
+
+  <result-map name="get_lista_tramite_temporal" class="org.springframework.eam.domain.Tarjeta">
+    <property name="cod_tramite" column="COD_TRAMITE" />    
+    <property name="nombre1" column="NOMBRE1" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getListaTramitesTemporal" result-map="get_lista_tramite_temporal">
+   SELECT * from get_lista_tramite_temporal(#cod_img#) as (cod_tramite integer,descripcion varchar,nombre1 varchar);
+  </mapped-statement>
+
+
+
+<!-- fin -->
+
+  <result-map name="get_lista_grupo" class="org.springframework.eam.domain.Personas">
+    <property name="cod_grp" column="COD_GRP" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+    
+  <mapped-statement name="getG1" result-map="get_lista_grupo">
+    select cod_grp1 as cod_grp,descripcion from gran_grupo order by descripcion;
+  </mapped-statement>
+  
+  <mapped-statement name="getG2" result-map="get_lista_grupo">
+    select cod_grp2 as cod_grp,descripcion from sub_grupo_principal where cod_grp1=#cod_grp1# order by descripcion;
+  </mapped-statement>
+  
+  <mapped-statement name="getG3" result-map="get_lista_grupo">
+    select cod_grp3 as cod_grp,descripcion from subgrupo where cod_grp2=#cod_grp2# and cod_grp1=#cod_grp1# order by descripcion;
+  </mapped-statement>
+  
+  <mapped-statement name="getG4" result-map="get_lista_grupo">
+    select cod_grp4 as cod_grp,descripcion from grupo_primario where cod_grp3=#cod_grp3# and cod_grp2=#cod_grp2# and cod_grp1=#cod_grp1# order by descripcion;
+  </mapped-statement>
+  
+  <mapped-statement name="getG5" result-map="get_lista_grupo">
+    select cod_grp1||':'||cod_grp2||':'||cod_grp3||':'||cod_grp4||':'||cod_grp5 as cod_grp,descripcion from ocupacion where cod_grp4=#cod_grp4# and cod_grp3=#cod_grp3# and cod_grp2=#cod_grp2# and cod_grp1=#cod_grp1# order by descripcion;
+  </mapped-statement>
+  
+  <mapped-statement name="getCache" result-map="get_lista_grupo">
+    select cod_grp1||':'||cod_grp2||':'||cod_grp3||':'||cod_grp4||':'||cod_grp5 as cod_grp,descripcion 
+    from ocupacion 
+    order by score desc, descripcion limit 30;
+  </mapped-statement>
+
+  <mapped-statement name="add" result-map="get_lista_grupo">
+    select * from _set_profesion_add(#dip#,#cod_grp#,#ult_usuario#) as (cod_grp varchar, descripcion varchar);
+  </mapped-statement>
+
+  <mapped-statement name="less" result-map="get_lista_grupo">
+    select * from _set_profesion_less(#dip#,#cod_grp#,#ult_usuario#) as (cod_grp varchar, descripcion varchar);
+  </mapped-statement>
+  
+  <!-- _ Reportes -->
+  <result-map name="reporte" class="org.springframework.eam.domain.Tarjeta">
+        <property name="id_usuario"  	column="ID_USUARIO" />
+        <property name="id_tarjeta"  	column="ID_TARJETA" />
+        <property name="id_persona"  	column="ID_PERSONA" />
+        <property name="cedula"  	column="CEDULA" />
+        <property name="comentario_a" 	column="COMENTARIO_A" />
+        <property name="comentario_r"   column="COMENTARIO_R" />
+  </result-map>
+			  
+  <mapped-statement name="getReporteDiario" result-map="reporte">
+    <!--    SELECT * FROM get_reporte_diario(#id_usuario#) as (id_usuario varchar, nro integer, nroGeneral varchar, descripcion varchar, estado varchar);-->
+    <!-- select t.id_tarjeta,p.id_persona,p.cedula,t.comentario_a,t.comentario_r
+    from tarjetas t,personas_fil p
+    where t.ult_usuario=#id_usuario# and t.id_tarjeta=p.id_tarjeta;-->
+    SELECT * FROM get_reporte_diario(#id_usuario#) as (id_usuario varchar, id_tarjeta varchar, id_persona varchar, cedula varchar, comentario_a varchar, comentario_r varchar);
+  </mapped-statement>
+				  
+  <mapped-statement name="getReporteMensual" result-map="reporte">
+	SELECT * FROM get_reporte_mensual(#id_usuario#) as (id_usuario varchar, id_tarjeta varchar, id_persona varchar, cedula varchar, comentario_a varchar, comentario_r varchar);
+  </mapped-statement>
+				  
+  <mapped-statement name="getReporteTotal" result-map="reporte">
+	SELECT * FROM get_reporte_total(#id_usuario#) as (id_usuario varchar, id_tarjeta varchar, id_persona varchar, cedula varchar, comentario_a varchar, comentario_r varchar);
+  </mapped-statement>
+  <!-- Fin _ Reportes -->
+
+   <result-map name="get_tarjeta" class="org.springframework.eam.domain.Tarjeta">
+<!--    TARJETA   -->    
+        <property name="id_tarjeta" column="ID_TARJETA" />
+        <property name="libro" column="LIBRO" /> 
+        <property name="folio" column="FOLIO" /> 
+        <property name="revisor" column="REVISOR" />  
+        <property name="nacionalidad" column="NACIONALIDAD" /> 
+        <property name="provincia" column="PROVINCIA" />
+        <property name="localidad" column="LOCALIDAD" />
+        <property name="padre_ap_paterno" column="PADRE_AP_PATERNO" />
+        <property name="padre_ap_materno" column="PADRE_AP_MATERNO" />
+        <property name="padre_nombre1" column="PADRE_NOMBRE1" />
+        <property name="padre_nombre2" column="PADRE_NOMBRE2" />
+        <property name="padre_nombre3" column="PADRE_NOMBRE3" />
+        <property name="madre_ap_paterno" column="MADRE_AP_PATERNO" />
+        <property name="madre_ap_materno" column="MADRE_AP_MATERNO" />
+        <property name="madre_nombre1" column="MADRE_NOMBRE1" />
+        <property name="madre_nombre2" column="MADRE_NOMBRE2" />
+        <property name="madre_nombre3" column="MADRE_NOMBRE3" />
+        <property name="lee" column="LEE" />
+        <property name="escribe" column="ESCRIBE" />
+        <property name="cony_ap_paterno" column="CONY_AP_PATERNO" />
+        <property name="cony_ap_materno" column="CONY_AP_MATERNO" />
+        <property name="cony_nombre1" column="CONY_NOMBRE1" />
+        <property name="cony_nombre2" column="CONY_NOMBRE2" />
+        <property name="cony_nombre3" column="CONY_NOMBRE3" />
+        <property name="servicio_militar" column="SERVICIO_MILITAR" />
+        <property name="profesion" column="PROFESION" />
+        <property name="senias_particulares" column="SENIAS_PARTICULARES" />
+        <property name="serie" column="SERIE" />
+        <property name="seccion" column="SECCION" />
+        <property name="causa_filiacion" column="CAUSA_FILIACION" />
+        <property name="comentario_a" column="COMENTARIO_A" />
+        <property name="comentario_r" column="COMENTARIO_R" />
+        <property name="id_tipo_tarjeta" column="ID_TIPO_TARJETA" />
+        <property name="pasaporte" column="PASAPORTE" />
+        <property name="pste_otorgado" column="PSTE_OTORGADO" />
+        <property name="pste_visado" column="PSTE_VISADO" />
+        <property name="pste_fecha" column="PSTE_FECHA" />
+        <property name="pste_otra_residencia" column="PSTE_OTRA_RESIDENCIA" />
+        <property name="nombre_supuesto" column="NOMBRE_SUPUESTO" />
+        <property name="nro_penal" column="NRO_PENAL" />
+        <property name="nro_censo" column="NRO_CENSO" />
+        <property name="radicatoria" column="RADICATORIA" />
+        <property name="permanencia" column="PERMANENCIA" />
+        <!--
+	<property name="id_estado" column="ID_ESTADO" />
+        <property name="fec_registro" column="FEC_REGISTRO" />
+        <property name="fec_modificacion" column="FEC_MODIFICACION" />
+        <property name="ult_usuario" column="ULT_USUARIO" />
+	-->
+<!--    PERSONAS FIL  -->
+        <property name="id_persona" column="ID_PERSONA" />
+        <!-- <property name="id_tarjeta" column="ID_TARJETA" /> -->
+        <property name="cedula" column="CEDULA" />
+        <property name="id_sexo" column="ID_SEXO" />
+        <property name="ap_paterno" column="AP_PATERNO" />
+        <property name="ap_materno" column="AP_MATERNO" />
+        <property name="nombre1" column="NOMBRE1" />
+        <property name="nombre2" column="NOMBRE2" />
+        <property name="nombre3" column="NOMBRE3" />
+        <property name="id_pais" column="ID_PAIS" />
+        <property name="codigo_compuesto" column="CODIGO_COMPUESTO" />
+        <property name="nac_dia" column="NAC_DIA" />
+        <property name="nac_mes" column="NAC_MES" />
+        <property name="nac_anio" column="NAC_ANIO" />
+        <property name="id_lee" column="ID_LEE" />
+        <property name="id_escribe" column="ID_ESCRIBE" />
+        <property name="id_estado_civil" column="ID_ESTADO_CIVIL" />
+        <property name="nro_libreta" column="NRO_LIBRETA" />
+        <property name="altura" column="ALTURA" />
+        <property name="id_grupo_sanguineo" column="ID_GRUPO_SANGUINEO" />
+        <property name="id_causa_filiacion" column="ID_CAUSA_FILIACION" />
+        <property name="dom_localidad" column="DOM_LOCALIDAD" />
+        <property name="zona" column="ZONA" />
+        <property name="barrio" column="BARRIO" />
+        <property name="calle" column="CALLE" />
+        <property name="nro_casa" column="NRO_CASA" />
+        <property name="ubicacion" column="UBICACION" />
+        <!--
+        <property name="id_estado" column="ID_ESTADO" />
+        <property name="fec_registro" column="FEC_REGISTRO" />
+        <property name="fec_modificacion" column="FEC_MODIFICACION" />    
+        <property name="ult_usuario" column="ULT_USUARIO" />
+	-->
+        <property name="id_departamento" column="ID_DEPARTAMENTO" />
+        <property name="id_provincia" column="ID_PROVINCIA" />
+        <property name="id_localidad" column="ID_LOCALIDAD" />
+
+        <property name="ofic_rcn" column="OFIC_RCN" />
+        <property name="libro_no" column="LIBRO_NO" />
+        <property name="partida_no" column="PARTIDA_NO" />
+        <property name="crt_dia" column="CRT_DIA" />
+        <property name="crt_mes" column="CRT_MES" />
+        <property name="crt_anio" column="CRT_ANIO" />
+        <property name="ofic_rcn_cony" column="OFIC_RCN_CONY" />
+        <property name="partida_no_cony" column="PARTIDA_NO_CONY" />
+        <property name="libro_no_cony" column="LIBRO_NO_CONY" />
+        <property name="cony_dia" column="CONY_DIA" />
+        <property name="cony_mes" column="CONY_MES" />
+        <property name="cony_anio" column="CONY_ANIO" />
+  </result-map>  		    
+  
+  <mapped-statement name="getTarjeta" result-map="get_tarjeta">
+select id_tarjeta, 
+libro, 
+folio, 
+revisor, 
+nacionalidad, 
+provincia, 
+localidad, 
+padre_ap_paterno, 
+padre_ap_materno, 
+padre_nombre1, 
+padre_nombre2, 
+padre_nombre3, 
+madre_ap_paterno, 
+madre_ap_materno, 
+madre_nombre1, 
+madre_nombre2, 
+madre_nombre3, 
+lee, 
+escribe, 
+cony_ap_paterno, 
+cony_ap_materno, 
+cony_nombre1, 
+cony_nombre2, 
+cony_nombre3, 
+ofic_rcn_cony, 
+libro_no_cony, 
+partida_no_cony, 
+cony_dia, 
+cony_mes, 
+cony_anio, 
+servicio_militar, 
+profesion, 
+senias_particulares, 
+serie, 
+seccion, 
+causa_filiacion, 
+comentario_a, 
+comentario_r, 
+id_tipo_tarjeta, 
+pasaporte, 
+pste_otorgado, 
+pste_visado, 
+pste_fecha, 
+pste_otra_residencia, 
+nombre_supuesto, 
+nro_penal, 
+nro_censo, 
+radicatoria, 
+permanencia, 
+cedula, 
+id_sexo, 
+ap_paterno, 
+ap_materno, 
+nombre1, 
+nombre2, 
+nombre3, 
+id_pais, 
+codigo_compuesto, 
+id_departamento, 
+(select descripcion from provincias where id_departamento||':'||id_provincia=temporal.id_provincia) as id_provincia, 
+(select descripcion from localidades where id_departamento||':'||id_provincia||':'||id_seccion||':'||id_canton||':'||id_localidad=temporal.id_localidad) as id_localidad, 
+nac_dia, 
+nac_mes, 
+nac_anio, 
+ofic_rcn, 
+libro_no, 
+partida_no, 
+crt_dia, 
+crt_mes, 
+crt_anio, 
+id_lee, 
+id_escribe, 
+id_estado_civil, 
+nro_libreta, 
+(case when trim(altura)='' then '0' when altura is null then '0' else altura end)::integer as altura,
+id_grupo_sanguineo, 
+id_causa_filiacion, 
+dom_localidad, 
+zona, 
+barrio, 
+calle, 
+nro_casa,
+ubicacion, 
+'' as usr_transcriptor,
+'' as usr_verificador,
+'' as id_persona
+ 
+from temporal
+where id_tarjeta=#id_tarjeta#;
+	
+  </mapped-statement>
+
+  <mapped-statement name="getTarjetaSess" result-class="java.lang.Integer">
+     SELECT get_tarjeta_sess(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getImgId" result-class="java.lang.String">
+     SELECT get_img_id(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getDescripcionImg" result-class="java.lang.String">
+     SELECT get_descripcion_img(#cod_img#);
+  </mapped-statement>
+
+  <mapped-statement name="setGuardarTarjeta">
+     SELECT * FROM set_difusion_completa(#cod_img#,#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getNombreTarjeta" result-class="java.lang.String">
+     SELECT get_nombre_tarjeta(#id_tarjeta#,#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getNombreTarjetaUsr" result-class="java.lang.String">
+     SELECT get_nombre_tarjeta_usr(#id_usuario#);
+  </mapped-statement>
+  <!-- _ supervisor -->
+  <result-map name="get_list_tarjetas" class="org.springframework.eam.domain.Tarjeta">
+    <property name="id_tarjeta" column="ID_TARJETA" />
+    <property name="id_estado" column="ID_ESTADO" />
+  </result-map>
+    
+  <mapped-statement name="getListTarjetas" result-map="get_list_tarjetas">
+    SELECT * FROM get_lista_tarjetas(#id_usuario#) as (ID_TARJETA varchar, ID_ESTADO varchar);
+  </mapped-statement>
+
+  <mapped-statement name="setModificarEstadoTarjeta">
+    SELECT * FROM set_modificar_estado_tarjeta(#id_tarjeta#,#id_estado#);
+  </mapped-statement>
+  <!-- Fin _ supervisor -->
+
+
+
+<!--  FALTA CONSULTAS -->
+   <!-- cod_grp, descripcion -->
+  <mapped-statement name="getOcupaciones" result-map="get_lista_grupo">
+    SELECT t.codigo_ocupacion as cod_grp, o.descripcion 
+    FROM tmp_ocupaciones t, ocupacion o 
+    WHERE t.codigo_ocupacion = o.codigo_ocupacion AND id_tarjeta=#id_tarjeta#;
+  </mapped-statement>
+
+  <result-map name="get_lista_parientes" class="org.springframework.eam.domain.Tarjeta">
+    <property name="descripcion" column="DESCRIPCION" />    
+    <property name="cod_parientes" column="COD_PARIENTES" />    
+    <property name="ap_paterno" column="AP_PATERNO" />    
+    <property name="ap_materno" column="AP_MATERNO" />    
+    <property name="nombre1" column="NOMBRE1" />    
+    <property name="direccion" column="DIRECCION" />    
+    <property name="cedula" column="CEDULA" />    
+    <property name="id_pais" column="ID_PAIS" />    
+  </result-map>
+
+  <result-map name="get_lista_relaciones" class="org.springframework.eam.domain.Tarjeta">
+    <property name="descripcion" column="DESCRIPCION" />    
+    <property name="cod_relaciones" column="COD_RELACIONES" />    
+    <property name="ap_paterno" column="AP_PATERNO" />    
+    <property name="ap_materno" column="AP_MATERNO" />    
+    <property name="nombre1" column="NOMBRE1" />    
+    <property name="direccion" column="DIRECCION" />    
+    <property name="cedula" column="CEDULA" />    
+    <property name="id_pais" column="ID_PAIS" />    
+  </result-map>
+
+  <!-- cod_parientes, ap_paterno, ap_materno, nombre1, nombre2, nombre3 -->
+
+  <mapped-statement name="getParientes" result-map="get_lista_parientes">
+    SELECT (select descripcion from parientes where id_pariente=tmp_parientes.id_pariente) as descripcion, id_tmp_pariente as cod_parientes, ap_paterno, ap_materno, nombre1, direccion, id_pais 
+    FROM tmp_parientes 
+    WHERE id_tarjeta=#id_tarjeta#;
+  </mapped-statement>
+  <!-- cod_parientes, ap_paterno, ap_materno, nombre1, nombre2, nombre3 -->
+  <mapped-statement name="getRelaciones" result-map="lst_parientes">
+  <!--
+    SELECT (select descripcion from parientes where id_pariente=tmp_relaciones.id_pariente) as descripcion, id_tmp_relaciones as cod_relaciones, ap_paterno, ap_materno, nombre1, direccion, id_pais 
+    FROM tmp_relaciones 
+    WHERE id_tarjeta=#id_tarjeta#; -->
+    SELECT * FROM set_relaciones_temporal(#cod_img#,#descripcion#,#ap_paterno#,#ap_materno#,#nombre1#,#direccion#,#id_pais#,#id_usuario#) 
+    AS (descripcion varchar,id_tarjeta varchar,codigo integer,ap_paterno varchar,ap_materno varchar,nombre1 varchar,direccion varchar,id_pais varchar);
+    
+  </mapped-statement>
+
+   <!-- cod_tramite, descripcion -->
+  <mapped-statement name="getTramites" result-map="get_lista_tramite">
+    SELECT id_tramite as cod_tramite, descripcion 
+    FROM tmp_tramites 
+    WHERE id_tarjeta=#id_tarjeta#;
+  </mapped-statement>
+
+  <result-map name="get_lista_grupo_sang" class="org.springframework.eam.domain.Tarjeta">
+    <property name="id_grupo_sanguineo" column="ID_GRUPO_SANGUINEO" />    
+    <property name="descripcion" column="DESCRIPCION" />    
+  </result-map>
+
+  <mapped-statement name="getListaGrupoSang" result-map="get_lista_grupo_sang">
+      select * from grupos_sanguineos order by descripcion;
+  </mapped-statement>
+
+  <mapped-statement name="getTarjetasHoy" result-class="java.lang.Integer">
+  select count(*) as hoy from tiempos where id_usuario=#id_usuario# and fec_inicio::date=now()::date; 
+    <!--    SELECT count(*) from tarjetas where ult_usuario=#id_usuario# and fec_registro::date=now()::date; -->
+  </mapped-statement>
+
+  <mapped-statement name="getTarjetasTotal" result-class="java.lang.Integer">
+<!--     SELECT count(*) from tarjetas where ult_usuario=#id_usuario#; -->
+    select count(*) as total from tiempos where id_usuario=#id_usuario#; 
+  </mapped-statement>
+
+<!--
+  <mapped-statement name="getEstadoTranscriptor" result-class="java.lang.String">
+     SELECT get_estado_transcriptor(#id_usuario#);
+  </mapped-statement>
+-->
+
+  <mapped-statement name="getEstadoTranscriptor" result-class="java.lang.String">
+    SELECT * FROM get_estado_transcriptor(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="setRegistroTranscripcion" result-class="java.lang.String">
+     select set_registrar_temporal(#id_usuario#,#cod_img#);
+  </mapped-statement>
+
+  <mapped-statement name="getTarjetaVerificar" result-class="java.lang.String">
+     select get_tarjeta_verificacion(#id_usuario#);
+  </mapped-statement>
+
+<!-- Verifiacion Tiempos _ -->
+  <mapped-statement name="getLapsoTiempos" result-class="java.sql.Time">
+     select * from get_lapso_tiempos(#id_tiempos#);
+  </mapped-statement>
+  
+  <mapped-statement name="setCalificacionTiempos" result-class="java.lang.Integer">
+     select * from set_calificacion_tiempos(#id_tiempos#,#calificacion#);
+  </mapped-statement>
+  
+  <mapped-statement name="setFinTiempos" result-class="java.lang.Integer">
+     select * from set_fin_tiempos(#id_tiempos#);
+  </mapped-statement>
+  
+  <mapped-statement name="setInicioTiempos" result-class="java.lang.Integer">
+     select * from set_inicio_tiempos(#id_tarjeta#,#id_usuario#,#id_estado#,#id_rol#);
+  </mapped-statement>
+  
+  <mapped-statement name="setLapsoTiempos" result-class="java.lang.Integer">
+     select * from set_lapso_tiempos(#id_tiempos#,#lapso#);
+  </mapped-statement>
+
+  <mapped-statement name="getUltimoIdTiempos" result-class="java.lang.Integer">
+     select * from get_ultimo_id_tiempos(#id_tarjeta#);
+  </mapped-statement>
+<!-- Fin Verifiacion Tiempos _ -->
+  <mapped-statement name="setCalificacionUsr" result-class="java.lang.Integer">
+     select set_calificacion(#cod_img#,#ult_usuario#,#calificacion#);
+  </mapped-statement>
+  <mapped-statement name="setCalificacionSistema" result-class="java.lang.Integer">
+     select set_calificacion_sistema(#cod_img#,#ult_usuario#);
+  </mapped-statement>
+  <mapped-statement name="setPrepararGuardar" result-class="java.lang.Integer">
+     select set_preparar_guardar(#cod_img#);
+  </mapped-statement>
+<!--jvr-->
+  <mapped-statement name="getTarjetasRevertir" result-class="java.lang.String">
+    select get_tarjetas_revertir(#id_usuario#); 
+  </mapped-statement>
+</sql-map>

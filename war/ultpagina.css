@@ -1,0 +1,152 @@
+.textoPie {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 12px    
+}
+
+.textoEncabezado {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold
+}
+
+.textoTitulo {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000000
+}
+
+.menuTitulo {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+  background-color: #708DBA
+}
+
+.menuEnlace {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 15px;
+  background-color: #FFF7EB
+}
+
+.menuCategoria{
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+  color: #000000;
+  background-color: #C3C9C8
+}
+
+.errorLogin {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-line: 12px;
+}
+
+.colh {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 15px;
+  color: #000000;
+  background-color: #C3C9C8
+}
+
+.colh_alt {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  background-color: #FFFFFF
+}
+
+.colb_alt {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  background-color: #FFFFFF
+}
+
+.colb {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 15px;
+  color: #000000;
+  background-color: #FCFFF5
+}
+
+.colorDocente {
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #EDCA5D
+}
+
+.colorAlumno {
+  font-size: 13px;
+  background-color: #D1D7F8
+}
+
+.tabla{
+  border: 13px;
+  width: 100%
+}
+
+.colhp {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 15px;
+}
+
+.colhpt {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 15px;
+  background-color: #D5D5D5
+}
+
+.colfind {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.colfindn {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+}
+
+.colbp {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+.coler {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  background-color: #FFCCBB
+}
+
+.colerr {
+  font-family: Verdana, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #FA2C03
+}

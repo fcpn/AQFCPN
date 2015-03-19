@@ -1,0 +1,108 @@
+//_ Turnos
+package org.springframework.samples.eam.web.spring.turnos;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.lang.String;
+import java.util.List;
+import java.util.TimerTask;
+import java.util.Date;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.support.PagedListHolder;
+
+import org.springframework.samples.eam.domain.Usuarios;
+import org.springframework.samples.eam.domain.Roles;
+import org.springframework.samples.eam.domain.Turno;
+
+import org.springframework.samples.eam.domain.logic.EamFacade;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.samples.eam.domain.Menues;
+
+import org.springframework.web.util.WebUtils;
+
+public class TurnosControlador implements Controller {
+    
+    private EamFacade eam;
+    
+    public void setEam(EamFacade eam) {
+        this.eam = eam;
+    }
+    
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map modelo = new HashMap();
+        String id_programa = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_id_prog");
+        String id_usuario = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_id_usuario");
+        String gestion = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_gestion");
+        String periodo = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_periodo");
+        String programa = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_programa");
+        
+        /******************* Verificando la llave del controlador *******************************************/
+/*  Este Sub-programa determina si el usuario con sesion iniciada
+    tiene asignado a su rol el control o uso de este programa
+    Parametros: id_rol, id_programa, usuario y la ruta que hace referencia a este modulo
+    desde la URL
+ */
+        String id_rol = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_id_rol");
+        String urlDir = "/turnos.do";
+        Menues menu = new Menues();
+        menu.setId_programa(id_programa);
+        menu.setRuta_enlace(urlDir);
+        menu.setId_rol(id_rol);
+        menu.setUlt_usuario(id_usuario);
+        int i = this.eam.getKeySecurity(menu);
+        if (i == 0) { return new ModelAndView("KeyError", modelo); }
+        /*  Fin se continua con el programa si el resultado del metodo da un valor de verdad o 1  ***********/
+        /************************************** hola ********************************************************/
+        
+        modelo.put("gestion", gestion);
+        modelo.put("periodo", periodo);
+        modelo.put("programa", programa);
+        String accion = request.getParameter("accion");
+        if ("Permanente".equals(accion)) {
+	    Turno turno = new Turno();
+	    String id_usuario1 = request.getParameter("usuario");
+	    turno.setId_usuario(id_usuario1);
+	    int id_turno = Integer.parseInt(request.getParameter("turno"+id_usuario1));
+	    turno.setId_turno(id_turno);
+	    Calendar fecha = Calendar.getInstance();
+	    turno.setFec_asignacion(fecha.get(Calendar.YEAR)+"-"+(fecha.get(Calendar.MONTH)+1)+"-"+fecha.get(Calendar.DAY_OF_MONTH));
+	    fecha.add(Calendar.YEAR, 1);
+	    turno.setFec_caducidad(fecha.get(Calendar.YEAR)+"-"+(fecha.get(Calendar.MONTH)+1)+"-"+fecha.get(Calendar.DAY_OF_MONTH));
+	    this.eam.setTurno(turno);
+        }
+        if ("Temporal".equals(accion)) {
+	    Turno turno = new Turno();
+	    String id_usuario1 = request.getParameter("usuario");
+	    turno.setId_usuario(id_usuario1);
+	    int id_turno = Integer.parseInt(request.getParameter("turno_tmp"+id_usuario1));
+	    int dias = 0;
+	    try {
+	        dias = Integer.parseInt(request.getParameter("dias"));
+	    } catch (Exception exc) {
+		dias = 1;
+	    }
+	    turno.setId_turno(id_turno);
+	    Calendar fecha = Calendar.getInstance();
+	    turno.setFec_asignacion(fecha.get(Calendar.YEAR)+"-"+(fecha.get(Calendar.MONTH)+1)+"-"+fecha.get(Calendar.DAY_OF_MONTH));
+	    fecha.add(Calendar.DAY_OF_MONTH, dias);
+	    turno.setFec_caducidad(fecha.get(Calendar.YEAR)+"-"+(fecha.get(Calendar.MONTH)+1)+"-"+fecha.get(Calendar.DAY_OF_MONTH));
+	    this.eam.setTurnoTmp(turno);
+        }
+        PagedListHolder listaUsuarios = new PagedListHolder(this.eam.getUsuariosTurno());
+        listaUsuarios.setPageSize(listaUsuarios.getNrOfElements());
+        modelo.put("listaUsuarios", listaUsuarios);
+        modelo.put("nUsuarios", Integer.toString(listaUsuarios.getNrOfElements()));
+        
+        return new ModelAndView("turnos/Turnos", modelo);
+        
+    }
+}

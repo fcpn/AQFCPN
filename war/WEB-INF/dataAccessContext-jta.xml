@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for EAM's data access layer.
+	- Accessed by business layer objects defined in "applicationContext.xml"
+	- (see web.xml's "contextConfigLocation").
+	-
+	- This version of the data access layer works on two databases (main/order),
+	- using JNDI DataSources with JtaTransactionManager. It obviously depends on
+	- JTA support in the container, and on pre-configured container DataSources.
+	-->
+<beans>
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	<!-- Main JNDI DataSource for J2EE environments -->
+	<!-- Refers to the main database, containing product and account data -->
+	<!-- (see dataAccessContext-local.xml for an alternative) -->
+   
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName"><value>java:comp/env/jdbc/jpetstore</value></property>
+  </bean>
+
+	<!-- Additional JNDI DataSource for J2EE environments -->
+	<!-- Refers to the order database, containing order data -->
+	<!-- (see dataAccessContext-local.xml for an alternative) -->
+  <bean id="orderDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName"><value>java:comp/env/jdbc/jpetstore-order</value></property>
+  </bean>
+
+	<!-- Transaction manager that delegates to JTA (for a transactional JNDI DataSource) -->
+	<!-- Necessary here due to the need for distributed transactions across two databases -->
+	<!-- (see dataAccessContext-local.xml for an alternative) -->
+  <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager"/>
+
+	<!-- SqlMap setup for iBATIS Database Layer -->
+  <bean id="sqlMap" class="org.springframework.orm.ibatis.SqlMapFactoryBean">
+    <property name="configLocation"><value>WEB-INF/sql-map-config.xml</value></property>
+  </bean>
+
+
+	<!-- ========================= DAO DEFINITIONS: IBATIS IMPLEMENTATIONS ========================= -->
+
+  <bean id="usuariosDao" class="org.springframework.eam.dao.ibatis.SqlMapUsuariosDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+
+  <bean id="personasDao" class="org.springframework.eam.dao.ibatis.SqlMapPersonasDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+  
+  <bean id="menuesDao" class="org.springframework.eam.dao.ibatis.SqlMapMenuesDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+  
+  <bean id="rolesDao" class="org.springframework.eam.dao.ibatis.SqlMapRolesDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+  
+   <bean id="registroDao" class="org.springframework.eam.dao.ibatis.SqlMapRegistroDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+
+  <bean id="administrarUsuariosDao" class="org.springframework.eam.dao.ibatis.SqlMapAdministrarUsuariosDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+
+  <bean id="transcripcionesDao" class="org.springframework.eam.dao.ibatis.SqlMapTranscripcionesDao">
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>
+  </bean>
+
+</beans>

@@ -1,0 +1,66 @@
+/* 
+
+	TableCloth	
+	by Alen Grakalic, brought to you by cssglobe.com
+	
+*/
+
+/* general styles */
+
+table, td{
+	font:95% Arial, Helvetica, sans-serif;
+}
+table{width:100%;border-collapse:collapse;margin:1em 0;}
+th, td{text-align:left;padding:.5em;border:1px solid #fff;}
+th{background:#000033 url(tr_back.gif) repeat-x;color:#fff;}
+td{background:#B1D6DE;}
+
+/* tablecloth styles */
+
+tr.even td{background:#B1D6DE;}
+tr.odd td{background:#f8fbfc;}
+
+
+
+
+/* use this if you want to apply different styleing to empty table cells*/
+td.empty, tr.odd td.empty, tr.even td.empty{background:#fff;}
+
+
+
+
+body{
+	margin:0;
+	padding:0;
+	background:#f1f1f1;
+	font:80% Arial, Helvetica, sans-serif;
+	color:#555;
+	line-height:150%;
+	text-align:left;
+}
+
+h1{
+	font-size:140%;
+	margin:0 20px;
+	line-height:80px;
+}
+h2{
+	font-size:120%;
+}
+#container{
+	margin:0 auto;
+	width:880px;
+	background:#fff;
+	padding-bottom:20px;
+}
+#content{margin:0 20px;}
+p.sig{
+	margin:0 auto;
+	width:680px;
+	padding:1em 0;
+}
+form{
+	margin:1em 0;
+	padding:.2em 20px;
+	background:#eee;
+}

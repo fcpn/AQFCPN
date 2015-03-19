@@ -1,0 +1,4299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- 
+  - DispatcherServlet application context for the Spring web MVC
+  - Implementation of EAM's web tier. Enterprise Application Model
+-->
+<beans> 
+    <!-- ========================= VIEW DEFINITIONS ========================= -->
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.JstlView</value>
+        </property>
+        <property name="prefix">
+            <value>/WEB-INF/jsp/spring/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+    
+    <!-- ========================= DEFINITIONS OF PUBLIC CONTROLLERS ========================= -->
+
+    <bean id="defaultHandlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    
+    <bean name="/desktop.do" class="org.springframework.eam.web.spring.desktop.Desktop">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/verCabeza.do" class="org.springframework.eam.web.spring.vercabeza.VerCabezaControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/verPie.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>VerPie</value>
+        </property>
+    </bean>
+    
+    <bean name="/error.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>ErrorNavegador</value>
+        </property>
+    </bean>
+    
+    <bean name="/verBarra.do" class="org.springframework.eam.web.spring.verbarra.VerBarraControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/verCuerpo.do" class="org.springframework.eam.web.spring.vercuerpo.VerCuerpoControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/verCabeza1.do" class="org.springframework.eam.web.spring.vercabeza.VerCabeza1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!--Menues-->
+    <bean name="/menu.do" class="org.springframework.eam.web.spring.menu.MenuControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!--Conexion-->
+    <bean name="/logoutUsuario.do" class="org.springframework.eam.web.spring.logout.LogoutControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/login.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>login/LoginEntrada</value>
+        </property>
+    </bean>
+    
+    <bean name="/login1.do" class="org.springframework.eam.web.spring.login.LoginControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/login2.do" class="org.springframework.eam.web.spring.login.Login1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!--Administrar Usuarios--> 
+  
+    <bean name="/administrarUsuarios.do" class="org.springframework.eam.web.spring.administrarusuarios.AdministrarUsuariosControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarUsuarios1.do" class="org.springframework.eam.web.spring.administrarusuarios.AdministrarUsuarios1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarUsuarios2.do" class="org.springframework.eam.web.spring.administrarusuarios.AdministrarUsuarios2Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarUsuarios3.do" class="org.springframework.eam.web.spring.administrarusuarios.AdministrarUsuarios3Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarUsuarios4.do" class="org.springframework.eam.web.spring.administrarusuarios.AdministrarUsuarios4Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/listausuarios.do" class="org.springframework.eam.web.spring.administrarusuarios.ListaUsuarios">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+ 
+    <bean name="/buscarPersona.do" class="org.springframework.eam.web.spring.buscar.BuscarPersonaControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarPersonas.do" class="org.springframework.eam.web.spring.administrarpersonas.AdministrarPersonasControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/registrarpersona.do" class="org.springframework.eam.web.spring.administrarpersonas.RegistrarPersona">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/registrarpersona_jes.do" class="org.springframework.eam.web.spring.administrarpersonas.RegistrarPersona_Jes">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/registrarpersona_jes2.do" class="org.springframework.eam.web.spring.administrarpersonas.RegistrarPersona_Jes2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/modificarPersona_Jes.do" class="org.springframework.eam.web.spring.administrarpersonas.ModificarPersona_Jes">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModificarPersona_Jes2.do" class="org.springframework.eam.web.spring.administrarpersonas.ModificarPersona_Jes2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--BUSCAR PERSONA JES -->
+
+
+    <bean name="/buscarpersona_jes.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>administrarusuarios/Buscarpersona_Jes</value>
+        </property>
+    </bean>
+
+    <bean name="/Buscarpersona_Jes2.do" class="org.springframework.eam.web.spring.buscar.Buscarpersona_Jes2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--fin fin fin fin fin fin BUSCAR PERSONA JES -->
+    <!-- Eliminar Persona -->
+    <bean name="/EliminarUsuario.do" class="org.springframework.eam.web.spring.administrarpersonas.EliminarUsuario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FIN FIN Eliminar Persona -->
+
+    <bean name="/actualizarpersona.do" class="org.springframework.eam.web.spring.administrarpersonas.ActualizarPersona">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- Administrar Variables -->
+    <bean name="/administrarVariables.do" class="org.springframework.eam.web.spring.administrarvariables.AdministrarVariablesControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- Prototipos -->
+    <bean name="/prototipo.do" class="org.springframework.eam.web.spring.prototipos.BuscarControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Fin Prototiposa -->
+
+
+    <!-- Administrar Menues  -->
+
+    <bean name="/administrarMenues.do" class="org.springframework.eam.web.spring.administrarmenu.AdministrarMenuesControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarMenues1.do" class="org.springframework.eam.web.spring.administrarmenu.AdministrarMenues1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarMenues2.do" class="org.springframework.eam.web.spring.administrarmenu.AdministrarMenues2Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/administrarMenues3.do" class="org.springframework.eam.web.spring.administrarmenu.AdministrarMenues3Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- Administrar Menues   -->
+
+    <!-- Cambio de Pin  --> 
+    <bean name="/cambioPin.do" class="org.springframework.eam.web.spring.cambiodepin.CambioDePinControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/cambioPin1.do" class="org.springframework.eam.web.spring.cambiodepin.CambioDePin1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- FIN Cambio de Pin  --> 
+    
+    <!-- Componente Seguridad   --> 
+
+    <bean name="/seguridad.do" class="org.springframework.eam.web.spring.seguridad.SeguridadControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/seguridad1.do" class="org.springframework.eam.web.spring.seguridad.Seguridad1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN Componente Seguridad  --> 
+    <!-- Verificacion -->
+    <bean name="/verificacion.do" class="org.springframework.eam.web.spring.transcripcion.Verificacion">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Transcripciones  -->  
+    <bean name="/transcripcion.do" class="org.springframework.eam.web.spring.transcripcion.BuildDesktop">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/transcripcion1.do" class="org.springframework.eam.web.spring.transcripcion.Transcripcion2Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/transcripcion2.do" class="org.springframework.eam.web.spring.transcripcion.Transcripcion3Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getconexion.do" class="org.springframework.eam.web.spring.ajax.ConexionControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/cajasdpto.do" class="org.springframework.eam.web.spring.transcripcion.CajasDpto">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getarbol.do" class="org.springframework.eam.web.spring.transcripcion.GetArbol">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/setprofesion.do" class="org.springframework.eam.web.spring.transcripcion.SetProfesion">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/parientes.do" class="org.springframework.eam.web.spring.transcripcion.Parientes">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/quitaparientes.do" class="org.springframework.eam.web.spring.transcripcion.quitaPariente">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/listRela.do" class="org.springframework.eam.web.spring.transcripcion.listRela">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- reportes  -->
+    <bean name="/transcripcion3.do" class="org.springframework.eam.web.spring.transcripcion.Transcripcion4Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/transcripcion4.do" class="org.springframework.eam.web.spring.transcripcion.Transcripcion5Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteDiario.do" class="org.springframework.eam.web.spring.transcripcion.reportes.ReporteDiarioControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteMensual.do" class="org.springframework.eam.web.spring.transcripcion.reportes.ReporteMensualControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteTotal.do" class="org.springframework.eam.web.spring.transcripcion.reportes.ReporteTotalControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Fin  reportes  -->    
+    <!-- supervisor  -->
+    <bean name="/supervisor.do" class="org.springframework.eam.web.spring.supervisor.SupervisorControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/supervisor1.do" class="org.springframework.eam.web.spring.supervisor.Supervisor1Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/supervisor2.do" class="org.springframework.eam.web.spring.supervisor.Supervisor2Controlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Fin reportes  -->
+    <bean name="/getbtnsolicitar.do" class="org.springframework.eam.web.spring.transcripcion.GetBtnSolicitar">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--turnos -->
+    <bean name="/turnos.do" class="org.springframework.eam.web.spring.turnos.TurnosControlador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/changeusrsturno.do" class="org.springframework.eam.web.spring.turnos.ChangeUsrsTurno">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+   
+    <bean name="/getloginusers.do" class="org.springframework.eam.web.spring.administrarusuarios.GetLoginUsers">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/setregistrarusuario.do" class="org.springframework.eam.web.spring.administrarusuarios.SetRegistrarUsuarioAquiles">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--asignando Tareas -->
+
+    <bean name="/RegistrarTareasUsuario.do" class="org.springframework.eam.web.spring.administrarusuarios.RegistrarTareasUsuario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--fin fin fin asignando Tareas -->
+    <bean name="/verusuario.do" class="org.springframework.eam.web.spring.administrarusuarios.VerUsuario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getmodificarusuario.do" class="org.springframework.eam.web.spring.administrarusuarios.GetAdministrativo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/servidores.do" class="org.springframework.eam.web.spring.supervisor.GetServidores">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/serverinfo.do" class="org.springframework.eam.web.spring.supervisor.GetServerInfo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/updateserver.do" class="org.springframework.eam.web.spring.supervisor.ActualizarServidor">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/currenttime.do" class="org.springframework.eam.web.spring.transcripcion.SetCurrentTime">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/transmanual.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>manuales/wtran/Transcriptor</value>
+        </property>
+    </bean>
+    <bean name="/usuarioinfo.do" class="org.springframework.eam.web.spring.administrarusuarios.UsuarioInfo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/usuariosconectados.do" class="org.springframework.eam.web.spring.administrarusuarios.UsuariosConectados">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/determinarusuario.do" class="org.springframework.eam.web.spring.administrarusuarios.DeterminarUsuario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getusuarioxml.do" class="org.springframework.eam.web.spring.administrarusuarios.GetUsuarioXML">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/usrupdaterol.do" class="org.springframework.eam.web.spring.administrarusuarios.UsrUpdateRol">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/usrchangerol.do" class="org.springframework.eam.web.spring.administrarusuarios.UsrChangeRol">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/usrchangeturno.do" class="org.springframework.eam.web.spring.administrarusuarios.UsrChangeTurno">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getusrsturno.do" class="org.springframework.eam.web.spring.turnos.GetUsrsTurno">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getservermoreinfo.do" class="org.springframework.eam.web.spring.supervisor.GetServerMoreInfo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getlisttarjetas.do" class="org.springframework.eam.web.spring.transcripcion.GetListTarjetas">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/getresultadosusr.do" class="org.springframework.eam.web.spring.transcripcion.GetResultadosUsr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/gettarjetasrevertidas.do" class="org.springframework.eam.web.spring.transcripcion.GetTarjetasRevertidas">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!--INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS -->  
+    <!-- /insertarcuentasaingresos.do (para ingresar presupuestos/clasificador)-->
+    <bean name="/insertarcuentasaingresos.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/clasificador/MenuClasificadorRubro</value>
+        </property>
+    </bean>
+    <bean name="/GrupoRubro.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/clasificador/GrupoRubro</value>
+        </property>
+    </bean>
+    <bean name="/InsertarGrupoRubro.do" class="org.springframework.eam.web.spring.presupuestos.InsertarGrupoRubro">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/SubGrupoRubro.do" class="org.springframework.eam.web.spring.presupuestos.SubGrupoRubro">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/SubGrupoRubro2.do" class="org.springframework.eam.web.spring.presupuestos.SubGrupoRubro2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Rubro.do" class="org.springframework.eam.web.spring.presupuestos.Rubro">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Rubro2.do" class="org.springframework.eam.web.spring.presupuestos.Rubro2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Rubro3.do" class="org.springframework.eam.web.spring.presupuestos.Rubro3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarRubro3.do" class="org.springframework.eam.web.spring.presupuestos.InsertarRubro3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarSubGrupoRubro2.do" class="org.springframework.eam.web.spring.presupuestos.InsertarSubGrupoRubro2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Creando fuente economica a la vez creando la clase
+    insertarfuenteeconomica.java-->    
+    <bean name="/FuenteEconimica.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/fuenteseconomicas/FuenteEconomica</value>
+        </property>
+    </bean>
+    <bean name="/InsertarFuenteEconomica.do" class="org.springframework.eam.web.spring.presupuestos.InsertarFuenteEconomica">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Creando Programa actividad Tarea-->
+    <bean name="/programa.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/progratar/Programa</value>
+        </property>
+    </bean>
+    <bean name="/InsertarPrograma.do" class="org.springframework.eam.web.spring.presupuestos.InsertarPrograma">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Actividad -->
+    <bean name="/insertaractividad.do" class="org.springframework.eam.web.spring.presupuestos.Actividad1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Actividad2.do" class="org.springframework.eam.web.spring.presupuestos.Actividad2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaActividad.do" class="org.springframework.eam.web.spring.presupuestos.InsertaActividad">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--mODIFICAR ACTIVIDAD-->
+    <bean name="/modeliact.do" class="org.springframework.eam.web.spring.presupuestos.ModEliAct">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliAct2.do" class="org.springframework.eam.web.spring.presupuestos.ModEliAct2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliAct2_1.do" class="org.springframework.eam.web.spring.presupuestos.ModEliAct2_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliAct3.do" class="org.springframework.eam.web.spring.presupuestos.ModEliAct3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/insertarnuevatarea.do" class="org.springframework.eam.web.spring.presupuestos.Tarea1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Tarea2.do" class="org.springframework.eam.web.spring.presupuestos.Tarea2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Tarea3.do" class="org.springframework.eam.web.spring.presupuestos.Tarea3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Modificar Tarea -->
+    <bean name="/modelitar.do" class="org.springframework.eam.web.spring.presupuestos.ModEliTar">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliTar2.do" class="org.springframework.eam.web.spring.presupuestos.ModEliTar2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliTar2_1.do" class="org.springframework.eam.web.spring.presupuestos.ModEliTar2_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar  -->
+    <bean name="/ModEliTar3.do" class="org.springframework.eam.web.spring.presupuestos.ModEliTar3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FINN Creando Programa actividad Tarea-->
+    <!--MOSTRAR clasificador Ingresos-->
+    <bean name="/mostrarrubros.do" class="org.springframework.eam.web.spring.presupuestos.MostrarRubros">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Modificar Clasificado Ingresos  -->
+    <bean name="/modrub.do" class="org.springframework.eam.web.spring.presupuestos.ModRub">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRub2.do" class="org.springframework.eam.web.spring.presupuestos.ModRub2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar Rubro -->
+    <bean name="/EliRub.do" class="org.springframework.eam.web.spring.presupuestos.EliRub">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- montos -->
+    <bean name="/insertarmontospresupuestados.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/montos/Presupuestado_ingresos</value>
+        </property>
+    </bean>
+    <bean name="/mostrarfuenteeconomica.do" class="org.springframework.eam.web.spring.presupuestos.MostrarFuenteEconomica">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificar fuentes-->
+    <bean name="/modfue.do" class="org.springframework.eam.web.spring.presupuestos.ModFuen">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModFuen2.do" class="org.springframework.eam.web.spring.presupuestos.ModFuen2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar Fuentes -->
+    <bean name="/EliFuen.do" class="org.springframework.eam.web.spring.presupuestos.EliFuen">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--  FinFIN FIN FIN  Fuenter Economicas    -->   
+    <bean name="/InsertarTarea.do" class="org.springframework.eam.web.spring.presupuestos.InsertarTarea">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Insertar Montos Presupuestados Ingresos-->  
+    <bean name="/insertarmontospresupuestados.do" class="org.springframework.eam.web.spring.presupuestos.Montos1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Montos2.do" class="org.springframework.eam.web.spring.presupuestos.Montos2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Montos3.do" class="org.springframework.eam.web.spring.presupuestos.Montos3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Presupuestado_ingresos.do" class="org.springframework.eam.web.spring.presupuestos.Presupuestado_ingresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarPresupuestado.do" class="org.springframework.eam.web.spring.presupuestos.InsertarPresupuestado">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--*******   FIN   *********  Insertar Montos Presupuestados Ingresos-->  
+    <!-- Montos Ejecutados Ingresos-->
+    <bean name="/insertarmontosejecutados.do" class="org.springframework.eam.web.spring.presupuestos.EjecutadosIngreso1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecutadosIngreso2.do" class="org.springframework.eam.web.spring.presupuestos.EjecutadosIngreso2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecutadosIngreso3.do" class="org.springframework.eam.web.spring.presupuestos.EjecutadosIngreso3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Ejecutados_ingresos.do" class="org.springframework.eam.web.spring.presupuestos.Ejecutados_ingresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarEjecutados.do" class="org.springframework.eam.web.spring.presupuestos.InsertarEjecutados">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- *****   FIN *********** Insertar Montos Ejecutados Ingresos--> 
+    <!-- ******* Mostrar Informe General Ingresos *******-->
+    <bean name="/informegeneralingresos.do" class="org.springframework.eam.web.spring.presupuestos.InformeGeneralIngresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MuestraGral2.do" class="org.springframework.eam.web.spring.presupuestos.MuestraGral2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MuestraGral3.do" class="org.springframework.eam.web.spring.presupuestos.MuestraGral3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InformeIngresos.do" class="org.springframework.eam.web.spring.presupuestos.InformeIngresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- ******* FIN Mostrar Informe General Ingresos *******--> 
+    <!-- ##### Nueva Cuenta No Presupuestarias ######-->
+    <bean name="/nuevanopresupuestaria.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/montos/MenuNoPreIng</value>
+        </property>
+    </bean>
+    <bean name="/NoPreIngGrupo.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/montos/NoPreIngGrupo</value>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreIngGru.do" class="org.springframework.eam.web.spring.presupuestos.InsertarNoPreIngGru">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/NoPreIngSubGrupo.do" class="org.springframework.eam.web.spring.presupuestos.NoPreIngSubGrupo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/NoPreIngSubGrupo2.do" class="org.springframework.eam.web.spring.presupuestos.NoPreIngSubGrupo2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreIngSubGrupo.do" class="org.springframework.eam.web.spring.presupuestos.InsertarNoPreIngSubGrupo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreIngDetalle.do" class="org.springframework.eam.web.spring.presupuestos.InsertarNoPreIngDetalle">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNoPreIngDetalle2.do" class="org.springframework.eam.web.spring.presupuestos.InsertaNoPreIngDetalle2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNoPreIngDetalle3.do" class="org.springframework.eam.web.spring.presupuestos.InsertaNoPreIngDetalle3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNPID3.do" class="org.springframework.eam.web.spring.presupuestos.InsertaNPID3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- ***** FIN Nueva Cuenta No Presupuestarias ******-->
+    <!-- ##### Otras Cuentas No Presupuestarias Insertando ######-->
+    <bean name="/montosnopresupuestados.do" class="org.springframework.eam.web.spring.presupuestos.MonNoPreIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MonNoPreIng2.do" class="org.springframework.eam.web.spring.presupuestos.MonNoPreIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MonNoPreIng3.do" class="org.springframework.eam.web.spring.presupuestos.MonNoPreIng3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MenuNoPreIng2.do" class="org.springframework.eam.web.spring.presupuestos.MenuNoPreIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MonNoPreIng4.do" class="org.springframework.eam.web.spring.presupuestos.MonNoPreIng4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarMNPI4.do" class="org.springframework.eam.web.spring.presupuestos.InsertarMNPI4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--******* FIN Otras Cuentas No Presupuestarias *******-->  
+    <!-- ##### Otras Cuentas No Presupuestarias Actualizando ######-->     
+    <bean name="/ActualizaNoPresupuestaria.do" class="org.springframework.eam.web.spring.presupuestos.ActualizaNoPresupuestaria">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ActualizaNoP.do" class="org.springframework.eam.web.spring.presupuestos.ActualizaNoP">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- ****** FIN Otras Cuentas No Presupuestarias Actualizando ******--> 
+    <!-- ##### Mostrar las referencias de montos ejecutados de montos presupuestados ######-->
+    <bean name="/MostrarEjePresu.do" class="org.springframework.eam.web.spring.presupuestos.MostrarEjePresu">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- *****FIN FIN FIN Mostrar las referencias de montos ejecutados de montos presupuestados ******-->
+    <!-- ##### Mostrar las referencias de montos ejecutados de montos No presupuestados ######-->
+    <bean name="/MostrarEjeNoPresu.do" class="org.springframework.eam.web.spring.presupuestos.MostrarEjeNoPresu">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- *****FIN FIN FIN Mostrar las referencias de montos ejecutados de montos No spresupuestados ******-->
+    <!-- Modificar montos presu-eje,clasificadores INGRESOS INGRESOS -->
+    <bean name="/modclasificador.do" class="org.springframework.eam.web.spring.presupuestos.ModClasificador">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModClasificador1.do" class="org.springframework.eam.web.spring.presupuestos.ModClasificador1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModIng.do" class="org.springframework.eam.web.spring.presupuestos.ModIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModIng2.do" class="org.springframework.eam.web.spring.presupuestos.ModIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FIN Modificar montos presu-eje,clasificadores INGRESOS INGRESOS -->
+    <!-- Modifica Referencia Ejecutado-->
+    <bean name="/MosEjePre.do" class="org.springframework.eam.web.spring.presupuestos.MosEjePre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefEje.do" class="org.springframework.eam.web.spring.presupuestos.ModRefEje">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModIngRef.do" class="org.springframework.eam.web.spring.presupuestos.ModIngRef">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Eliminar ejecutado ING -->
+    <bean name="/EliRefEje.do" class="org.springframework.eam.web.spring.presupuestos.EliRefEje">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosEjeNoPre.do" class="org.springframework.eam.web.spring.presupuestos.MosEjeNoPre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefEjeNoPre.do" class="org.springframework.eam.web.spring.presupuestos.ModRefEjeNoPre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefNoPre.do" class="org.springframework.eam.web.spring.presupuestos.ModRefNoPre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosEjeNoPreCla.do" class="org.springframework.eam.web.spring.presupuestos.MosEjeNoPreCla">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEjeNoPreCla.do" class="org.springframework.eam.web.spring.presupuestos.ModEjeNoPreCla">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Eliminar ejecutados de los no presupuestados ING -->
+    <bean name="/EliRefEjeNoPre.do" class="org.springframework.eam.web.spring.presupuestos.EliRefEjeNoPre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--  FIN FIN FIN FIN FIN FIN FIN Modifica Referencia Ejecutado-->
+    <!-- Mostrando Partidas -->
+    <bean name="/mostarpartidanopre.do" class="org.springframework.eam.web.spring.presupuestos.MostrarPartidaNoPre">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- modificar -->
+    <bean name="/modrubnp.do" class="org.springframework.eam.web.spring.presupuestos.ModRubNp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRubNp2.do" class="org.springframework.eam.web.spring.presupuestos.ModRubNp2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Eliminar -->
+    <bean name="/EliRubNp.do" class="org.springframework.eam.web.spring.presupuestos.EliRubNp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FINFIN FINFIN FIN       INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS INGRESOS -->  
+ 
+    <!--EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS EGRESOS-->  
+
+    <!-- MENU clasificador egresos -->
+    <bean name="/insertarcuentasaegreso.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos2/clasificador/MenuClasificadorPartida</value>
+        </property>
+    </bean>
+    <!-- FIN FIN MENU-->
+    <!-- INSERTANDO GRUPO-->
+    <bean name="/GrupoPartida.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos2/clasificador/GrupoPartida</value>
+        </property>
+    </bean>
+    <bean name="/InsertarGrupoPartida.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarGrupoPartida">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN  FIN  INSERTANDO GRUPO-->    
+    <!-- INSERTANDO SUB GRUPO-->   
+    <bean name="/SubGrupoPartida.do" class="org.springframework.eam.web.spring.presupuestos2.SubGrupoPartida">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/SubGrupoPartida2.do" class="org.springframework.eam.web.spring.presupuestos2.SubGrupoPartida2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarSubGrupoPartida2.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarSubGrupoPartida2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN INSERTANDO SUB GRUPO-->
+    <!-- INSERTANDO PARTIDA-->
+    <bean name="/Partida.do" class="org.springframework.eam.web.spring.presupuestos2.Partida">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Partida2.do" class="org.springframework.eam.web.spring.presupuestos2.Partida2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Partida3.do" class="org.springframework.eam.web.spring.presupuestos2.Partida3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/InsertarPartida3.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarPartida3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN INSERTANDO PARTIDA-->
+    <!-- MOSTRANDO CLASIFICADOR-->
+    <bean name="/mostarpartida.do" class="org.springframework.eam.web.spring.presupuestos2.MostrarPartida">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificar Rubro NO presupuestada-->
+    <bean name="/modpar.do" class="org.springframework.eam.web.spring.presupuestos2.ModPar">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModPar2.do" class="org.springframework.eam.web.spring.presupuestos2.ModPar2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar -->
+    <bean name="/EliPar.do" class="org.springframework.eam.web.spring.presupuestos2.EliPar">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--  FIN FIN FIN FIN  CLASIFICADOR Rubro Partida-->
+    <!-- No presupuestado Partidas no presupuestada -->
+    <bean name="/mostarpartidanopree.do" class="org.springframework.eam.web.spring.presupuestos2.MostrarPartidaNoPreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificar Partida-->
+    <bean name="/modparnp.do" class="org.springframework.eam.web.spring.presupuestos2.ModParNp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModParNp2.do" class="org.springframework.eam.web.spring.presupuestos2.ModParNp2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar no presu partida-->
+    <bean name="/EliParNp.do" class="org.springframework.eam.web.spring.presupuestos2.EliParNp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN FIN FIN No presupuestado Partidas-->
+    <!-- INSERTAR MONTOS PRESUPUESTADOS -->
+    
+    <bean name="/insertarmontospresupuestadose.do" class="org.springframework.eam.web.spring.presupuestos2.Montos1e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Montos2e.do" class="org.springframework.eam.web.spring.presupuestos2.Montos2e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Montos3e.do" class="org.springframework.eam.web.spring.presupuestos2.Montos3e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Presupuestado_ingresose.do" class="org.springframework.eam.web.spring.presupuestos2.Presupuestado_ingresose">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarPresupuestadoe.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarPresupuestadoe">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean >
+    <!-- FIN FIN FIN FIN FIN INSERTAR MONTOS PRESUPUESTADOS -->
+    <!-- INSERTAR MONTOS EJECUTADOS -->
+    <bean name="/insertarmontosejecutadose.do" class="org.springframework.eam.web.spring.presupuestos2.EjecutadosIngreso1e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecutadosIngreso2e.do" class="org.springframework.eam.web.spring.presupuestos2.EjecutadosIngreso2e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecutadosIngreso3e.do" class="org.springframework.eam.web.spring.presupuestos2.EjecutadosIngreso3e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Ejecutados_ingresose.do" class="org.springframework.eam.web.spring.presupuestos2.Ejecutados_ingresose">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarEjecutadose.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarEjecutadose">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN INSERTAR MONTOS EJECUTADOS -->
+    <!-- INSERTANDO CUENTAS NO PRESUPUESTARIAS -->
+    <bean name="/nuevanopresupuestariae.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos2/montos/MenuNoPreEgr</value>
+        </property>
+    </bean>
+    <bean name="/NoPreEgreGrupo.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos2/montos/NoPreEgrGrupo</value>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreEgrGru.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarNoPreEgrGru">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/NoPreEgrSubGrupo.do" class="org.springframework.eam.web.spring.presupuestos2.NoPreEgrSubGrupo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/NoPreEgrSubGrupo2.do" class="org.springframework.eam.web.spring.presupuestos2.NoPreEgrSubGrupo2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreEgrSubGrupo.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarNoPreEgrSubGrupo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarNoPreEgrDetalle.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarNoPreEgrDetalle">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNoPreEgrDetalle2.do" class="org.springframework.eam.web.spring.presupuestos2.InsertaNoPreEgrDetalle2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNoPreEgrDetalle3.do" class="org.springframework.eam.web.spring.presupuestos2.InsertaNoPreEgrDetalle3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertaNPED3.do" class="org.springframework.eam.web.spring.presupuestos2.InsertaNPED3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN INSERTANDO CUENTAS NO PRESUPUESTARIAS -->        
+    <!-- CARGAR MONTOS A CUENTAS NO PRESUPUESTARIAS -->    
+    <bean name="/montosnopresupuestadose.do" class="org.springframework.eam.web.spring.presupuestos2.MonNoPreEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MonNoPreEgr2.do" class="org.springframework.eam.web.spring.presupuestos2.MonNoPreEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MonNoPreEgr3.do" class="org.springframework.eam.web.spring.presupuestos2.MonNoPreEgr3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MenuNoPreEgr2.do" class="org.springframework.eam.web.spring.presupuestos2.MenuNoPreEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Para el primer boton -->
+    <bean name="/MonNoPreEgr4.do" class="org.springframework.eam.web.spring.presupuestos2.MonNoPreEgr4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarMNPE4.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarMNPE4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Para el segundo boton -->
+    <bean name="/ActualizaNoPresupuestariae.do" class="org.springframework.eam.web.spring.presupuestos2.ActualizaNoPresupuestariae">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ActualizaNoPe.do" class="org.springframework.eam.web.spring.presupuestos2.ActualizaNoPe">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN CARGAR MONTOS A CUENTAS NO PRESUPUESTARIAS -->
+    <!-- INFORME GENERAL -->
+    <bean name="/informegeneralegresos.do" class="org.springframework.eam.web.spring.presupuestos2.InformeGeneralEgresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MuestraGral2e.do" class="org.springframework.eam.web.spring.presupuestos2.MuestraGral2e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MuestraGral3e.do" class="org.springframework.eam.web.spring.presupuestos2.MuestraGral3e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InformeEgresos.do" class="org.springframework.eam.web.spring.presupuestos2.InformeEgresos">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- ##### Mostrar las referencias de montos ejecutados de montos presupuestados ######-->
+    <bean name="/MostrarEjePresue.do" class="org.springframework.eam.web.spring.presupuestos2.MostrarEjePresue">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- *****FIN FIN FIN Mostrar las referencias de montos ejecutados de montos presupuestados ******-->
+    <!-- ##### Mostrar las referencias de montos ejecutados de montos No presupuestados ######-->
+    <bean name="/MostrarEjeNoPresue.do" class="org.springframework.eam.web.spring.presupuestos2.MostrarEjeNoPresue">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--************* FIN FIN FIN FIN FIN FIN INFORME GENERAL -->
+    <!-- DATOS GENERALES -->
+    <bean name="/insertarresponsable.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarResponsable">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarResponsable2.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarResponsable2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsertarResponsable3.do" class="org.springframework.eam.web.spring.presupuestos2.InsertarResponsable3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MenuGen.do" class="org.springframework.eam.web.spring.presupuestos2.MenuGen">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- DATOS GENERALES -->
+    <!-- iNSERTAR -->
+    <bean name="/Resp.do" class="org.springframework.eam.web.spring.presupuestos2.Resp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/Resp2.do" class="org.springframework.eam.web.spring.presupuestos2.Resp2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- mODIFICAR ELIMINAR -->
+    <bean name="/modeligen.do" class="org.springframework.eam.web.spring.presupuestos2.ModEliGen">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificar -->
+    <bean name="/ModEliGen2.do" class="org.springframework.eam.web.spring.presupuestos2.ModEliGen2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliGen2_1.do" class="org.springframework.eam.web.spring.presupuestos2.ModEliGen2_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar -->
+    <bean name="/ModEliGen3.do" class="org.springframework.eam.web.spring.presupuestos2.ModEliGen3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FFIN FIN FINF IFN FIN FIN DATOS GENERALES -->
+    <!-- FIN FIN FIN FIN FIN FIN DATOS GENERALES -->
+    <bean name="/mostraractividades.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/mensajes/EnCons</value>
+        </property>
+    </bean>
+    <bean name="/mostrartareas.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos/mensajes/EnCons</value>
+        </property>
+    </bean>
+    <!-- mostrando Programas actividades y tareas  -->
+    <bean name="/mostrarprogramas.do" class="org.springframework.eam.web.spring.presupuestos3.MosPat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Modificando Programas -->
+    <bean name="/ModEliProg2.do" class="org.springframework.eam.web.spring.presupuestos3.ModEliProg2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliProg2_1.do" class="org.springframework.eam.web.spring.presupuestos3.ModEliProg2_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEliProg3.do" class="org.springframework.eam.web.spring.presupuestos3.ModEliProg3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN mostrando Programas actividades y tareas  -->
+    <!-- MOSTRANDO REPORTES INGRESOS Y EGRESOS  -->
+    <!--    <bean name="/inforegring.do" class="org.springframework.eam.web.spring.presupuestos3.InforEgrIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>-->
+    <bean name="/inforegring.do" class="org.springframework.eam.web.spring.presupuestos3.InforEgrIngVerII">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/MostrarTarIngEgr.do" class="org.springframework.eam.web.spring.presupuestos3.MostrarTarIngEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Para imprimir 
+    <bean name="/MuestraPatEgrIngImprime.do" class="org.springframework.eam.web.spring.presupuestos3.MuestraPatEgrIngImprime">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>-->
+    <bean name="/MuestraPatEgrIngImprime.do" class="org.springframework.eam.web.spring.presupuestos3.MuestraPatEgrIngImp">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN MOSTRANDO REPORTES INGRESOS Y EGRESOS  -->
+    <!-- REPORTES por fuentes INGRESOS Y EGRESOS  -->
+    <bean name="/gralfuen.do" class="org.springframework.eam.web.spring.presupuestos3.GralFuen">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/GralFuen2.do" class="org.springframework.eam.web.spring.presupuestos3.GralFuen2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/GralFuen3.do" class="org.springframework.eam.web.spring.presupuestos3.GralFuen3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- MONTOS COMPROMETDIDOS  -->
+    <bean name="/motocomprometido.do" class="org.springframework.eam.web.spring.presupuestos3.MonCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MenuCom.do" class="org.springframework.eam.web.spring.presupuestos3.MenuCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InformeEgrCom.do" class="org.springframework.eam.web.spring.presupuestos3.InformeEgrCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsCom.do" class="org.springframework.eam.web.spring.presupuestos.InsCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsCom2.do" class="org.springframework.eam.web.spring.presupuestos3.InsComm2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ActuCom.do" class="org.springframework.eam.web.spring.presupuestos3.ActuCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsAcuCom.do" class="org.springframework.eam.web.spring.presupuestos3.InsAcuCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsAcuCom2.do" class="org.springframework.eam.web.spring.presupuestos3.InsAcuCom2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliMonComEgr.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliMonComEgr2.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliMonComEgr3.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgr3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Eliminar  Acumulado-->
+    <bean name="/EliMonComEgrAcu.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgrAcu">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliMonComEgrAcu2.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgrAcu2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliMonComEgrAcu3.do" class="org.springframework.eam.web.spring.presupuestos3.EliMonComEgrAcu3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Ejecutar comprometido -->
+    <bean name="/EjecuCompro.do" class="org.springframework.eam.web.spring.presupuestos3.EjecuCompro">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecuCompro2.do" class="org.springframework.eam.web.spring.presupuestos3.EjecuCompro2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EjecuCompro3.do" class="org.springframework.eam.web.spring.presupuestos3.EjecuCompro3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificar comprometido -->
+    <bean name="/ModMonCompro.do" class="org.springframework.eam.web.spring.presupuestos3.ModMonCompro">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModMonCompro2.do" class="org.springframework.eam.web.spring.presupuestos3.ModMonCompro2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModMonCompro3.do" class="org.springframework.eam.web.spring.presupuestos3.ModMonCompro3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN Modificar comprometido -->
+    <!-- Mostrar historial comprometido Detalle -->
+    <bean name="/MosHisCom.do" class="org.springframework.eam.web.spring.presupuestos3.MosHisCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN Mostrar historial comprometido Detalle -->
+    <bean name="/nrocertcarreras.do" class="org.springframework.eam.web.spring.presupuestos3.NroCertCarreras">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosCertProcCarreras.do" class="org.springframework.eam.web.spring.presupuestos3.MosCertProcCarreras">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Comprometido CERTIFICACION --> 
+    <bean name="/fechacert.do" class="org.springframework.eam.web.spring.presupuestos3.FechaCert">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/nrocert.do" class="org.springframework.eam.web.spring.presupuestos3.NroCert">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosCertProc.do" class="org.springframework.eam.web.spring.presupuestos3.MosCertProc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModifiCertProc.do" class="org.springframework.eam.web.spring.presupuestos3.ModifiCertProc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModifiCertProc2.do" class="org.springframework.eam.web.spring.presupuestos3.ModifiCertProc2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificacion simple -->
+    <bean name="/ModifiCertProc3.do" class="org.springframework.eam.web.spring.presupuestos3.ModifiCertProc3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModifiCertProc4.do" class="org.springframework.eam.web.spring.presupuestos3.ModifiCertProc4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Para imprimir la certificacion modificada o copia-->
+
+    <bean name="/MosCertProc2.do" class="org.springframework.eam.web.spring.presupuestos3.MosCertProc2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/MosCertExel.do" class="org.springframework.eam.web.spring.certificacion.exel">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FIN MONTOS COMPROMETDIDOS  -->
+    <!-- Modificar  Egresos -->
+    <bean name="/modclafuemon.do" class="org.springframework.eam.web.spring.presupuestos2.ModClaFueMon">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModClasificador1e.do" class="org.springframework.eam.web.spring.presupuestos2.ModClasificador1e">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Muestra para modificar clasificadores presupuestado Egresos -->
+    <bean name="/ModEgr.do" class="org.springframework.eam.web.spring.presupuestos2.ModEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEgr2.do" class="org.springframework.eam.web.spring.presupuestos2.ModEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modifica Referencia Ejecutado Egresos --> 
+    <bean name="/MosEjePreE.do" class="org.springframework.eam.web.spring.presupuestos2.MosEjePreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefEjeE.do" class="org.springframework.eam.web.spring.presupuestos2.ModRefEjeE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEgrRef.do" class="org.springframework.eam.web.spring.presupuestos2.ModEgrRef">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosEjeNoPreE.do" class="org.springframework.eam.web.spring.presupuestos2.MosEjeNoPreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefEjeNoPreE.do" class="org.springframework.eam.web.spring.presupuestos2.ModRefEjeNoPreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModRefNoPreE.do" class="org.springframework.eam.web.spring.presupuestos2.ModRefNoPreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/MosEjeNoPreClaE.do" class="org.springframework.eam.web.spring.presupuestos2.MosEjeNoPreClaE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModEjeNoPreClaE.do" class="org.springframework.eam.web.spring.presupuestos2.ModEjeNoPreClaE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliNoPresuEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.EliNoPresuEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/EliRefEjeNoPreE.do" class="org.springframework.eam.web.spring.presupuestos2.EliRefEjeNoPreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FINModificar  Egresos -->
+    <!-- Traspasos -->
+    <bean name="/trasmon.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMon">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/TrasMo.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMo">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/TrasMo2.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMo2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/TrasMo3.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMo3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/TrasMo4.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMo4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/TrasMo5.do" class="org.springframework.eam.web.spring.presupuestos2.TrasMo5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <bean name="/MosHisTras.do" class="org.springframework.eam.web.spring.presupuestos2.MosHisTras">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <!-- FIN FIN FIN Traspasos -->
+    
+    <!-- FIN FIN FIN FIN FIN FIN Modificar Clasificador a monto INGRESOS INGRESOS -->
+
+     
+    <!-- INCREMENTOS INGRESOS -->
+       
+    <bean name="/increing.do" class="org.springframework.eam.web.spring.presupuestos.IncreIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrIng.do" class="org.springframework.eam.web.spring.presupuestos.IncrIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrIng2.do" class="org.springframework.eam.web.spring.presupuestos.IncrIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrIng3.do" class="org.springframework.eam.web.spring.presupuestos.IncrIng3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrIng4.do" class="org.springframework.eam.web.spring.presupuestos.IncrIng4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!--FIN FIN FIN FIN FIN  INCREMENTOS INGRESOS -->
+    
+    
+    <!-- INCREMENTOS EGRESOS -->
+    <bean name="/increegr.do" class="org.springframework.eam.web.spring.presupuestos2.IncreEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrEgr.do" class="org.springframework.eam.web.spring.presupuestos2.IncrEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrEgr2.do" class="org.springframework.eam.web.spring.presupuestos2.IncrEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrEgr3.do" class="org.springframework.eam.web.spring.presupuestos2.IncrEgr3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/IncrEgr4.do" class="org.springframework.eam.web.spring.presupuestos2.IncrEgr4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!--FIN FIN FIN FIN FIN INCREMENTOS EGRESOS -->
+    
+    <!--Mostrar Historial de Incrementos-->
+    <bean name="/MosHisIncIE.do" class="org.springframework.eam.web.spring.presupuestos3.MosHisIncIE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    
+    
+    <!--FIN FIN FIN FIN FIN FIN Mostrar Historial de Incrementos-->
+    
+    
+    
+    
+    
+    
+    <!-- Informe general Trimestral -->
+    <bean name="/inftri.do" class="org.springframework.eam.web.spring.presupuestos3.InfTri">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/InfTri2.do" class="org.springframework.eam.web.spring.presupuestos3.InfTri2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- FIN FIN FIN FIN FIN Informe general Trimestral  -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Reporte  Matematicas-->
+    
+    
+    <!-- General -->
+    <bean name="/reportemat.do" class="org.springframework.eam.web.spring.reportes.ReporteMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <!-- Reporte Matematicas Fuente -->
+    <bean name="/reportematdet.do" class="org.springframework.eam.web.spring.reportes.ReporteMatDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteMatDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteMatDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!-- Certificacion presupuestaria Matematicas nrocert.do-->
+    <bean name="/certmat.do" class="org.springframework.eam.web.spring.reportes.CertMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/cerprocmat.do" class="org.springframework.eam.web.spring.reportes.CertProcMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!-- FIN FIN FIN FIN FIN eporte  Matematicas -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Reporte  Direccion y coordinacion-->
+    
+    
+    <!-- General -->
+    <bean name="/reportedir.do" class="org.springframework.eam.web.spring.reportes.ReporteDir">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <!-- Reporte Fuente  -->
+    <bean name="/reportedirdet.do" class="org.springframework.eam.web.spring.reportes.ReporteDirDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteDirDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteDirDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certdir.do" class="org.springframework.eam.web.spring.reportes.CertDir">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocdir.do" class="org.springframework.eam.web.spring.reportes.CertProcDir">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FORMULADIOS DIRECCION COORDINACION-->
+    <!-- FORMULARIOS SRUDC DIRECCION COORDINANCION-->
+
+    <bean name="/soldc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolDc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/solinf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solmat.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solfis.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/solbiofeb.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolBiofeb">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solbio.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solcinf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolCinf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solest.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolEst">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/soldir.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolDir">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/soliabf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIabf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/solieva.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIeva">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solifit.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIfit">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/soliinc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIinc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solipap.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIpap">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solhqmc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolHqmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solibio.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIbio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solieco.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIeco">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solimat.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolImat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solqmc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/sollsa.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolLsa">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solplanf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolPlanf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solpinf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolPinf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solpref.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolPref">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solycam.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolYcam">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solcfac.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolCfac">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solieta.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIeta">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solsbio.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolSbio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/soliinf.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIinf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/soliqmc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIqmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solvfcpn.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolVfcpn">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/soligob.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIgob">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solipalms.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIpalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    
+    <bean name="/SolFor.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFor">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/SolFor2.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFor2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/SolFor3.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFor3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--para reportes-->
+    <bean name="/SolFor4.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFor4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/SolFor5.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolFor5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <!-- reporte gerencial-->
+    <!-- <bean name="/repgerdir.do" class="org.springframework.eam.web.spring.reporteger.RepGerDir">
+        <property name="eam"><ref bean="eam"/></property>
+    </bean> -->
+
+    <!--
+<bean name="/repgerdir.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName"><value>repgerencial/RepGerDir</value></property>
+    </bean>
+    -->
+
+    <bean name="/repgerdir.do" class="org.springframework.eam.web.spring.reporteger.RepGerDir0">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/RepGerDir1.do" class="org.springframework.eam.web.spring.reporteger.RepGerDir1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/RepGerDir2.do" class="org.springframework.eam.web.spring.reporteger.RepGerDir2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- finf fin fin fin  reporte gerencial-->
+
+    <!-- FIN FIN FIN FIN FIN Direccion y coordinacion-->
+    
+    
+    <!-- Reporte  QUIMICA-->
+    
+    
+    <!-- General -->
+    <bean name="/reportequim.do" class="org.springframework.eam.web.spring.reportes.ReporteQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <!-- Reporte Fuente  -->
+    <bean name="/reportequimdet.do" class="org.springframework.eam.web.spring.reportes.ReporteQuimDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteQuimDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteQuimDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/certquim.do" class="org.springframework.eam.web.spring.reportes.CertQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+   
+
+
+
+    <bean name="/certprocquim.do" class="org.springframework.eam.web.spring.reportes.CertProcQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <!-- FIN FIN FIN FIN FIN QUIMICA -->
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Reporte  ESTADISTICA-->
+    <!-- General -->
+    <bean name="/reporteest.do" class="org.springframework.eam.web.spring.reportes.ReporteEst">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reporteestdet.do" class="org.springframework.eam.web.spring.reportes.ReporteEstDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteEstDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteEstDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!--  Certificacion presupuestaria -->
+    <bean name="/certest.do" class="org.springframework.eam.web.spring.reportes.CertEst">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocest.do" class="org.springframework.eam.web.spring.reportes.CertProcEst">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--    FIN FIN FIN FIN FIN FIN Reporte  ESTADISTICA-->
+    
+     
+     
+    <!-- Reporte  FISICA-->
+    <!-- General -->
+    <bean name="/reportefis.do" class="org.springframework.eam.web.spring.reportes.ReporteFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reportefisdet.do" class="org.springframework.eam.web.spring.reportes.ReporteFisDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteFisDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteFisDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!--  Certificacion presupuestaria -->
+    <bean name="/certfis.do" class="org.springframework.eam.web.spring.reportes.CertFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocfis.do" class="org.springframework.eam.web.spring.reportes.CertProcFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FIN FIN FIN Reporte  FISICA-->
+
+     
+     
+    <!-- Reporte  BIOLOGIA-->
+    <!-- General -->
+    <bean name="/reportebio.do" class="org.springframework.eam.web.spring.reportes.ReporteBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reportebiodet.do" class="org.springframework.eam.web.spring.reportes.ReporteBioDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteBioDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteBioDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!--  Certificacion presupuestaria -->
+    <bean name="/certbio.do" class="org.springframework.eam.web.spring.reportes.CertBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocbio.do" class="org.springframework.eam.web.spring.reportes.CertProcBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FIN FIN FIN Reporte  BIOLOGIA -->
+     
+     
+     
+     
+     
+     
+     
+     
+     
+    <!-- Reporte  INFORMATICA-->
+    <!-- General -->
+    <bean name="/reporteinf.do" class="org.springframework.eam.web.spring.reportes.ReporteInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reporteinfdet.do" class="org.springframework.eam.web.spring.reportes.ReporteInfDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReporteInfDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInfDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+
+
+    <bean name="/certinf.do" class="org.springframework.eam.web.spring.reportes.CertInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+   
+    <bean name="/certprocinf.do" class="org.springframework.eam.web.spring.reportes.CertProcInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+
+    <!-- FIN FIN FIN FIN FIN FIN Reporte  INFORMATICA-->
+
+
+
+
+
+
+    <!--Instituto Informática-->
+
+    <bean name="/reporteinsinf.do" class="org.springframework.eam.web.spring.reportes.ReporteInsInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteinsinfdet.do" class="org.springframework.eam.web.spring.reportes.ReporteInsInfDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteInsInfDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInsInfDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certinsinf.do" class="org.springframework.eam.web.spring.reportes.CertInsInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocinsinf.do" class="org.springframework.eam.web.spring.reportes.CertProcInsInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--     -->
+
+    <!-- Instituto de Quimica-->
+    <bean name="/reporteinsquim.do" class="org.springframework.eam.web.spring.reportes.ReporteInsQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteinsquimdet.do" class="org.springframework.eam.web.spring.reportes.ReporteInsQuimDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteInsQuimDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInsQuimDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certinsquim.do" class="org.springframework.eam.web.spring.reportes.CertInsQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocinsquim.do" class="org.springframework.eam.web.spring.reportes.CertProcInsQuim">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <!--LSA IIQ-2 -->
+    <!-- Instituto de Quimica-->
+    <bean name="/reportelsaqmc.do" class="org.springframework.eam.web.spring.reportes.ReporteLsaQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reportelsaqmcdet.do" class="org.springframework.eam.web.spring.reportes.ReporteLsaQmcDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteLsaQmcDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteLsaQmcDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certlsaqmc.do" class="org.springframework.eam.web.spring.reportes.CertLsaQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproclsaqmc.do" class="org.springframework.eam.web.spring.reportes.CertProcLsaQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+
+
+    <!--INSMAT IMAT_1 -->
+    <!-- Instituto de Matematicas-->
+    <bean name="/reporteinsmat.do" class="org.springframework.eam.web.spring.reportes.ReporteInsMat23">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteinsmatdet.do" class="org.springframework.eam.web.spring.reportes.ReporteInsMatDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteInsMatDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInsMatDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certinsmat.do" class="org.springframework.eam.web.spring.reportes.CertInsMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocInsMat.do" class="org.springframework.eam.web.spring.reportes.CertProcInsMat">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!-- IDH PPM-->
+
+    <bean name="/reporteidhppmqmc.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhPpmQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteidhppmqmcdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhPpmQmcDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIdhPpmQmcDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhPpmQmcDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certidhppmqmc.do" class="org.springframework.eam.web.spring.reportes.CertIdhPpmQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocidhppmqmc.do" class="org.springframework.eam.web.spring.reportes.CertProcIdhPpmQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN  IDH ppm quimica-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Instituto Biologia -->
+
+    <bean name="/reporteinsbio.do" class="org.springframework.eam.web.spring.reportes.ReporteInsBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteinsbiodet.do" class="org.springframework.eam.web.spring.reportes.ReporteInsBioDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteInsBioDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInsBioDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certinsbio.do" class="org.springframework.eam.web.spring.reportes.CertInsBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocinsbio.do" class="org.springframework.eam.web.spring.reportes.CertProcInsBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN FIN Instituto Biologia -->
+
+
+    <!-- BIOFE -->
+    <bean name="/reportebiofe.do" class="org.springframework.eam.web.spring.reportes.ReporteBioFe">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reportebiofedet.do" class="org.springframework.eam.web.spring.reportes.ReporteBioFeDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteBioFeDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteBioFeDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <bean name="/certbiofe.do" class="org.springframework.eam.web.spring.reportes.CertBioFe">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocbiofe.do" class="org.springframework.eam.web.spring.reportes.CertProcBioFe">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!-- FIN FIN FIN FIN FIN FIN BIOFE -->
+
+    <!-- IDHABF -->
+
+    <bean name="/reporteidhabf.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhAbf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteidhabfdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhAbfDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIdhAbfDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIdhAbfDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certidhabf.do" class="org.springframework.eam.web.spring.reportes.CertIdhAbf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocidhabf.do" class="org.springframework.eam.web.spring.reportes.CertProcIdhAbf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF FIN IDHABF-->
+
+    <!--Usuario Comun Para Todos -->
+    <!--    <bean name="/reportezuc.do" class="org.springframework.eam.web.spring.reportes.ReporteZuc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    -->
+    <bean name="/reportezuc.do" class="org.springframework.eam.web.spring.reportes.ReporteZucVerII">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/reportezucdet.do" class="org.springframework.eam.web.spring.reportes.ReporteZucDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certzuc.do" class="org.springframework.eam.web.spring.reportes.CertZuc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproczuc.do" class="org.springframework.eam.web.spring.reportes.CertProcZuc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solzuc.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolZuc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FIN FIN FIN Usuario Comun Para Todos -->
+
+
+    <!-- IDHALT -->
+    <bean name="/reporteialt.do" class="org.springframework.eam.web.spring.reportes.ReporteIAlt">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteialtdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIAltDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIAltDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIAltDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certialt.do" class="org.springframework.eam.web.spring.reportes.CertIAlt">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocialt.do" class="org.springframework.eam.web.spring.reportes.CertProcIAlt">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solialt.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIAlt">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FINF FIN IDHALT-->
+
+    <!-- IDHCUL -->
+    <bean name="/reporteicul.do" class="org.springframework.eam.web.spring.reportes.ReporteICul">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteiculdet.do" class="org.springframework.eam.web.spring.reportes.ReporteICulDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteICulDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteICulDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certicul.do" class="org.springframework.eam.web.spring.reportes.CertICul">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocicul.do" class="org.springframework.eam.web.spring.reportes.CertProcICul">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solicul.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolICul">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FINF FIN IDHCUL-->
+
+    <!-- IDHMILL -->
+    <bean name="/reporteimill.do" class="org.springframework.eam.web.spring.reportes.ReporteIMill">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteimilldet.do" class="org.springframework.eam.web.spring.reportes.ReporteIMillDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIMillDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIMillDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certimill.do" class="org.springframework.eam.web.spring.reportes.CertIMill">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocimill.do" class="org.springframework.eam.web.spring.reportes.CertProcIMill">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/solimill.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIMill">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FINF FIN IDHMILL-->
+
+
+    <!-- IDHARS -->
+    <bean name="/reporteiars.do" class="org.springframework.eam.web.spring.reportes.ReporteIArs">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteiarsdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIArsDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIArsDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIArsDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certiars.do" class="org.springframework.eam.web.spring.reportes.CertIArs">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprociars.do" class="org.springframework.eam.web.spring.reportes.CertProcIArs">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/soliars.do" class="org.springframework.eam.web.spring.formularios.proyectos.SolIArs">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FINF FIN IDHARS-->
+
+
+
+    <!-- IDHEVA -->
+    <bean name="/reporteieva.do" class="org.springframework.eam.web.spring.reportes.ReporteIEva">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteievadet.do" class="org.springframework.eam.web.spring.reportes.ReporteIEvaDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIEvaDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIEvaDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certieva.do" class="org.springframework.eam.web.spring.reportes.CertIEva">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocieva.do" class="org.springframework.eam.web.spring.reportes.CertProcIEva">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FINFINFINFINFIN FIN FINF FIN  IDHEVA -->
+
+
+
+    <!-- IDHFIT -->
+    <bean name="/reporteifit.do" class="org.springframework.eam.web.spring.reportes.ReporteIFit">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteifitdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIFitDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIFitDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIFitDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certifit.do" class="org.springframework.eam.web.spring.reportes.CertIFit">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocifit.do" class="org.springframework.eam.web.spring.reportes.CertProcIFit">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN IDHFIT -->
+
+
+    <!-- IDHPAP -->
+
+    <bean name="/reporteipap.do" class="org.springframework.eam.web.spring.reportes.ReporteIPap">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteipapdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIPapDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIPapDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIPapDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certipap.do" class="org.springframework.eam.web.spring.reportes.CertIPap">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocipap.do" class="org.springframework.eam.web.spring.reportes.CertProcIPap">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!-- FIN FIN FIN FIN IDHPAP -->
+
+
+
+    <!-- INSTITUTO ECOLOGIA -->
+    <bean name="/reporteinseco.do" class="org.springframework.eam.web.spring.reportes.ReporteInsEco">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteinsecodet.do" class="org.springframework.eam.web.spring.reportes.ReporteInsEcoDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteInsEcoDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteInsEcoDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certinseco.do" class="org.springframework.eam.web.spring.reportes.CertInsEco">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certprocinseco.do" class="org.springframework.eam.web.spring.reportes.CertProcInsEco">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN INSTITUTO ECOLOGIA -->
+
+
+
+    <!-- PY CAM quimi-->
+
+    <bean name="/reportepycam.do" class="org.springframework.eam.web.spring.reportes.ReportePyCam">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reportepycamdet.do" class="org.springframework.eam.web.spring.reportes.ReportePyCamDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReportePyCamDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePyCamDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certpycam.do" class="org.springframework.eam.web.spring.reportes.CertPyCam">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocpycam.do" class="org.springframework.eam.web.spring.reportes.CertProcPyCam">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN  IDH ppm quimica-->
+
+
+
+
+
+
+
+
+
+
+    <!-- postgrado biologia-->
+
+    <bean name="/reportepbio.do" class="org.springframework.eam.web.spring.reportes.ReportePBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reportepbiodet.do" class="org.springframework.eam.web.spring.reportes.ReportePBioDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReportePBioDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePBioDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certpbio.do" class="org.springframework.eam.web.spring.reportes.CertPBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocpbio.do" class="org.springframework.eam.web.spring.reportes.CertProcPBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN  postgrado biologia-->
+
+
+
+
+    <!-- CENTRO DE ESTUDIANTES QUIMICA-->
+
+    <bean name="/reportcqmc.do" class="org.springframework.eam.web.spring.reportes.ReporteCQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reportecqmcdet.do" class="org.springframework.eam.web.spring.reportes.ReporteCQmcDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteCQmcDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteCQmcDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+ 
+    <bean name="/certcqmc.do" class="org.springframework.eam.web.spring.reportes.CertCQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproccqmc.do" class="org.springframework.eam.web.spring.reportes.CertProcCQmc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN  CENTRO DE ESTUDIANTES QUIMICA-->
+
+
+
+
+
+    <!--   *****************new*************************************** -->
+    <!--   ******************************************************** -->
+
+    <!-- CENTRO DE ESTUDIANTES BIOLOGIA-->
+
+    <bean name="/reportecenbio.do" class="org.springframework.eam.web.spring.reportes.ReporteCenBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reportecenbiodet.do" class="org.springframework.eam.web.spring.reportes.ReporteCenBioDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteCenBioDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteCenBioDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certcenbio.do" class="org.springframework.eam.web.spring.reportes.CertCenBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproccenbio.do" class="org.springframework.eam.web.spring.reportes.CertProcCenBio">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN  CENTRO DE ESTUDIANTES BIOLOGIA-->
+
+
+
+
+
+
+
+    <!-- AREA DESCONCENTRADA-->
+
+    <bean name="/reporteuarea.do" class="org.springframework.eam.web.spring.reportes.ReporteUArea">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/reporteuareadet.do" class="org.springframework.eam.web.spring.reportes.ReporteUAreaDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteUAreaDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteUAreaDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certuarea.do" class="org.springframework.eam.web.spring.reportes.CertUArea">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocuarea.do" class="org.springframework.eam.web.spring.reportes.CertProcUArea">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FINF INF FIN AREA DESCONCENTRADA-->
+
+    <!--   ******************************************************** -->
+    <!--   ******************************************************** -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- PREFACULTATIVO -->
+
+    <bean name="/reporteprefa.do" class="org.springframework.eam.web.spring.reportes.ReportePrefa">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+     
+    <bean name="/reporteprefadet.do" class="org.springframework.eam.web.spring.reportes.ReportePrefaDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReportePrefaDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePrefaDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+
+
+    <bean name="/certprefa.do" class="org.springframework.eam.web.spring.reportes.CertPrefa">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certprocprefa.do" class="org.springframework.eam.web.spring.reportes.CertProcPrefa">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+     
+    <!--
+    fin fin fin fin fPREFACULTATIVO FCPN-->
+
+
+    <!-- Reporte  Postgrado Informatica-->
+    
+    
+    <!-- General -->
+    <bean name="/reportepostinf.do" class="org.springframework.eam.web.spring.reportes.ReportePostInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    
+    <!-- Reporte Postgrado Informatica Fuente-->
+    <bean name="/reporteposinfdet.do" class="org.springframework.eam.web.spring.reportes.ReportePosInfDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ReportePosInfDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePosInfDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/certpinf.do" class="org.springframework.eam.web.spring.reportes.CertPInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certprocpinf.do" class="org.springframework.eam.web.spring.reportes.CertProcPInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FINFINFIN -->
+    <!-- FIN FIN FIN FIN FIN Reporte  Postgrado Informatica -->
+        
+    
+
+    <!-- VICE DECANATO-->
+    <bean name="/reportevice.do" class="org.springframework.eam.web.spring.reportes.ReporteVice">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reportevicedet.do" class="org.springframework.eam.web.spring.reportes.ReporteViceDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteViceDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteViceDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certvice.do" class="org.springframework.eam.web.spring.reportes.CertVice">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocvice.do" class="org.springframework.eam.web.spring.reportes.CertProcVice">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--
+    -->
+
+
+
+
+
+
+
+    <!-- Centro INFO-->
+    <bean name="/reportecinf.do" class="org.springframework.eam.web.spring.reportes.ReporteCInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reportecinfdet.do" class="org.springframework.eam.web.spring.reportes.ReporteCInfDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteCInfDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteCInfDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certcinf.do" class="org.springframework.eam.web.spring.reportes.CertCInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproccinf.do" class="org.springframework.eam.web.spring.reportes.CertProcCInf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FINF IN Centro INFO-->
+
+
+
+    <!-- IDHINC -->
+    <bean name="/reporteiinc.do" class="org.springframework.eam.web.spring.reportes.ReporteIInc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteiincdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIIncDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteIIncDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIIncDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certiinc.do" class="org.springframework.eam.web.spring.reportes.CertIInc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprociinc.do" class="org.springframework.eam.web.spring.reportes.CertProcIInc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FIN FIN FIN IDHINC -->
+
+
+
+
+
+
+
+
+
+    <!-- PLANETARIO FISICA -->
+    <bean name="/reportepfis.do" class="org.springframework.eam.web.spring.reportes.ReportePFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reportepfisdet.do" class="org.springframework.eam.web.spring.reportes.ReportePFisDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReportePFisDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePFisDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certpfis.do" class="org.springframework.eam.web.spring.reportes.CertPFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocpfis.do" class="org.springframework.eam.web.spring.reportes.CertProcPFis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN FIN FIN FN FIN FINF IFN  PLANETARIO FISICA -->
+
+
+    <bean name="/reporteieta.do" class="org.springframework.eam.web.spring.reportes.ReporteIeta">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteietadet.do" class="org.springframework.eam.web.spring.reportes.ReporteIetaDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteIetaDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIetaDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certieta.do" class="org.springframework.eam.web.spring.reportes.CertIeta">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocieta.do" class="org.springframework.eam.web.spring.reportes.CertProcIeta">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <!-- CFAC -->
+    <bean name="/reportecfac.do" class="org.springframework.eam.web.spring.reportes.ReporteCfac">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reportecfacdet.do" class="org.springframework.eam.web.spring.reportes.ReporteCfacDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReporteCfacDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteCfacDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certcfac.do" class="org.springframework.eam.web.spring.reportes.CertCfac">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certproccfac.do" class="org.springframework.eam.web.spring.reportes.CertProcCfac">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- IDHPALMS -->
+    <bean name="/reporteipalms.do" class="org.springframework.eam.web.spring.reportes.ReporteIpalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteipalmsdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIpalmsDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIpalmsDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIpalmsDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certipalms.do" class="org.springframework.eam.web.spring.reportes.CertIpalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocipalms.do" class="org.springframework.eam.web.spring.reportes.CertProcIpalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- IDHGOB -->
+    <bean name="/reporteigob.do" class="org.springframework.eam.web.spring.reportes.ReporteIgob">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/reporteigobdet.do" class="org.springframework.eam.web.spring.reportes.ReporteIgobDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ReporteIgobDet2.do" class="org.springframework.eam.web.spring.reportes.ReporteIgobDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certigob.do" class="org.springframework.eam.web.spring.reportes.CertIgob">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocigob.do" class="org.springframework.eam.web.spring.reportes.CertProcIgob">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <!-- Certificacion Presupuestarias   -->
+
+    <bean name="/cert0.do" class="org.springframework.eam.web.spring.certificacion.cert0">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--
+         <bean name="/cert1.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+            <property name="viewName"><value>certificacion/cert1</value></property>
+        </bean>
+    -->
+
+    <bean name="/cert1.do" class="org.springframework.eam.web.spring.certificacion.Cert1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/cert2.do" class="org.springframework.eam.web.spring.certificacion.cert2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- añanir a la tabla temporal de comprometido para la certificacion -->
+    <bean name="/cert3.do" class="org.springframework.eam.web.spring.certificacion.cert3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN FIN añanir a la tabla temporal de comprometido para la certificacion -->
+    <!-- BORRANDO DE LA LISTA DE TMP%COMPROMETIDO -->
+    <bean name="/cert4.do" class="org.springframework.eam.web.spring.certificacion.cert4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN  BORRANDO DE LA LISTA DE TMP%COMPROMETIDO -->
+
+    <bean name="/cert5.do" class="org.springframework.eam.web.spring.certificacion.cert5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN Certificacion Presupuestarias -->
+    <!-- Certificacion Presupuestarias DOS DOS-->
+   
+
+    <bean name="/certcert0.do" class="org.springframework.eam.web.spring.certificacion.certcert0">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/certcert1.do" class="org.springframework.eam.web.spring.certificacion.Certcert1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert2.do" class="org.springframework.eam.web.spring.certificacion.certcert2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert3.do" class="org.springframework.eam.web.spring.certificacion.certcert3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert4.do" class="org.springframework.eam.web.spring.certificacion.certcert4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Inserta -->
+    <bean name="/certcert5.do" class="org.springframework.eam.web.spring.certificacion.certcert5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Borra -->
+    <bean name="/certcert6.do" class="org.springframework.eam.web.spring.certificacion.certcert6">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Busca Like -->
+    <bean name="/certcert7.do" class="org.springframework.eam.web.spring.certificacion.certcert7">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert8.do" class="org.springframework.eam.web.spring.certificacion.certcert8">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert9.do" class="org.springframework.eam.web.spring.certificacion.certcert9">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certcert10.do" class="org.springframework.eam.web.spring.certificacion.certcert10">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--Certificacion en Proceso ADM -->
+    <bean name="/certprofor.do" class="org.springframework.eam.web.spring.certificacion.certprofor">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/FormBus.do" class="org.springframework.eam.web.spring.formularios.FormBus">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--FORMULARIOS -->
+
+
+    <bean name="/solcom.do" class="org.springframework.eam.web.spring.formularios.SolCom">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- para nuevos beneficiarios en los formularios Digitales-->
+    <bean name="/benefis.do" class="org.springframework.eam.web.spring.beneficiario.Benefis">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/nuevoBeneficiario.do" class="org.springframework.eam.web.spring.beneficiario.NuevoBeneficiario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/guardarBeneficiario.do" class="org.springframework.eam.web.spring.beneficiario.GuardarBeneficiario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/buscarBenefiario.do" class="org.springframework.eam.web.spring.beneficiario.BuscarBeneficiario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/verSucursales.do" class="org.springframework.eam.web.spring.beneficiario.VerSucursales">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/abcdfBeneficiario.do" class="org.springframework.eam.web.spring.beneficiario.AbcdfBeneficiario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/guardarSucursal.do" class="org.springframework.eam.web.spring.beneficiario.GuardarSucursal">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/modificarDatosSucursal.do" class="org.springframework.eam.web.spring.beneficiario.ModificarDatosSucursal">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/modificarDatosBeneficiario.do" class="org.springframework.eam.web.spring.beneficiario.ModificarDatosBeneficiario">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/solcomuc.do" class="org.springframework.eam.web.spring.formularios.SolComUc">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/SolComUc2.do" class="org.springframework.eam.web.spring.formularios.SolComUc2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--FIN FIN Para usuarios comunes -->
+
+    <bean name="/SolCom2.do" class="org.springframework.eam.web.spring.formularios.SolCom2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--
+    <bean name="/SolCom3.do" class="org.springframework.eam.web.spring.formularios.SolCom3">
+        <property name="eam"><ref bean="eam"/></property>
+    </bean> -->
+
+    <!--Ajax unidad de medida -->
+    <bean name="/SolCom31.do" class="org.springframework.eam.web.spring.formularios.SolCom31">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc31.do" class="org.springframework.eam.web.spring.formularios.SolComUc31">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN Para usuarios comunes -->
+
+
+
+    <bean name="/SolCom31_1.do" class="org.springframework.eam.web.spring.formularios.SolCom31_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <bean name="/SolCom4.do" class="org.springframework.eam.web.spring.formularios.SolCom4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc4.do" class="org.springframework.eam.web.spring.formularios.SolComUc4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN Para usuarios comunes -->
+
+
+    <!-- para reportes PDF-->
+    <!--Sol de compra -->
+    <bean name="/SolCom5.do" class="org.springframework.eam.web.spring.formularios.SolCom5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc5.do" class="org.springframework.eam.web.spring.formularios.SolComUc5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN FIN Para usuarios comunes -->
+    <!--pedido de material -->
+    <bean name="/SolCom6.do" class="org.springframework.eam.web.spring.formularios.SolCom6">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc6.do" class="org.springframework.eam.web.spring.formularios.SolComUc6">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN Para usuarios comunes -->
+
+
+    <!-- Orden de compra-->
+
+    <bean name="/SolCom7.do" class="org.springframework.eam.web.spring.formularios.SolCom7">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc7.do" class="org.springframework.eam.web.spring.formularios.SolComUc7">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FNI FIN FIN Para usuarios comunes -->
+    <bean name="/SolCom7_1.do" class="org.springframework.eam.web.spring.formularios.SolCom7_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!--*-->
+    <bean name="/SolCom71_1.do" class="org.springframework.eam.web.spring.formularios.SolCom71_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc71_1.do" class="org.springframework.eam.web.spring.formularios.SolComUc71_1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN FIN  Para usuarios comunes -->
+
+
+    <bean name="/SolCom8.do" class="org.springframework.eam.web.spring.formularios.SolCom8">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc8.do" class="org.springframework.eam.web.spring.formularios.SolComUc8">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FIN Para usuarios comunes -->
+    <bean name="/SolCom9.do" class="org.springframework.eam.web.spring.formularios.SolCom9">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc9.do" class="org.springframework.eam.web.spring.formularios.SolComUc9">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN Para usuarios comunes -->
+
+    <bean name="/SolCom10.do" class="org.springframework.eam.web.spring.formularios.SolCom10">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc10.do" class="org.springframework.eam.web.spring.formularios.SolComUc10">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FIN Para usuarios comunes -->
+
+    <bean name="/SolCom11.do" class="org.springframework.eam.web.spring.formularios.SolCom11">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--Para usuarios comunes -->
+    <bean name="/SolComUc11.do" class="org.springframework.eam.web.spring.formularios.SolComUc11">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!--FIN FIN FINPara usuarios comunes -->
+
+    <!-- fin fin fin formularios -->
+
+    <!-- ANULAR formulario -->
+    <bean name="/SolComAnu.do" class="org.springframework.eam.web.spring.formularios.SolComAnu">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/SolComAnu2.do" class="org.springframework.eam.web.spring.formularios.SolComAnu2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- FIN FIN FIN Anular formulario-->
+
+
+    <!-- Certificacion Presupuestarias DOS DOS-->
+
+
+    <bean name="/insdetallespar.do" class="org.springframework.eam.web.spring.presupuestos2.InsDetallesPar">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsDetallesPar2.do" class="org.springframework.eam.web.spring.presupuestos2.InsDetallesPar2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsDetallesPar3.do" class="org.springframework.eam.web.spring.presupuestos2.InsDetallesPar3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- modificar -->
+    <bean name="/InsDetallesPar4.do" class="org.springframework.eam.web.spring.presupuestos2.InsDetallesPar4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/InsDetallesPar5.do" class="org.springframework.eam.web.spring.presupuestos2.InsDetallesPar5">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!-- MODIFICACIONES NUEVAS 25 AGOS 09-->
+    <!-- INGRESOS-->
+    <bean name="/MoodPreIng.do" class="org.springframework.eam.web.spring.modificacionnew.MoodPreIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/MoodPreIng2.do" class="org.springframework.eam.web.spring.modificacionnew.MoodPreIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!-- ejecutado inicial -->
+    <bean name="/ModSoloEje.do" class="org.springframework.eam.web.spring.modificacionnew.ModSoloEje">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/ModSoloEje2.do" class="org.springframework.eam.web.spring.modificacionnew.ModSoloEje2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- Modificacion Eliminacion Incrementos INGRESOS-->
+ 
+    <bean name="/ModIncIng.do" class="org.springframework.eam.web.spring.modificacionnew.ModIncIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/ModdIncIng.do" class="org.springframework.eam.web.spring.modificacionnew.ModdIncIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/ModdIncIng2.do" class="org.springframework.eam.web.spring.modificacionnew.ModdIncIng2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/EliIncIng.do" class="org.springframework.eam.web.spring.modificacionnew.EliIncIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!--Eliminar un registro de presupuestado-->
+    <bean name="/EliPresuIng.do" class="org.springframework.eam.web.spring.modificacionnew.EliPresuIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/EliNoPresuIng.do" class="org.springframework.eam.web.spring.modificacionnew.EliNoPresuIng">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!-- FIN FIN FIN FIN FIN FIN Modificacion Eliminacion Incrementos INGRESOS-->
+
+
+
+    <!-- Reporte  PALMS  -->
+    <!-- General -->
+    <bean name="/reportepalms.do" class="org.springframework.eam.web.spring.reportes.ReportePalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Detalle -->
+    <bean name="/reportepalmsdet.do" class="org.springframework.eam.web.spring.reportes.ReportePalmsDet">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ReportePalmsDet2.do" class="org.springframework.eam.web.spring.reportes.ReportePalmsDet2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!--  Certificacion presupuestaria -->
+    <bean name="/certpalms.do" class="org.springframework.eam.web.spring.reportes.CertPalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <bean name="/certprocpalms.do" class="org.springframework.eam.web.spring.reportes.CertProcPalms">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- FIN FIN FIN FIN FIN FIN Reporte  PALMS -->
+
+
+
+    <!--    modificaciones nuevas EGRESOS-->
+    <bean name="/MoodPreEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.MoodPreEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/MoodPreEgr2.do" class="org.springframework.eam.web.spring.modificacionnewe.MoodPreEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    <!-- Modificacndo Ejecutados  -->
+
+    <bean name="/MosEjePreE.do" class="org.springframework.eam.web.spring.presupuestos2.MosEjePreE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ModSoloEjeE.do" class="org.springframework.eam.web.spring.modificacionnewe.ModSoloEjeE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ModSoloEje2E.do" class="org.springframework.eam.web.spring.modificacionnewe.ModSoloEje2E">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <!-- Modificacion Eliminacion Incrementos EGRESOS-->
+ 
+    <bean name="/ModIncEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.ModIncEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ModdIncEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.ModdIncEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/ModdIncEgr2.do" class="org.springframework.eam.web.spring.modificacionnewe.ModdIncEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/EliIncEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.EliIncEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+    <!--Eliminar Presupuestados EGR -->
+    <bean name="/EliPresuEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.EliPresuEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <bean name="/EliRefEjeE.do" class="org.springframework.eam.web.spring.presupuestos2.EliRefEjeE">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+
+
+    <!-- TRASPASOS   -->
+
+    <bean name="/ModTraEgr.do" class="org.springframework.eam.web.spring.modificacionnewe.ModTraEgr">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+
+    <bean name="/ModTraEgr2.do" class="org.springframework.eam.web.spring.modificacionnewe.ModTraEgr2">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <bean name="/ModTraEgr3.do" class="org.springframework.eam.web.spring.modificacionnewe.ModTraEgr3">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+
+    <!-- Eliminar histraspaso-->
+
+    <bean name="/ModTraEgr4.do" class="org.springframework.eam.web.spring.modificacionnewe.ModTraEgr4">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+    
+    <!-- Nuevo Para Reportes Noviembre 2014 -->
+    <bean name="/reporteZucListaGenerales.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+        <property name="viewName">
+            <value>presupuestos3/carreras/ReporteZucListaGenerales</value>
+        </property>
+    </bean>
+
+    <bean name="/reporteZucListaGeneralesPdf.do" class="org.springframework.eam.web.spring.reportes.ReporteZucListaGeneralesPdf">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
+            
+    <!-- Nuevo Para Reportes -->
+    <!--Ejecucion Parcial 2015-->
+<!--    <bean name="/EjecucionParcia1.do" class="org.springframework.eam.web.spring.presupuestos3.EjecucionParcia1.do">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>-->
+        
+    <!--FIN Ejecucion Parcial 2015-->
+</beans>

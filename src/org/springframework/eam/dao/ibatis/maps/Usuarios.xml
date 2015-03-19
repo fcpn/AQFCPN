@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Usuarios">
+  <!-- _ Castillo Valencia  **** New Login **** -->
+  <mapped-statement name="getUserString" result-class="java.lang.String">
+     SELECT _get_user_string(#id_usuario#,#clave#);
+  </mapped-statement>
+
+  <result-map name="getAccount" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_programa" column="ID_PROGRAMA" />
+    <property name="programa" column="PROGRAMA" />
+    <property name="id_tipo_usuario" column="ID_TIPO_USUARIO" />
+    <property name="tipo_usuario" column="TIPO_USUARIO" />
+  </result-map>
+  <mapped-statement name="getUserAccount" result-map="getAccount">
+    SELECT u.id_programa, f.programa, u.id_tipo_usuario, tu.tipo_usuario FROM _usuarios u, tipos_usuarios tu, fcl_programas f
+    WHERE u.id_tipo_usuario = tu.id_tipo_usuario
+    AND   f.id_programa = u.id_programa
+    AND   id_usuario = #id_usuario#
+  </mapped-statement>  
+  
+  <result-map name="roles" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_rol" column="ID_ROL" />
+    <property name="rol"    column="ROL" />
+  </result-map>
+  <mapped-statement name="getRolesDelUsuario" result-map="roles">
+    SELECT ir.id_rol, r.rol
+    FROM
+      (SELECT ur.id_rol
+       FROM _usuarios u INNER JOIN _usr_roles ur
+       ON u.id_usuario = ur.id_usuario
+       WHERE u.id_usuario = #id_usuario#         
+         AND ur.fec_expiracion >= 'now()'
+         AND ur.id_estado = 'A') ir
+    INNER JOIN _roles r
+    ON ir.id_rol = r.id_rol
+    WHERE r.id_programa = #id_programa#    
+    ORDER BY rol
+  </mapped-statement>
+
+  <result-map name="getNombre" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_persona" column="ID_PERSONA" />
+    <property name="nombres" column="NOMBRES" />
+  </result-map>
+  <mapped-statement name="getUsuarioNombres" result-map="getNombre">
+    select id as id_persona, n||' '||p||' '||m as nombres from _get_user_name(#id_usuario#) as (id did_persona, n varchar, p varchar, m varchar);
+  </mapped-statement>
+  
+  <mapped-statement name="setControlarIngreso" result-class="java.lang.Integer">    
+<!--    INSERT INTO login_historicos (id_usuario,id_rol) values(#id_usuario#,#id_rol#); -->
+    select _set_control_ingreso(#id_usuario#,#id_rol#);
+  </mapped-statement>
+  <mapped-statement name="setControlarSalida" result-class="java.lang.Integer">
+<!--    UPDATE login_historicos SET fec_salida=now() FROM (SELECT id_usuario,fec_ingreso FROM login_historicos
+                                                       WHERE id_usuario=#id_usuario#
+                                                       ORDER BY fec_ingreso desc limit 1) z1
+    WHERE z1.id_usuario=login_historicos.id_usuario and z1.fec_ingreso=login_historicos.fec_ingreso
+    -->
+    select _set_control_salida(#id_usuario#);
+    
+  </mapped-statement>
+
+  
+  <!--_ login -->
+  <result-map name="getAccountLogin" class="org.springframework.eam.domain.UsuariosLogin">
+    <property name="id_usuario" column="ID_USUARIO" />
+    <property name="clave" column="CLAVE" />
+  </result-map>
+
+  <mapped-statement name="getUserAccountLogin" result-map="getAccountLogin">
+    SELECT id_usuario, clave FROM _usuarios
+    WHERE upper(id_usuario) = upper(#id_usuario2#)
+    AND   upper(clave) = upper(#clave2#)
+  </mapped-statement>
+  <!--Fin _ login -->
+
+  <result-map name="getGestionPeriodo" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_programa" column="ID_PROGRAMA" />
+    <property name="gestion" column="GESTION" />
+    <property name="periodo" column="PERIODO" />
+  </result-map>
+
+  <mapped-statement name="getGestionPeriodoPrograma" result-map="getGestionPeriodo">
+    SELECT DISTINCT id_programa, 
+                    (SELECT valor FROM _parametros WHERE campo = 'gestion' AND id_programa = #id_programa#) AS gestion,
+                    (SELECT valor FROM _parametros WHERE campo = 'periodo' AND id_programa = #id_programa#) AS periodo
+    FROM _parametros
+    WHERE id_programa = #id_programa#
+  </mapped-statement>
+  
+
+
+  <result-map name="get_facultad" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_facultad" column="ID_FACULTAD" />
+    <property name="facultad" column="FACULTAD" />
+  </result-map>
+
+  <mapped-statement name="getFacultad" result-map="get_facultad">
+     SELECT f.id_facultad, f.facultad FROM fcl_programas p, facultades f
+     WHERE p.id_programa = #id_programa#
+     AND f.id_facultad = p.id_facultad
+  </mapped-statement>
+
+  <!-- End _ ***** New Login **** -->
+<!-- Cambio de Pin _    -->
+
+  <result-map name="get_usuario_clave" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_usuario" column="ID_USUARIO" />
+  </result-map>
+
+  <mapped-statement name="getUsuarioClave" result-map="get_usuario_clave">
+    SELECT id_usuario FROM _usuarios WHERE id_usuario = #id_usuario# AND clave = #clave# AND id_programa = #id_programa#
+  </mapped-statement>
+
+  <mapped-statement name="setActualizarClave">
+    UPDATE _usuarios SET  clave = #clave_nueva#, ult_usuario = #ult_usuario#
+    WHERE id_usuario = #id_usuario# AND clave = #clave# AND id_programa = #id_programa#
+  </mapped-statement>
+
+
+<!-- Cambio de Pin _    -->
+
+  <mapped-statement name="getRespuesta" result-class="java.lang.Integer">
+     SELECT 1;
+  </mapped-statement>
+
+  <mapped-statement name="setEliminarUsuario">
+    <!--JESUS UPDATE _usuarios SET id_estado = 'X'
+    WHERE id_usuario = #id_usuario# -->
+    DELETE FROM _usuarios WHERE id_usuario = #id_usuario#
+  </mapped-statement>
+
+<!-- _ supervisor -->
+  <result-map name="get_list_usuario" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_usuario" column="ID_USUARIO" />
+    <property name="nombres" column="NOMBRES" />
+    <property name="cargo" column="CARGO" />
+  </result-map>
+
+  <mapped-statement name="getListUsuario" result-map="get_list_usuario">
+    SELECT * FROM get_lista_usuarios() as (id_usuario varchar, nombres varchar, cargo varchar);
+  </mapped-statement>
+<!-- Fin _ supervisor -->
+  <mapped-statement name="setLoginKey" result-class="java.lang.String">
+    select _set_login_status(#id_usuario#);     
+  </mapped-statement>
+
+  <mapped-statement name="getLoginKey" result-class="java.lang.String">
+    select _get_login_status(#id_usuario#);     
+  </mapped-statement>
+
+  <result-map name="get_login_users" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_usuario" column="ID_USUARIO" />
+    <property name="cod_img" column="COD_IMG" />
+    <property name="nro_tarjetas" column="NRO_TARJETAS" />
+    <property name="nombre_completo" column="NOMBRE_COMPLETO" />
+  </result-map>
+
+  <mapped-statement name="getLoginUsers" result-map="get_login_users">
+    select * from _get_usuarios_logueados() as (id_usuario did_usuario, cod_img varchar, nro_tarjetas varchar, nombre_completo varchar);
+  </mapped-statement>
+
+  <mapped-statement name="getLoginUser" result-map="get_login_users">
+    select * from _get_usuarios_logueados() as (id_usuario did_usuario, cod_img varchar, nro_tarjetas varchar, nombre_completo varchar)
+    where id_usuario=#id_usuario#;
+  </mapped-statement>
+
+  <mapped-statement name="getLoginRefreshUsers">
+    delete from loginmatch;
+  </mapped-statement>
+
+  <mapped-statement name="getVerUsuario" result-class="java.lang.Integer">    
+    select _get_ver_usuario(#id_usuario#);
+  </mapped-statement>
+
+  <result-map name="get_usuario" class="org.springframework.eam.domain.Usuarios">
+    <property name="id_usuario" column="ID_USUARIO" />
+    <property name="clave" column="CLAVE" />
+    <property name="recordatorio" column="RECORDATORIO"/>
+  </result-map>
+
+  <mapped-statement name="getUsuario" result-map="get_usuario">
+    select * from _usuarios where id_usuario=#id_usuario#;
+  </mapped-statement>
+
+  <mapped-statement name="getUsrCnx" result-class="java.lang.String">    
+    select _ver_usuario_conectado(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getUsrTurno" result-class="java.lang.String">    
+    select _ver_usuario_turno(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="setUsrTurno" result-class="java.lang.String">    
+    select _set_usuario_turno(#id_usuario#);
+  </mapped-statement>
+
+  <mapped-statement name="getUsrsTurno" result-map="get_list_usuario">
+    select * from _usuarios_turnos(#id_turno#) as (id_usuario did_usuario, nombres varchar, cargo varchar);  
+  </mapped-statement>
+</sql-map>

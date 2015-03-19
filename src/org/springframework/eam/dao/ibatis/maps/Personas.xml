@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sql-map
+    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
+    "http://www.ibatis.com/dtd/sql-map.dtd">
+
+<sql-map name="Personas">
+  
+    <result-map name="paises" class="org.springframework.eam.domain.Personas">
+        <property name="id_pais" column="ID_PAIS"/>
+        <property name="pais"    column="PAIS"/>
+    </result-map>
+    <mapped-statement name="getPais" result-map="paises">
+        SELECT id_pais, pais 
+        FROM prs_paises
+        WHERE id_pais = #id_pais#
+    </mapped-statement>
+    <mapped-statement name="getPaises" result-map="paises">
+        SELECT id_pais, pais
+        FROM prs_paises   
+    </mapped-statement>
+  
+    <result-map name="departamentos" class="org.springframework.eam.domain.Personas">
+        <property name="id_departamento" column="ID_DEPARTAMENTO"/>
+        <property name="departamento"    column="DEPARTAMENTO"/>
+    </result-map>
+    <mapped-statement name="getDepartamento" result-map="departamentos">
+        SELECT id_departamento, departamento 
+        FROM prs_departamentos
+        WHERE id_departamento = #id_departamento#
+    </mapped-statement>
+    <mapped-statement name="getDepartamentos" result-map="departamentos">
+        SELECT id_departamento, departamento
+        FROM prs_departamentos
+        WHERE id_pais = 1   
+    </mapped-statement>
+
+    <result-map name="estadocivil" class="org.springframework.eam.domain.Personas">
+        <property name="id_estado_civil" column="ID_ESTADO_CIVIL"/>
+        <property name="estado_civil"        column="ESTADO_CIVIL"/>
+    </result-map>
+    <mapped-statement name="getEstadoCivil" result-map="estadocivil">
+        SELECT id_estado_civil, estado_civil
+        FROM estado_civil
+        WHERE id_estado_civil=#id_estado_civil#
+    </mapped-statement>
+    <mapped-statement name="getListaEstadoCivil" result-map="estadocivil">
+        SELECT id_estado_civil, estado_civil
+        FROM estado_civil
+        WHERE id_estado='A'
+    </mapped-statement>
+
+    <!-- Registrar Personas - Modulo admin users powered by _ CV -->
+    <result-map name="getId" class="org.springframework.eam.domain.Personas">
+        <property name="id_persona"      column="ID_PERSONA"/>
+    </result-map>
+
+    <!-- 6 Ibatis -->
+    <mapped-statement name="setRegistrarPersona" result-map="getId">
+        SELECT set_registrar_persona(#dip#,#paterno#,#materno#,#nombres#,#id_sexo#,#id_pais#,#id_departamento#,
+        #fec_nacimiento#,#tipo_sanguineo#,#id_estado_civil#,#ciudad#,#correo#,#direccion#,
+        #telefono#,#ult_usuario#) as id_persona
+    </mapped-statement>
+    <mapped-statement name="setActualizarPersona" result-map="getId">
+        SELECT set_actualizar_persona(#id_persona#,#dip#,#paterno#,#materno#,#nombres#,#id_sexo#,
+        #correo#,#direccion#,#telefono#,#ult_usuario#) as id_persona
+    </mapped-statement>
+    <!-- Registrar Personas - Modulo admin users powered by _ CV -->
+    <!-- Buscar Persona.Estudiantes.. Conponete Busqueda -->
+    <result-map name="BuscarPersona"    class="org.springframework.eam.domain.Personas">
+        <property name="id_persona"       column="ID_PERSONA"/>
+        <property name="dip"              column="DIP"/>
+        <property name="nombre_completo"  column="NOMBRE_COMPLETO"/>
+        <property name="id_estado"        column="ID_ESTADO"/>
+        <property name="estado"           column="ESTADO"/>
+    </result-map>
+ 
+    <mapped-statement name="getBuscarPersonaId" result-map="BuscarPersona">
+        SELECT * FROM _buscar_persona_id(#id_persona#) as 
+        (id_persona did_persona,
+        dip character varying,
+        nombre_completo character varying,
+        id_estado did_estado,
+        estado character varying);
+    </mapped-statement>
+
+    <mapped-statement name="getBuscarPersonaCi" result-map="BuscarPersona">
+        SELECT * FROM _buscar_persona_ci(#dip#) as 
+        (id_persona did_persona,
+        dip character varying,
+        nombre_completo character varying,
+        id_estado did_estado,
+        estado character varying);
+    </mapped-statement>
+
+    <mapped-statement name="getBuscarPersonaNombres" result-map="BuscarPersona">
+        SELECT * FROM _buscar_persona_nombres(#nombre_completo#) as 
+        (id_persona did_persona,
+        dip character varying,
+        nombre_completo character varying,
+        id_estado did_estado,
+        estado character varying);
+    </mapped-statement>
+
+    <result-map name="Persona"    class="org.springframework.eam.domain.Personas">
+        <property name="id_persona"       column="ID_PERSONA"/>
+        <property name="dip"              column="DIP"/>
+        <property name="nombres"          column="NOMBRES"/>
+        <property name="paterno"          column="PATERNO"/>
+        <property name="materno"          column="MATERNO"/>
+        <property name="id_sexo"          column="ID_SEXO"/>
+        <property name="fec_nacimiento"   column="FEC_NACIMIENTO"/>
+        <property name="direccion"        column="DIRECCION"/>
+        <property name="telefono"         column="TELEFONO"/>
+        <property name="correo"           column="CORREO"/>
+        <property name="id_estado_civil"  column="ID_ESTADO_CIVIL"/>
+    </result-map>
+ 
+    <mapped-statement name="getPersona" result-map="Persona">
+        SELECT * FROM personas where id_persona=#id_persona#
+    </mapped-statement>
+
+    <mapped-statement name="updateModificarPersona">
+        UPDATE personas SET dip=#dip#, paterno=#paterno#, materno=#materno#, nombres=#nombres#, id_sexo=#id_sexo#,
+        id_estado_civil=#id_estado_civil#, direccion=#direccion#, telefono=#telefono#,
+        correo=#correo#, id_estado=#id_estado# WHERE id_persona=#id_persona#
+    </mapped-statement>
+
+    <!-- Beneficiarios-->
+    <result-map name="beneficiario" class="org.springframework.eam.domain.Beneficiario">
+        <property name="nit" column="NIT"/>
+        <property name="proveedor" column="PROVEEDOR"/>
+    </result-map>
+    <mapped-statement name="setRegistroBeneficiario">
+        INSERT INTO beneficiarios_proveedores(nit, proveedor) VALUES (#nit#, #proveedor#);
+    </mapped-statement>
+
+    <mapped-statement name="setEliminaBeneficiario">
+        DELETE FROM beneficiarios_proveedores WHERE nit=#nit#;
+    </mapped-statement>
+
+    <mapped-statement name="setRegistroSucursalBeneficiario">
+        INSERT INTO sucursal_proveedor(nit, direccion, telefonos) VALUES (#nit#, #direccion#, #telefonos#);
+    </mapped-statement>
+    
+    <mapped-statement name="getMostrarBeneficiario" result-map="beneficiario">
+        SELECT * FROM beneficiarios_proveedores WHERE nit=#nit#;
+    </mapped-statement>
+
+    <mapped-statement name="getListarBeneficiarioPorNombre" result-map="beneficiario">
+        SELECT * FROM beneficiarios_proveedores WHERE lower(proveedor) like lower(#value#);
+    </mapped-statement>
+
+    <mapped-statement name="getListarBeneficiarioPorNit" result-map="beneficiario">
+        SELECT * FROM beneficiarios_proveedores WHERE lower(nit) like lower(#value#);
+    </mapped-statement>
+
+    <mapped-statement name="updateModificarDatosBeneficiario">
+        UPDATE beneficiarios_proveedores SET nit=#nit#, proveedor=#proveedor# WHERE nit=#nitAnterior#;
+    </mapped-statement>
+
+    <result-map name="sucursal" class="org.springframework.eam.domain.Beneficiario">
+        <property name="nit" column="NIT"/>
+        <property name="direccion" column="DIRECCION"/>
+        <property name="telefonos" column="TELEFONOS"/>
+        <property name="id_sucursal" column="ID_SUCURSAL"/>
+    </result-map>
+    <mapped-statement name="getListarSucursales" result-map="sucursal">
+        SELECT * FROM sucursal_proveedor WHERE nit=#value#;
+    </mapped-statement>
+    <mapped-statement name="setEliminaSucursal">
+        DELETE FROM sucursal_proveedor WHERE id_sucursal=#id_sucursal#;
+    </mapped-statement>
+    <mapped-statement name="getMostrarSucursal" result-map="sucursal">
+        SELECT * FROM sucursal_proveedor WHERE id_sucursal=#id_sucursal#;
+    </mapped-statement>
+
+    <mapped-statement name="updateModificarDatosSucursal">
+        UPDATE sucursal_proveedor SET direccion=#direccion#, telefonos=#telefonos# WHERE id_sucursal=#id_sucursal#;
+    </mapped-statement>
+
+    <mapped-statement name="setEliminaSucursales">
+        DELETE FROM sucursal_proveedor WHERE nit=#nitAnterior#;
+    </mapped-statement>
+    <!--Certificacion para porcentajes-->
+    <result-map name="TotalPresupuestado"    class="org.springframework.eam.domain.InsPreIng">
+        <property name="montopresu" column="MONTOPRESU"/>
+    </result-map>
+    <mapped-statement name="getTotalPresupuestadoTareaFuente" result-map="TotalPresupuestado">
+        select sum (montopresu) as montopresu from montosegreso where codtar=#codtar# and codfueneco=#codfueneco#
+    </mapped-statement>
+    
+    <result-map name="TotalEjecutadoEgr"    class="org.springframework.eam.domain.InsPreIng">
+        <property name="montoeje" column="MONTOEJE"/>
+    </result-map>
+    <mapped-statement name="getTotalEjecutadoTareaFuenteEgr" result-map="TotalEjecutadoEgr">
+        select sum (montoeje) as montoeje from montosegreso where codtar=#codtar# and codfueneco=#codfueneco#
+    </mapped-statement>
+    <mapped-statement name="getTotalEjecutadoNoPresupuestadoTareaFuenteEgr" result-map="TotalEjecutadoEgr">
+        select sum (monejenopre) as montoeje from montosnopresupuesegr where codtar=#codtar# and codfueneco=#codfueneco#
+    </mapped-statement>
+    
+    <mapped-statement name="getTotalEjecutadoIngresos" result-map="TotalEjecutadoEgr">
+        select sum (montoeje) as montoeje from montosingreso where codtar=#codtar# and codfueneco=#codfueneco#;
+    </mapped-statement>
+    <mapped-statement name="getTotalEjecutadoIngresosNoPresupuestado" result-map="TotalEjecutadoEgr">
+        select sum (monejenopre) as montoeje from montosnopresupuesegr where codtar=#codtar# and codfueneco=#codfueneco#;
+    </mapped-statement>
+    <mapped-statement name="getTotalComprometidoByTareaAndFuente" result-map="TotalEjecutadoEgr">
+        select sum(montocom) as montoeje from gralcomproegr() as (codmoning varchar, descla varchar, monto double precision, moneje double precision,saldo double precision, ref123 varchar, codfueneco varchar,desfe varchar, codtar varchar, montocom double precision, saldocompro double precision) where codtar=#codtar# and codfueneco=#codfueneco#;
+    </mapped-statement>
+    
+    <!-- Reporte Zuc   2da version -->
+    <result-map name="FuenteEconnomica"    class="org.springframework.eam.domain.FuenteEconomica">
+        <property name="codfueneco" column="CODFUENECO"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+        <property name="acro" column="ACRO"/>
+    </result-map>
+    <mapped-statement name="getFuentesDeTareasByUsuario" result-map="FuenteEconnomica">
+        select distinct mi.codfueneco, (select acro from fuenteseconomicas where codfueneco=mi.codfueneco) as acro, (select descripcion from fuenteseconomicas where codfueneco=mi.codfueneco) as descripcion from montosingreso as mi WHERE EXISTS (select cp.codtar from carreras_pass as cp where cp.idcarrera=#idcarrera# and cp.codtar=mi.codtar) order by codfueneco asc
+    </mapped-statement>
+    
+    
+    <result-map name="Actividad"    class="org.springframework.eam.domain.ProActTar">
+        <property name="codacti" column="CODACTI"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+    </result-map>
+    <mapped-statement name="getActividadesByUsuario" result-map="Actividad">
+        select distinct cp.codacti, (select descripcion from actividad as a where a.codacti=cp.codacti) as descripcion from carreras_pass as cp where cp.idcarrera=#idcarrera# order by cp.codacti;
+    </mapped-statement>
+    
+    <result-map name="TareaUsuarioActividad"    class="org.springframework.eam.domain.ProActTar">
+        <property name="codacti" column="CODACTI"/>
+        <property name="codtar" column="CODTAR"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+        <property name="idcarrera" column="IDCARRERA"/>
+        <property name="num_tarea" column="NUM_TAREA"/>
+    </result-map>
+    <mapped-statement name="getTareasByUsuarioAndActividad" result-map="TareaUsuarioActividad">
+        select codacti, codtar, (select descripcion from tarea where codtar=carreras_pass.codtar) as descripcion, idcarrera, num_tarea from carreras_pass where idcarrera=#idcarrera# and codacti=#codacti# order by codtar;
+    </mapped-statement>
+    
+    <result-map name="TareaFuentesMontosTotales"    class="org.springframework.eam.domain.ProActTar">
+        <property name="codfueneco" column="CODFUENECO"/>
+        <property name="descripcion" column="DESCRIPCION"/>
+        <property name="totalmontoejecutadoingreso" column="TOTALMONTOEJECUTADOINGRESO"/>
+        <property name="totalmontoejecutadoegreso" column="TOTALMONTOEJECUTADOEGRESO"/>
+    </result-map>
+    <mapped-statement name="getFuentesAndMontosEjecutadosByTarea" result-map="TareaFuentesMontosTotales">
+        select codfueneco, descripcion,
+        (
+        (select coalesce(sum (mi.montoeje),0) from montosingreso as mi where mi.codtar=#codtar# and mi.codfueneco=univ.codfueneco)+
+        (select coalesce(sum (mnpi.monejenopre),0) from montosnopresupuesing as mnpi where mnpi.codtar=#codtar# and mnpi.codfueneco=univ.codfueneco)
+        ) as totalmontoejecutadoingreso, 
+        (
+        (select coalesce(sum (mnp.monejenopre), 0)  from montosnopresupuesegr as mnp where mnp.codtar=#codtar# and mnp.codfueneco=univ.codfueneco) +
+        (select coalesce(sum (me.montoeje),0) from montosegreso as me where me.codtar=#codtar# and me.codfueneco=univ.codfueneco) 
+        ) as totalmontoejecutadoegreso
+        -- al descomentar muestra los montos comprometidos 
+        -- ,( select coalesce(sum(montocom),0) from gralcomproegr() as (codmoning varchar, descla varchar, monto double precision, moneje double precision,saldo double precision, ref123 varchar, codfueneco varchar,desfe varchar, codtar varchar, montocom double precision, saldocompro double precision) where codtar=#codtar# and codfueneco=univ.codfueneco ) as totalmontocomprometido
+        from (
+        select 
+        distinct codfueneco,
+        (select descripcion from fuenteseconomicas where codfueneco=montosingreso.codfueneco) as descripcion 
+        from montosingreso where codtar=#codtar#
+        ) as univ order by codfueneco asc
+    </mapped-statement>
+    
+    
+    <result-map name="PersonaByIdusuario"    class="org.springframework.eam.domain.Personas">
+        <property name="id_persona"       column="ID_PERSONA"/>
+        <property name="dip"              column="DIP"/>
+        <property name="paterno"  column="PATERNO"/>
+        <property name="materno"  column="MATERNO"/>
+        <property name="nombres"  column="NOMBRES"/>
+    </result-map>
+    <mapped-statement name="getNombresByIdUsuario" result-map="PersonaByIdusuario">
+        SELECT * FROM personas WHERE id_persona=(select id_persona from administrativos where id_administrativo=#value#)
+    </mapped-statement>
+</sql-map>
+
