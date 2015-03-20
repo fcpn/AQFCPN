@@ -6,55 +6,75 @@
 
 <link href="tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="tablecloth/tablecloth.js"></script>
-
+ <script src="js/jquery-2.1.3.js" type="text/javascript"></script>
+         <script type="text/javascript">
+            $(document).ready(function()
+            {
+                $("tr>td").parent("tr").mouseenter(function ()
+                {
+                    $(this).find("td").css("background","#092B86");
+                    $(this).find("td").css("color","#ffffff");
+                    $(this).find("td").find("a").css("color","#ffffff");
+                    
+                });
+                $("tr>td").parent("tr").mouseleave(function ()
+                {
+                    $(this).find("td").removeAttr("style");
+                    $(this).find("td").find("a").removeAttr("style");
+                    
+                });
+                $("tr>td>a").mouseenter(function(){
+                    $(this).css("cursor","pointer");
+                })
+            });
+        </script>
     </head>
     <body>
 
-        <div id="container">
+
 <div id="content">
-        <table width="563" height="92" align="center">
+        <table width="100%">
   <tr>
-    <th colspan="4"><div align="center"><br>MEN&Uacute; DE TAREAS <br> para la Fuente Econ&oacute;mica <br> <c:out value="${codfueneco}"/> - <c:out value="${descripcion}"/> <br></div></th>
+    <th colspan="4"><div align="center"><br>MEN&Uacute; DE TAREAS </div></th>
+  </tr>
+  <tr>
+      <th>Nro.</th>
+      <th>C&oacute;digo</th>
+      <th>Descripci&oacute;n</th>
+      <th>Fuentes de financiamiento</th>
   </tr>
 <%int i=0;%>
-        <c:forEach var="g" items="${pat}">
-             <c:if test="${g.tipo == '2'}">
-                <tr>
-                <td colspan="4"><div align="center"><span class="Estilo1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div> </td>
-             </tr>
-			  <tr>
-                <th colspan="4"><div align="center"><c:out value="${g.codigo}"/> - <c:out value="${g.descripcion}"/></div> </th>
-             </tr>
-             </c:if>
-
-              <c:if test="${g.tipo == '3'}">
-			  <%i++;%>
-            <tr>
-    <td width="22"><div align="center"><%= i%></div></td>
-    <td width="29">Tarea</td>
-    <td width="86"><div align="center"><a href="javascript:popUp('<c:url value="/GralFuen3.do">
-                       <c:param name="codtar" value="${g.codigo}"/>
-                       <c:param name="destar" value="${g.descripcion}"/>
-
-                       <c:param name="codfueneco" value="${codfueneco}"/>
-                       <c:param name="desfe" value="${descripcion}"/>
-
-                   </c:url>')"> <c:out value="${g.codigo}"/> </a></div></td>
-    <td width="398"><a href="javascript:popUp('<c:url value="/GralFuen3.do">
-                       <c:param name="codtar" value="${g.codigo}"/>
-                       <c:param name="destar" value="${g.descripcion}"/>
-
-                       <c:param name="codfueneco" value="${codfueneco}"/>
-                       <c:param name="desfe" value="${descripcion}"/>
-
-                   </c:url>')"> <c:out value="${g.descripcion}"/> </a></td>
-  </tr>
+<c:forEach var="c" begin="0" end="${tam-1}">
+    <tr>
+        <td><c:out value="${c+1}" /></td>
+    
+        <td>
+        <c:out value="${v[c][0]}" />
+        </td>
+        <td>
+        <c:out value="${v[c][1]}" />
+        </td>
+        <td>
+            <c:if test="${cnt[c]>0}">
+            <c:forEach var="j" begin="0" end="${cnt[c]-1}">
+                [ 
+                    <a  href="javascript:popUp('<c:url value="/GralFuen3.do">
+                        <c:param name="codtar" value="${v[c][0]}"/>
+                        <c:param name="codfueneco" value="${v[c][2*j+2]}"/>
+                        </c:url>')" title="Ver detalle de la tarea <c:out value="${v[c][1]}"/> en base a la fuente de financiamiento <c:out value="${v[c][2*j+3]}"/>">
+                            <c:out value="${v[c][2*j+2]}" />
+                    </a>
+                
+                 ]
+            </c:forEach>
+            </c:if>
+        </td>
+    </tr>    
+</c:forEach>
 
 
-              </c:if>
 
-        </c:forEach>
     </table>
-</div></div>
+</div>
     </body>
 </html>
