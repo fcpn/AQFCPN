@@ -34,12 +34,13 @@
                     $(this).find("td").find("a").removeAttr("style");
                     
                 });
+                $("table").width(400);
             });
         </script>
     </head>
     <body oncontextmenu="return false">
-        <div id="content">
-        <table width="349" height="244" border="1" align="center">
+        <div id="content" align="center">
+        <table border="1" align="center">
             <tr>
                 <th colspan="2">
             <div align="center">  <strong>
@@ -59,12 +60,12 @@
             </div>
                 </th>
             </tr>
-            <tr bgcolor="#F3BF5F">
-                        <th width="121"><strong>Fecha de petici&oacute;n </strong></th>
-                        <th width="132"><strong>Nro. de correlativo </strong></th>
+            <tr>
+                <th ><strong>Fecha de petici&oacute;n </strong></th>
+                <th><strong>Nro. de correlativo </strong></th>
                     </tr>
                     <c:forEach var="g" items="${correlativo}">
-                    <tr onMouseOver="this.style.backgroundColor = '#D6D6D6';" onMouseOut="this.style.backgroundColor = '#ffffff';">
+                    <tr  title="Clic para ver la lista de la certificaci&oacute;n presupuestaria de la tarea <c:out value="${tarea.descripcion}"/> con c&oacute;digo <c:out value="${tarea.codtar}"/> en Proceso">
                         <td>
                             <a  href="<c:url value="/MosCertProc.do">
                                 <c:param name="codtar" value="${tarea.codtar}"/>

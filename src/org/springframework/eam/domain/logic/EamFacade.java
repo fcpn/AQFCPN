@@ -12,6 +12,7 @@ import org.springframework.eam.domain.Usuarios;
 import org.springframework.eam.domain.Personas;
 import org.springframework.eam.domain.Roles;
 import org.springframework.eam.domain.Administrativos;
+import org.springframework.eam.domain.Comprometido;
 import org.springframework.eam.domain.Registro;
 import org.springframework.eam.domain.Documentos;
 import org.springframework.eam.domain.Pais;
@@ -382,6 +383,8 @@ public interface EamFacade {
     List getListAllTareaByActividad(ProActTar actividad);
 
     Personas getNombresByIdUsuario(String id_usuario_creador_cert);
+
+    Comprometido getObjRefComproById(Comprometido c);
 
 
 }

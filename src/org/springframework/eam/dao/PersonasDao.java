@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Date;
 import org.springframework.dao.DataAccessException;
 import org.springframework.eam.domain.Beneficiario;
+import org.springframework.eam.domain.Comprometido;
 import org.springframework.eam.domain.InsPreIng;
 import org.springframework.eam.domain.Personas;
 import org.springframework.eam.domain.ProActTar;
@@ -89,5 +90,7 @@ public interface PersonasDao {
     List getFuentesAndMontosEjecutadosByTarea(ProActTar tarea) throws DataAccessException;
 
     Personas getNombresByIdUsuario(String id_usuario_creador_cert) throws DataAccessException;
+
+    Comprometido getObjRefComproById(Comprometido c) throws DataAccessException;
 
 }

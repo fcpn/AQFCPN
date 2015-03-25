@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.eam.domain.Beneficiario;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
 import org.springframework.eam.dao.PersonasDao;
+import org.springframework.eam.domain.Comprometido;
 import org.springframework.eam.domain.InsPreIng;
 import org.springframework.eam.domain.Personas;
 import org.springframework.eam.domain.ProActTar;
@@ -245,5 +246,9 @@ public class SqlMapPersonasDao extends SqlMapDaoSupport implements PersonasDao {
             return persona;
         }
         
+    }
+
+    public Comprometido getObjRefComproById(Comprometido c) throws DataAccessException {
+        return (Comprometido) getSqlMapTemplate().executeQueryForObject("getObjRefComproById", c);
     }
 }

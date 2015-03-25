@@ -21,6 +21,7 @@ import org.springframework.eam.domain.Usuarios;
 import org.springframework.eam.domain.Personas;
 import org.springframework.eam.domain.Roles;
 import org.springframework.eam.domain.Administrativos;
+import org.springframework.eam.domain.Comprometido;
 import org.springframework.eam.domain.Registro;
 import org.springframework.eam.domain.Pais;
 import org.springframework.eam.domain.Departamento;
@@ -727,5 +728,10 @@ public class EamImpl implements EamFacade {
 
     public Personas getNombresByIdUsuario(String id_usuario_creador_cert) {
         return this.personasDao.getNombresByIdUsuario(id_usuario_creador_cert);
+    }
+
+    public Comprometido getObjRefComproById(Comprometido c) {
+        
+        return this.personasDao.getObjRefComproById(c);
     }
 }

@@ -1,82 +1,65 @@
-
-
 <%@ include file="../../Cabecera.jsp" %>
 <html>
 <head>
     <title>Mostrando los montos presupuestados</title>
-    <style type="text/css">
-        <!--
-
-.Estilo4 {
-	color: #FFFFFF;
-	font-weight: bold;
-	font-size: 24px;
-}
-.Estilo5 {
-	color: #FFFFFF;
-	font-weight: bold;
-}
-.Estilo25 {font-size: 10px; font-weight: bold; font-family: Geneva, Arial, Helvetica, sans-serif; }
-.Estilo29 {font-size: 10px; font-family: Geneva, Arial, Helvetica, sans-serif; }
-.Estilo30 {font-family: Verdana, Arial, Helvetica, sans-serif}
-.Estilo31 {font-size: 12px}
-
-.Estilo1 {font-size: 12px}
-.Estilo3 {font-size: 12px; font-weight: bold; }
-            -->
-    </style>
-</head>
+    <link href="tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="tablecloth/tablecloth.js"></script>
+ </head>
 <body>
 <p>&nbsp;</p>
-
+<div id="content">
 <form name="form1" method="post" action="<c:url value="/ModifiCertProc2.do"/>">
-
-<div align="center">Correltivo # <c:out value="${num_sol}"/></div><br>
-                <div align="center">realizado en fecha <c:out value="${fecha}"/></div>
-                <br>
 <table width="650" height="52" border="1" align="center">
-      <tr bgcolor="#F3BF5F">
-        <td width="146" align="center"><div align="center"><span class="Estilo1"><strong>Requerimiento especificado</strong></span></div></td>
-        <td width="48"align="center"><div align="center"><span class="Estilo1"><strong>Cantidad</strong></span></div></td>
-        <td width="48" align="center"><div align="center"><span class="Estilo1"><strong>Monto</strong></span></div></td>
-        <td width="52" align="center"><div align="center"><span class="Estilo1"><strong>Tarea</strong></span></div></td>
-        <td width="60" align="center"><div align="center"><span class="Estilo1"><strong>Partida</strong></span></div></td>
-        <td width="68" align="center"><div align="center"><span class="Estilo1"><strong>FF-OF</strong></span></div></td>
-        <td colspan="2" align="center"><div align="center"><span class="Estilo1"><strong>Responsable de tarea</strong></span></div></td>
-
-        <td width="69" ><div align="center"><span class="Estilo1">Modificar</span></div></td>
-      </tr>
-
-
-	  <tr>
+    <tr>
+        <th colspan="9"><strong>
+            <div align="center">Correltivo # <c:out value="${num_sol}"/></div><br>
+ <div align="center">Realizado en fecha <c:out value="${fecha}"/></div></strong>
+        </th>
+    <tr>
+    <tr >
+        <th width="146"><div align="center"><strong>Requerimiento especificado</strong></div></th>
+        <th width="48"><div align="center"><strong>Cantidad</strong></div></th>
+        <th width="48"><div align="center"><strong>Monto</strong></div></th>
+        <th width="52"><div align="center"><strong>Tarea</strong></div></th>
+        <th width="60"><div align="center"><strong>Partida</strong></div></th>
+        <th width="68"><div align="center"><strong>FF-OF</strong></div></th>
+        <th colspan="2"><div align="center"><strong>Responsable de tarea</strong></div></th>
+        <th width="69" ><div align="center">Modificar</div></th>
+    </tr>
+    <tr>
         <!--           <c:out value="${g.glosa}"/> -->
-		<td valign="top"><div align="right">
-          <textarea name="especificacion" cols="20" id="especificacion"><c:out value="${lis_cert.glosa}"/></textarea>
-</div></td>
-
+	<td valign="top"><div align="right">
+        <textarea name="especificacion" cols="20" id="especificacion"><c:out value="${lis_cert.glosa}"/></textarea>
+        </div>
+        </td>
         <td valign="top"><div align="center" >
           <input name="cantidad" type="text" id="cantidad" size="5" value="<c:out value="${lis_cert.cantidad}"/>">
-          </div></td>
-
+          </div>
+        </td>
         <td valign="top"><div align="right">
           <input name="monto" type="text" id="monto" size="5" value="<c:out value="${lis_cert.monto}"/>">
-           </div></td>
+           </div>
+        </td>
 
         <td valign="top"><div align="center"><c:out value="${lis_cert.codtar}"/> </div></td>
 
 	    <!--  <c:out value="${g.codmonegr}"/> -->
 	    <td valign="top"><div align="center">
           <input name="partida" type="text" id="partida" size="7" value="<c:out value="${lis_cert.codmonegr}"/>">
-         </div></td>
+         </div>
+        </td>
 
         <td valign="top"><div align="center">
           <input name="codfueneco" type="text" id="codfueneco" size="6" value="<c:out value="${lis_cert.codfueneco}"/>">
-          </div></td>
+          </div>
+        </td>
 
-        <td valign="top" colspan="2" align="center"><textarea name="responsable" cols="15" id="responsable"><c:out value="${lis_cert.responsable}"/></textarea>  </td>
+        <td valign="top" colspan="2" align="center"><textarea name="responsable" cols="15" id="responsable"><c:out value="${lis_cert.responsable}"/></textarea>  
+        </td>
 
-        <td> <input type="submit" name="Submit" value="modificar"></td>
-      </tr>
+        <td> <input type="submit" name="Submit" value="modificar">
+        </td>
+    </tr>
 
 
 </table>
@@ -103,5 +86,6 @@
 </form>
 <div align="right"><a href="javascript:history.back(1)">Volver Atrás</a></div>
 <p>&nbsp;</p>
+</div>
 </body>
 </html>

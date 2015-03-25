@@ -34,21 +34,13 @@ public class EjecuCompro2 implements Controller {
         //llevando fuente tarea + descripcion
         String codtar=request.getParameter("codtar");
         modelo.put("codtar",codtar);
-        System.out.println("DES_Tarea ---- "+codtar);
-        
-        
         
         //llevando fuente clasificador codigo + descripcion
         String codmonegr=request.getParameter("codmonegr");
         
-        
-        
         //llevando fuente actividad + descripcion
         String codacti=request.getParameter("codacti");
         modelo.put("codacti",codacti);
-        System.out.println("DES_actividad ---- "+codacti);
-        
-        
         
         
         String[] vec = new String [1000];
@@ -62,7 +54,6 @@ public class EjecuCompro2 implements Controller {
         //String [] compro = com.split("::");
          if(com!=null)
         {
-        System.out.println("AAAAAAAAAAAAA ");
         String compro []= new String[1000];
         j=0;
         for(int i = 0 ; i < com.length ; i++) 

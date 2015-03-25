@@ -276,5 +276,24 @@
     <mapped-statement name="getNombresByIdUsuario" result-map="PersonaByIdusuario">
         SELECT * FROM personas WHERE id_persona=(select id_persona from administrativos where id_administrativo=#value#)
     </mapped-statement>
+    
+    
+    <result-map name="refcompro" class="org.springframework.eam.domain.Comprometido">
+        <property name="id" column="ID"/>
+        <property name="codtar" column="CODTAR"/>
+        <property name="codfueneco" column="CODFUENECO"/>
+        <property name="monto" column="MONTO"/>
+        <property name="codmonegr" column="CODMONEGR"/>
+        <property name="glosa" column="GLOSA"/>
+        <property name="num_sol" column="NUM_SOL"/>
+        <property name="responsable" column="RESPONSABLE"/>
+        <property name="glo_rut" column="GLO_RUT"/>
+        <property name="cantidad" column="CANTIDAD"/>
+    </result-map>
+    <mapped-statement name="getObjRefComproById" result-map="refcompro">
+        SELECT * FROM refcompro WHERE id=#id#;
+    </mapped-statement>
+    
+    
 </sql-map>
 

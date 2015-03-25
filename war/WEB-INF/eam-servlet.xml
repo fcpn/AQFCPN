@@ -4288,12 +4288,17 @@
     </bean>
             
     <!-- Nuevo Para Reportes -->
-    <!--Ejecucion Parcial 2015-->
-<!--    <bean name="/EjecucionParcia1.do" class="org.springframework.eam.web.spring.presupuestos3.EjecucionParcia1.do">
+    <!--Ejecucion Parcial 2015 Israel -->
+    <bean name="/ejecucionparcial0.do" class="org.springframework.eam.web.spring.egresos.ejecucionparcial0">
         <property name="eam">
             <ref bean="eam"/>
         </property>
-    </bean>-->
+    </bean>
+    <bean name="/ejecucionparcial1.do" class="org.springframework.eam.web.spring.egresos.Ejecucionparcial1">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>
         
     <!--FIN Ejecucion Parcial 2015-->
 </beans>
