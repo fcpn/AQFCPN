@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.eam.domain.Comprometido;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.ProActTar;
 
 import org.springframework.eam.domain.logic.EamFacade;
@@ -145,6 +146,10 @@ public class SolFor4 implements Controller {
         modelo.put("responsable", responsable);
         modelo.put("sw", sw);
 
+        
+         DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
         if (mont_ != null) {
             //mi PDF
             if (sw.equals("0")) {
@@ -169,7 +174,7 @@ public class SolFor4 implements Controller {
                     PdfPTable table = new PdfPTable(anchos);
                     table.setWidthPercentage(95);
 
-                    PdfPCell cell = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\nFACULTAD DE CIENCIAS PURAS Y NATURALES", FontFactory.getFont(FontFactory.TIMES_BOLD, 8))));
+                    PdfPCell cell = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\n"+autoridad.getDato3().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 8))));
                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell.setColspan(4);
                     table.addCell(cell);

@@ -34,37 +34,83 @@
                     $(this).find("td").find("a").removeAttr("style");
                     
                 });
+                $("tr>td[style^=background]").parent("tr").mouseenter(function ()
+                {
+                    $(this).find("td").css("background","#04B431");
+                    $(this).find("td").css("color","#ffffff");
+                    $(this).find("td").find("a").css("color","#ffffff");
+                    $(this).css("cursor","pointer");
+                    
+                });
+                $("tr>td[style^=background]").parent("tr").mouseleave(function ()
+                {
+                    $(this).find("td").css("background","#BDFEBD");
+                    $(this).find("td").find("a").removeAttr("style");
+                    
+                });
                 $("table").width(400);
             });
         </script>
+        <style>
+        
+        </style>
     </head>
     <body oncontextmenu="return false">
         <div id="content" align="center">
         <table border="1" align="center">
             <tr>
                 <th colspan="2">
-            <div align="center">  <strong>
-                    Lista de certificaciones Presupuestarias de la tarea
-                    <br>
-                    <c:out value="${tarea.descripcion}"/>
-                    <br>
-                    con c&oacute;digo 
-                    <br>
-                    <c:out value="${tarea.codtar}"/>
-                    <br>
-                    en Proceso<br>
-                    Mostradas en orden de
-                    <br>
-                    correlativo
-                            </strong>
-            </div>
+                    <div align="center">  <strong>
+                        Lista de certificaciones Presupuestarias de la tarea
+                        <br>
+                        <c:out value="${tarea.descripcion}"/>
+                        <br>
+                        con c&oacute;digo 
+                        <br>
+                        <c:out value="${tarea.codtar}"/>
+                        <br>
+                        en Proceso<br>
+                        Mostradas en orden de
+                        <br>
+                        correlativo
+                                </strong>
+                    </div>
                 </th>
             </tr>
+            <tr><th colspan="2"><strong><div align="center">Certificaciones Presupuestarias Ejecutadas</div></strong></th></tr> 
             <tr>
                 <th ><strong>Fecha de petici&oacute;n </strong></th>
                 <th><strong>Nro. de correlativo </strong></th>
-                    </tr>
-                    <c:forEach var="g" items="${correlativo}">
+            </tr>
+            
+            <c:forEach var="h" items="${correlativo_h}">
+                <tr title="Clic para ver la lista de la certificaci&oacute;n presupuestaria de la tarea <c:out value="${tarea.descripcion}"/> con c&oacute;digo <c:out value="${tarea.codtar}"/> que fueron ejecutadas.">
+                    <td style="background-color: #BDFEBD;">
+                        <a  href="<c:url value="/MosCertProc2h.do">
+                            <c:param name="codtar" value="${tarea.codtar}"/>
+                            <c:param name="num_sol" value="${h.num_sol}"/>
+                            <c:param name="fecha" value="${h.fecha}"/>
+                        </c:url>">
+                            <strong> <c:out value="${h.fecha}"/> </strong>
+                        </a>
+                    </td>
+                    <td style="background-color: #BDFEBD;">
+                    <a  href="<c:url value="/MosCertProc2h.do">
+                        <c:param name="codtar" value="${tarea.codtar}"/>
+                        <c:param name="num_sol" value="${h.num_sol}"/>
+                        <c:param name="fecha" value="${h.fecha}"/>
+                        </c:url>">
+                            <strong> <c:out value="${h.num_sol}"/></strong> 
+                    </a>
+                    </td>
+                </tr>
+            </c:forEach>
+                <tr><th colspan="2"><strong><div align="center">Certificaciones Presupuestarias en Proceso</div></strong></th></tr>
+                <tr>
+                    <th ><strong>Fecha de petici&oacute;n </strong></th>
+                    <th><strong>Nro. de correlativo </strong></th>
+                </tr>
+                <c:forEach var="g" items="${correlativo}">
                     <tr  title="Clic para ver la lista de la certificaci&oacute;n presupuestaria de la tarea <c:out value="${tarea.descripcion}"/> con c&oacute;digo <c:out value="${tarea.codtar}"/> en Proceso">
                         <td>
                             <a  href="<c:url value="/MosCertProc.do">
@@ -87,8 +133,8 @@
                             </a>
                         </td>
                     </tr>
-                    </c:forEach>
-           
+                </c:forEach>
         </table>
+        </div>
     </body>
 </html>

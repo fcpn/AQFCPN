@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.eam.domain.Comprometido;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.ProActTar;
 
 import org.springframework.eam.domain.logic.EamFacade;
@@ -136,6 +137,9 @@ public class SolCom11 implements Controller {
             pro.setNit_proveedor(nit);
             orm.ejecutarObjeto("beneficiarios_proveedores", "buscar_con_nit", pro, pro);
         }
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
         if (mont != null) {
             Document document = new Document(PageSize.LETTER);
             // margenes de hoja (lado derecho, lado izquierdo, arriba, abajo)
@@ -161,7 +165,7 @@ public class SolCom11 implements Controller {
                 float[] anchos1 = {0.20f, 0.60f, 0.20f};
                 PdfPTable tabla1 = new PdfPTable(anchos1);
 
-                PdfPCell cell1 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \nFACULTAD DE CIENCIAS PURAS Y NATURALES\nALMACENES", FontFactory.getFont(FontFactory.TIMES_BOLD, 4))));
+                PdfPCell cell1 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n"+autoridad.getDato3().toUpperCase()+"\nALMACENES", FontFactory.getFont(FontFactory.TIMES_BOLD, 4))));
                 cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tabla1.addCell(cell1);
 

@@ -54,10 +54,7 @@
                         <tr>
                             <td colspan="6"><table width="785" border="0">
                                     <tr>
-                                        <td width="199"><div align="center"><STRONG>UNIVERSIDAD MAYOR DE SAN ANDRÉS<br>
-                                                    FACULTAD DE CIENCIAS PURAS Y NATURALES<br>
-                                                    UNIDAD DESCONCENTRADA</STRONG></div></td>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <table width="572" border="0">
                                                 <tr>
                                                     <th width="333"><div align="center">ORDEN DE COMPRA</div></th>

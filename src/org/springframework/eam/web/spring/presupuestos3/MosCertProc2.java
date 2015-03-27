@@ -30,6 +30,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.InsPreIng;
 import org.springframework.eam.domain.MosPresuIng;
 import org.springframework.eam.domain.Personas;
@@ -204,6 +205,10 @@ public class MosCertProc2 implements Controller {
         orm.ejecutarObjeto("codigostareaactividad", "descripcion", descrip, descrip);
         modelo.put("descripCarrera", descrip);
         modelo.put("MN", MN);
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
+        
         if (M[0][0] != null) {
             Document document = new Document(PageSize.LETTER);
             // margenes de hoja (lado derecho, lado izquierdo, arriba, abajo)
@@ -222,7 +227,7 @@ public class MosCertProc2 implements Controller {
                 Font encabezado2 = new Font(Font.TIMES_ROMAN, 5, Font.BOLD);
                 document.add(new Paragraph("UNIVERSIDAD MAYOR DE SAN ANDRÉS", encabezado));
                 document.add(new Paragraph("DIRECCIÓN ADMINISTRATIVA FINANCIERA", encabezado));
-                document.add(new Paragraph("SISTEMA DE PRESUPUESTOS AQUILES FCPN", encabezado2));
+                document.add(new Paragraph("SISTEMA DE PRESUPUESTOS AQUILES "+autoridad.getDato4().toUpperCase(), encabezado2));
                 PdfContentByte cb = writer.getDirectContent();
                 BaseFont bf = BaseFont.createFont(BaseFont.TIMES_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 BaseFont cuerp = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -286,7 +291,7 @@ public class MosCertProc2 implements Controller {
                 dcell.setBorder(Rectangle.NO_BORDER);
                 dcell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 tabla.addCell(dcell);
-                dcell = new PdfPCell(new Paragraph(new Phrase("FACULTAD DE CIENCIAS PURAS Y NATURALES", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
+                dcell = new PdfPCell(new Paragraph(new Phrase(autoridad.getDato3().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
                 dcell.setBorder(Rectangle.NO_BORDER);
                 dcell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 tabla.addCell(dcell);
@@ -884,7 +889,7 @@ public class MosCertProc2 implements Controller {
                 cellf2.setColspan(3);
                 tableFirm2.addCell(cellf2);
 
-                cellf2 = new PdfPCell(new Paragraph(new Phrase("Lic. Victor H. Concha Hermosa\nJEFE UNIDAD ADM.DESCONCENTRADA\nFac.Cs. Puras y Naturales", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
+                cellf2 = new PdfPCell(new Paragraph(new Phrase(autoridad.getDato1()+"\n"+autoridad.getDato2()+"\n"+autoridad.getDato3(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
                 cellf2.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellf2.setBorder(Rectangle.NO_BORDER);
                 cellf2.setColspan(3);

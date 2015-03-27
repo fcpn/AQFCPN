@@ -79,7 +79,7 @@ public class Ejecucionparcial1 implements Controller {
          egreso_ejecutado.setMonacumulado(monto_ejecucion);
          
          orm.ejecutarObjeto("montosegreso", "inserta_ejecutado_referencia", egreso_ejecutado, null);
-         orm.ejecutarObjeto("comproegr", "eliminar_acumulado_ref", formulario_compra, null);
+         orm.ejecutarObjeto("comproegr", "eliminar_acumulado_refh", formulario_compra, null);
          
          
          ejecucion_inicial.setMonto(monto_ejecucion);

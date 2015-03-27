@@ -4299,6 +4299,10 @@
             <ref bean="eam"/>
         </property>
     </bean>
-        
+    <bean name="/MosCertProc2h.do" class="org.springframework.eam.web.spring.presupuestos3.MosCertProc2h">
+        <property name="eam">
+            <ref bean="eam"/>
+        </property>
+    </bean>    
     <!--FIN Ejecucion Parcial 2015-->
 </beans>

@@ -49,15 +49,19 @@ public class NroCert implements Controller {
         orm.ejecutarObjeto("proacttar","codtar",tar,tar);
         modelo.put("tarea",tar);
         
-
-        /*Listado de los correlativos de las certificaciones en proceso*/
         Comprometido moscert=new Comprometido();
         moscert.setCodtar(codtar);
         moscert.setI_e(i_e);
+        
+        
+
+        /*Listado de los correlativos de las certificaciones en proceso*/
         List mont=orm.ejecutarLista("compro_certificacion","muestra_procesos",moscert,new Comprometido());
         modelo.put("correlativo", mont);
 
-
+        List mont_h=orm.ejecutarLista("compro_certificacion","muestra_procesos_historial",moscert,new Comprometido());
+        modelo.put("correlativo_h", mont_h);
+        
         orm.cerrar();//cerrar la conexion    ahora vamos a jsp
         
         return new ModelAndView("presupuestos2/comprometido/NroCert", modelo);

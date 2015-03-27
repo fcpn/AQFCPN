@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Avance de Tareas de la Facultad de Ciencias Puras y Naturales</title>
+    <title>Avance de Tareas</title>
     <style type="text/css">
         <!--
 .Estilo4 {

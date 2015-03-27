@@ -22,8 +22,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th colspan="4" rowspan="3"><div align="center" class="Estilo1">Universidad mayor de san andres <br> Facultad de Ciencias Puras y Naturales</div></th>
-                        <th colspan="3" rowspan="3"><div align="center" class="Estilo1">SOLICITUD DE COMPRA </div></th>
+                        <th colspan="7" rowspan="3"><div align="center" class="Estilo1">SOLICITUD DE COMPRA </div></th>
                         <th height="22" colspan="3"><div align="center" class="Estilo1">UNIDAD SOLICITANTE </div></th>
                     </tr>
                     <tr>

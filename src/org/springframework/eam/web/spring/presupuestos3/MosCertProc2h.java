@@ -1,4 +1,4 @@
-package org.springframework.eam.web.spring.certificacion;
+package org.springframework.eam.web.spring.presupuestos3;
 
 import Ajayu_orm.orm_bd;
 import com.lowagie.text.Chunk;
@@ -14,6 +14,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.BarcodeEAN;
 import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.GrayColor;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -29,14 +30,12 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.eam.domain.Comprometido;
 import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.InsPreIng;
 import org.springframework.eam.domain.MosPresuIng;
 import org.springframework.eam.domain.Personas;
 import org.springframework.eam.domain.ProActTar;
 import org.springframework.eam.domain.classcertificacion;
-import org.springframework.eam.web.spring.calendario.Calendario;
 import org.springframework.eam.domain.logic.EamFacade;
 import org.springframework.eam.web.spring.Ajayu_morm.mconexion;
 
@@ -44,7 +43,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.util.WebUtils;
 
-public class cert5 implements Controller {
+public class MosCertProc2h implements Controller {
 
     private EamFacade eam;
 
@@ -53,247 +52,43 @@ public class cert5 implements Controller {
     }
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map modelo = new HashMap();
+        
         String id_usuario = (String) WebUtils.getRequiredSessionAttribute(request, "__sess_id_usuario");
-
+        
+        Map modelo = new HashMap();
         String codtar = request.getParameter("codtar");
         modelo.put("codtar", codtar);
-        // String responsable=request.getParameter("responsable");
-
-        String MN[][] = new String[3][3];
-        MN[0][0] = null;
-        orm_bd orm = new orm_bd();//llamando a la tabla _orma
-        orm.verCompilado = "C";
-        mconexion m = new mconexion();//conexion a la base de datos
-        orm.establecerConexion(m.extraerConexion("url1"));//conexion establecida con url1
-
-        DecimalFormat df2 = new DecimalFormat("###,###,###,##0.00");
-
-
-        /*Sacando  todo de la actividad en consultas anidadas */
-        ProActTar tare = new ProActTar();
-        tare.setCodtar(codtar);
-        orm.ejecutarObjeto("gral", "selec", tare, tare);
-        modelo.put("actividad", tare);
-        String codacti = tare.getCodacti();
-        /*FIN FIN FIN FIN */
-
-        //sacando el todo de la tabla programa en base al codigo de tarea
-        ProActTar pro = new ProActTar();
-        pro.setCodtar(codtar);
-        orm.ejecutarObjeto("proacttar", "codpro_desde_codtar", pro, pro);
-
-        int corr_pro = Integer.valueOf(pro.getCorrelativo_unidad());
-        corr_pro++;
-        String corre_prog = Integer.toString(corr_pro);
-        //FINFIN
-
-
-        /*Sacando la tarea*/
-        ProActTar tarw = new ProActTar();
-        tarw.setCodtar(codtar);
-        orm.ejecutarObjeto("proacttar", "codtar", tarw, tarw);
-        modelo.put("tarea", tarw);
-        String n_cor = tarw.getCorrelativo();
-        int f;
-        f = Integer.valueOf(n_cor).intValue() + 1;
-        //f=Double.valueOf(n_cor).doubleValue() + 1;
-        modelo.put("coo", Integer.toString(f));
-
-        ProActTar fuen = new ProActTar();
-
-        //modelo.put("tarea",tarw);
-        String M[][] = new String[1000][1000];
-
-        classcertificacion regtem = new classcertificacion();
-        regtem.setCodtar(codtar);
-        // tarr.setCodfueneco(codfueneco);
-        List lis_certi_proceso = orm.ejecutarLista("certificacion", "mostrar_certificacion_proceso", regtem, new classcertificacion());
-
-        //if(lis_certi_proceso!=null){modelo.put("sw",'1');}
-        List lis_para_insertar = orm.ejecutarLista("certificacion", "mostrar_certificacion_proceso", regtem, new classcertificacion());
-        // insert into refcompro (monto,codtar,codfueneco,codmonegr,glosa,fecha,ref123,obs,i_e) values (#monto#,#codtar#,#codfueneco#,#codmonegr#,#glosa#,#fecha#,#ref123#,#obs#,#i_e#);
-        double ssum = 0;
-        double a = 0;
-
-        if (lis_certi_proceso.size() > 0) {//if_1
-            for (int i = 0; i < lis_certi_proceso.size(); i++) {//for 1
-
-                //System.out.println("SACANDO de la lista");
-                classcertificacion ki = (classcertificacion) lis_certi_proceso.get(i);
-
-                if (codtar.equals(ki.getCodtar())) {//if_2
-                    M[i][0] = ki.getCodmonegr();
-                    M[i][1] = ki.getCodtar();
-                    M[i][2] = ki.getCodfueneco();
-                    //String sd=;
-//                        System.out.println("funte economica a set"+M[i][2]);
-                    fuen.setCodfueneco(M[i][2]);
-                    orm.ejecutarObjeto("fuenteeconomica", "codfueneco", fuen, fuen);
-                    M[i][3] = fuen.getDescripcion();
-                    a = Double.valueOf(ki.getMonto()).doubleValue(); //new Double().doubleValue();
-                    ssum = ssum + a;
-                    M[i][4] = df2.format(a).toString();
-                    M[i][5] = ki.getGlosa();
-                    M[i][6] = ki.getCantidad();
-                    M[i][7] = ki.getResponsable();
-                    //System.out.println("Comparando tarea"+ki.getCodtar());
-                }
-            }
-
-            modelo.put("M", M);
-            modelo.put("ssum", df2.format(ssum).toString());
-            modelo.put("n", Integer.toString(lis_certi_proceso.size()));
-            MN[0][0] = df2.format(ssum).toString();
-        } else {
-            modelo.put("lis_certi_proceso", lis_certi_proceso);
-        }
-
-
-        /*Fecha*/
-        Calendario calendario = new Calendario();
-        String me = calendario.getMonth();
-        String di = Integer.toString(calendario.getDayOfMonth());
-
-        String an = Integer.toString(calendario.getYear());
-        String hora = Integer.toString(calendario.getHour());
-        String minuto = Integer.toString(calendario.getMinute());
-
-        if (calendario.getMinute() < 10) {
-            minuto = "0" + minuto;
-        }
-        if (calendario.getDayOfMonth() < 10) {
-            di = "0" + di;
-        }
-        String horas = hora + ":" + minuto;
-
-        String desdia = calendario.getDay();
-        String dmes = Integer.toString(calendario.getMonthInt());
-
-        String fecha2 = desdia + " " + di + " de " + me + " de " + an;
-        String fecha = di + " de " + me + " de " + an;
-
-        if (calendario.getMonthInt() < 10) {
-            dmes = "0" + dmes;
-        }
-
-//        System.out.println("dia ******   "+di);
-//        System.out.println("mes ******   "+me);
-//        System.out.println("año ******   "+an.substring(2, 4));
-        String fechacom = di + "/" + dmes + "/" + an.substring(2, 4);
-//        System.out.println("Fecha para el comprometido   "+ fechacom);
-
-        modelo.put("fecha", fecha2);//descripcion del dia
-        modelo.put("an", an);
-        String fech_hora = fecha + " Hrs " + horas;//descripcion con horas
-
-        modelo.put("fech_hora", fech_hora);
-
-        /*Sacando  todo de la actividad en consultas anidadas */
-        ProActTar descrip = new ProActTar();
-        //descripcion de la carrera para la certificacion
-        descrip.setCodtar(codtar);
-        descrip.setCodacti(codacti);
-
-        orm.ejecutarObjeto("codigostareaactividad", "descripcion", descrip, descrip);
-        modelo.put("descripCarrera", descrip);
-        /*FIN FIN FIN FIN */
-
-        String numsol = "", fechacr = "";
-        Comprometido gr = new Comprometido();
-        if (lis_para_insertar != null) {//if_1
-            for (int i = 0; i < lis_para_insertar.size(); i++) {//for 1
-
-                classcertificacion ki = (classcertificacion) lis_certi_proceso.get(i);
-                gr.setCodmonegr(ki.getCodmonegr());
-                gr.setCodfueneco(ki.getCodfueneco());
-                gr.setRef123(ki.getRef123());
-                gr.setMonto(ki.getMonto());
-                gr.setGlosa(ki.getGlosa());
-                //gr.setGlosa(ki.getGlosa() + " con cantidad de "+ki.getCantidad());
-                gr.setFecha(fechacom);
-                if (i == 0) {
-                    numsol = ki.getNum_sol();
-                    fechacr = fechacom;
-                }
-                gr.setObs(ki.getObs());
-                gr.setCodtar(codtar);
-                orm.ejecutarObjeto("comproegr", "insertar_compro", gr, null);
-                gr.setNum_sol(ki.getNum_sol());
-                gr.setCantidad(ki.getCantidad());
-                gr.setResponsable(ki.getResponsable());
-                gr.setFechahrs(fech_hora);
-                gr.setFechalit(fecha2);
-                gr.setId_usuario_certificado(id_usuario);
-                //Insertando de la tabla comprmetido a la tabla ref compro para que se realice la certificacion presupuestaria en proceso 
-                orm.ejecutarObjeto("certificacion", "insertar_ref_del_tmpcom", gr, null);
-
-                gr.setCulmi_anula("proceso");
-                //gr.setGlosa(ki.getObs());
-                gr.setCorrelativo_unidad(corre_prog);
-                orm.ejecutarObjeto("formularios", "insertar_registros", gr, null);
-
-                orm.ejecutarObjeto("comproegr", "actualiza_compro", gr, null);
-
-                orm.ejecutarObjeto("certificacion", "in_particular", gr, null);//insertando en particular
-
-            }
-            //actualizamos el correlativo de la unidad
-            pro.setCodpro(pro.getCodpro());
-            pro.setCorrelativo_unidad(corre_prog);
-            orm.ejecutarObjeto("proacttar", "actualizo_correlativo", pro, null);
-        }
-
-        System.out.println("codtar   " + codtar + "  fechacr " + fechacr + "    numsol " + numsol);
-        String dirarchi = generaPdfCertificacion(codtar, fechacr, numsol);
-
-        if (MN[0][0] != null) {
-            orm.ejecutarObjeto("certificacion", "solicitud_mas", regtem, null); //para el correlativo
-        }
-
-        modelo.put("MN", MN);
-        modelo.put("direc", dirarchi);
-
-        orm.cerrar();//cerrar la conexion         ahora vamos a jsp 
-
-
-        /**/  // return new ModelAndView("certificacion/Cert5", modelo);
-        return new ModelAndView("certificacion/Cert5", modelo);
-    }
-
-    private String generaPdfCertificacion(String codtar, String fechacr, String numsol) throws Exception {
-
-        Map modelo = new HashMap();
-        modelo.put("codtar", codtar);
-        String fechaan = fechacr;
-        String num_sol = numsol;
+        String fechaan = request.getParameter("fecha");
+        String num_sol = request.getParameter("num_sol");
+        System.out.println("fechaan "+fechaan +"     num_sol "+num_sol+"     codtar "+codtar);
+        
         modelo.put("coo", num_sol);
         String i_e = "3";
         String MN[][] = new String[3][3];
         MN[0][0] = null;
-        orm_bd orm2 = new orm_bd();
-        orm2.verCompilado = "C";
+        orm_bd orm = new orm_bd();
+        orm.verCompilado = "C";
         mconexion m = new mconexion();
-        orm2.establecerConexion(m.extraerConexion("url1"));
+        orm.establecerConexion(m.extraerConexion("url1"));
         DecimalFormat df2 = new DecimalFormat("###,###,###,##0.00");
         /*Sacando  todo de la actividad en consultas anidadas */
         ProActTar taree = new ProActTar();
         taree.setCodtar(codtar);
-        orm2.ejecutarObjeto("gral", "selec", taree, taree);
+        orm.ejecutarObjeto("gral", "selec", taree, taree);
         modelo.put("actividad", taree);
         String codacti = taree.getCodacti();
         /*FIN FIN FIN FIN */
         /*Sacando la tarea*/
         ProActTar tarw = new ProActTar();
         tarw.setCodtar(codtar);
-        orm2.ejecutarObjeto("proacttar", "codtar", tarw, tarw);
+        orm.ejecutarObjeto("proacttar", "codtar", tarw, tarw);
         modelo.put("tarea", tarw);
         ProActTar fe = new ProActTar();
         String MSC[][] = new String[20][20];
         MSC[0][0] = "0";
         ProActTar fuen = new ProActTar();
         fuen.setCodtar(codtar);
-        List lis_fe_tar = orm2.ejecutarLista("fuenteeconomica", "fuentes_e_disponibles_en_tarea", fuen, new ProActTar());
+        List lis_fe_tar = orm.ejecutarLista("fuenteeconomica", "fuentes_e_disponibles_en_tarea", fuen, new ProActTar());
         modelo.put("tarea", fuen);
         if (lis_fe_tar.size() > 0) {
             for (int i = 0; i < lis_fe_tar.size(); i++) {
@@ -307,35 +102,35 @@ public class cert5 implements Controller {
             for (int f = 0; f < lis_fe_tar.size(); f++) {
                 sing.setCodtar(codtar);
                 sing.setCodfueneco(MSC[0][f]);
-                String tt = orm2.ejecutarObjeto("montosingreso", "tot_ejec_fe", sing, new String());
+                String tt = orm.ejecutarObjeto("montosingreso", "tot_ejec_fe", sing, new String());
                 if (tt != null) {
                     MSC[1][f] = tt;
                 } else {
                     MSC[1][f] = "0";
                 }
-                tt = orm2.ejecutarObjeto("cuentanopresuing", "tot_ejec_fe", sing, new String());
+                tt = orm.ejecutarObjeto("cuentanopresuing", "tot_ejec_fe", sing, new String());
                 if (tt != null) {
                     MSC[2][f] = tt;
                 } else {
                     MSC[2][f] = "0";
                 }
-                tt = orm2.ejecutarObjeto("montosegreso", "tot_ejec_fe", sing, new String());
+                tt = orm.ejecutarObjeto("montosegreso", "tot_ejec_fe", sing, new String());
                 if (tt != null) {
                     MSC[3][f] = tt;
                 } else {
                     MSC[3][f] = "0";
                 }
-                tt = orm2.ejecutarObjeto("cuentasnopresuegr", "tot_ejec_fe", sing, new String());
+                tt = orm.ejecutarObjeto("cuentasnopresuegr", "tot_ejec_fe", sing, new String());
                 if (tt != null) {
                     MSC[4][f] = tt;
                 } else {
                     MSC[4][f] = "0";
                 }
-                orm2.ejecutarObjeto("fuenteeconomica", "codfueneco", sing, sing);
+                orm.ejecutarObjeto("fuenteeconomica", "codfueneco", sing, sing);
                 if (sing != null) {
                     MSC[5][f] = sing.getDescripcion();
                 }
-                com = orm2.ejecutarObjeto("comproegr", "tot_ejec_fe", sing, new String());
+                com = orm.ejecutarObjeto("comproegr", "tot_ejec_fe", sing, new String());
                 if (com != null) {
                     MSC[7][f] = com;
                 } else {
@@ -352,13 +147,14 @@ public class cert5 implements Controller {
             double e = ((a + b) - (c + d)) - co;
             MSC[6][f] = df2.format(e).toString();
         }
+        
         String sal = "";
         String M[][] = new String[1000][1000];
         classcertificacion regtem = new classcertificacion();
         regtem.setCodtar(codtar);
         regtem.setNum_sol(num_sol);
         regtem.setFecha(fechaan);
-        List lis_certi_proceso = orm2.ejecutarLista("certificacion2", "mostrar_certificacion_area", regtem, new classcertificacion());
+        List lis_certi_proceso = orm.ejecutarLista("certificacion2", "mostrar_certificacion_areah", regtem, new classcertificacion());
         double ssum = 0;
         double a = 0;
         String id_usuario_creador_cert = "";
@@ -371,7 +167,7 @@ public class cert5 implements Controller {
                     M[i][1] = ki.getCodtar();
                     M[i][2] = ki.getCodfueneco();
                     fuen.setCodfueneco(M[i][2]);
-                    orm2.ejecutarObjeto("fuenteeconomica", "codfueneco", fuen, fuen);
+                    orm.ejecutarObjeto("fuenteeconomica", "codfueneco", fuen, fuen);
                     M[i][3] = fuen.getDescripcion();
                     a = Double.valueOf(ki.getMonto()).doubleValue();
                     ssum = ssum + a;
@@ -389,15 +185,15 @@ public class cert5 implements Controller {
             modelo.put("lis_certi_proceso", lis_certi_proceso);
         }
         
-        //InsPreIng sm = (InsPreIng) getSqlMapTemplate().executeQueryForObject("getTotalComprometidoByTareaAndFuente", oie);
+        System.out.println(id_usuario_creador_cert);
+        
         Personas persona = eam.getNombresByIdUsuario(id_usuario_creador_cert);
-
         classcertificacion fech = new classcertificacion();
         fech.setCodtar(codtar);
         fech.setNum_sol(num_sol);
         fech.setFecha(fechaan);
         fech.setI_e(i_e);
-        orm2.ejecutarObjeto("certificacion2", "descri_fechas", fech, fech);
+        orm.ejecutarObjeto("certificacion2", "descri_fechash", fech, fech);
         modelo.put("fechas", fech);
         int cc = fech.getFechalit().length();
         int ini = fech.getFechalit().length() - 2;
@@ -406,14 +202,10 @@ public class cert5 implements Controller {
         ProActTar descrip = new ProActTar();
         descrip.setCodtar(codtar);
         descrip.setCodacti(codacti);
-        orm2.ejecutarObjeto("codigostareaactividad", "descripcion", descrip, descrip);
+        orm.ejecutarObjeto("codigostareaactividad", "descripcion", descrip, descrip);
         modelo.put("descripCarrera", descrip);
         modelo.put("MN", MN);
-        String ff = codtar + "_" + num_sol + "_" + System.currentTimeMillis() + ".pdf";
-        orm_bd orm = new orm_bd();
-        orm.verCompilado = "C";
-        mconexion morm = new mconexion();
-        orm.establecerConexion(morm.extraerConexion("url1"));
+        
         DatosXml autoridad=new DatosXml();
         autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
         orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
@@ -424,19 +216,19 @@ public class cert5 implements Controller {
             document.setMargins(30, 30, 25, 25);//a,b,c,d,
             try {
                 String nombre_firma = "firma_actual.png";
-                Image png = Image.getInstance(System.getenv("AQUILESHOME7") + "/firmasjefearea/" + nombre_firma);////IN  CAMCAM
-//                Image png = Image.getInstance("d:/" + nombre_firma);
+//                Image png = Image.getInstance(System.getenv("AQUILESHOME7") + "/firmasjefearea/" + nombre_firma);////IN  CAMCAM
+                Image png = Image.getInstance("g:/" + nombre_firma);
                 png.setAlignment(Image.ALIGN_RIGHT);
                 png.scaleToFit(130f, 230f);
-
-                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getenv("AQUILESHOME7") + "/pdf/" + ff));
-//                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("D:/" + ff));
+                String ff = codtar + "_" + num_sol + "_" + System.currentTimeMillis() + ".pdf";
+//                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getenv("AQUILESHOME7") + "/pdf/" + ff));
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("g:/" + ff));
                 document.open();
                 Font encabezado = new Font(Font.TIMES_ROMAN, 7, Font.BOLD);
                 Font encabezado2 = new Font(Font.TIMES_ROMAN, 5, Font.BOLD);
                 document.add(new Paragraph("UNIVERSIDAD MAYOR DE SAN ANDRÉS", encabezado));
                 document.add(new Paragraph("DIRECCIÓN ADMINISTRATIVA FINANCIERA", encabezado));
-                document.add(new Paragraph("SISTEMA DE PRESUPUESTOS AQUILES "+autoridad.getDato4().toLowerCase(), encabezado2));
+                document.add(new Paragraph("SISTEMA DE PRESUPUESTOS AQUILES "+autoridad.getDato4().toUpperCase(), encabezado2));
                 PdfContentByte cb = writer.getDirectContent();
                 BaseFont bf = BaseFont.createFont(BaseFont.TIMES_BOLD, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
                 BaseFont cuerp = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
@@ -500,7 +292,7 @@ public class cert5 implements Controller {
                 dcell.setBorder(Rectangle.NO_BORDER);
                 dcell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 tabla.addCell(dcell);
-                dcell = new PdfPCell(new Paragraph(new Phrase(autoridad.getDato3(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
+                dcell = new PdfPCell(new Paragraph(new Phrase(autoridad.getDato3().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
                 dcell.setBorder(Rectangle.NO_BORDER);
                 dcell.setHorizontalAlignment(Element.ALIGN_LEFT);
                 tabla.addCell(dcell);
@@ -569,6 +361,21 @@ public class cert5 implements Controller {
                 dcell.setColspan(3);
                 tabla.addCell(dcell);
                 document.add(tabla);
+/////Rectangulo Con elnumero GRANDE   ...
+//                Rectangle rect;
+//                rect = new Rectangle(470, 700, 570, 630);
+//                rect.setBorder(Rectangle.BOX);
+//                rect.setBorderWidth(1);
+//                rect.setBorderColor(new GrayColor(0.2f));
+////rect.setBackgroundColor(new GrayColor(0.9f));
+//                cb.rectangle(rect);
+/////fin fin fin Rectangulo
+//                cb.beginText();
+//                cb.setFontAndSize(bf, 40);
+//                cb.moveText(510, 655);
+//                cb.newlineShowText(tarw.getNum_tarea());//
+//                cb.endText();
+//                FIN FIN  Con elnumero GRANDE ..
 ////////////////////////////////////////
                 float[] widths = {0.04f, 0.41f, 0.08f, 0.1f, 0.05f, 0.08f, 0.08f, 0.07f, 0.09f};
                 PdfPTable table = new PdfPTable(widths);
@@ -683,6 +490,69 @@ public class cert5 implements Controller {
                 cell = new PdfPCell(new Paragraph(new Phrase("0.00", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.addCell(cell);
+
+//                cell = new PdfPCell(new Paragraph(new Phrase("FECHA " + fech.getFechahrs(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setBorder(Rectangle.NO_BORDER);
+//                cell.setColspan(9);
+//                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph(new Phrase("PRESUPUESTO ", FontFactory.getFont(FontFactory.TIMES_BOLD, 9))));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setBorder(Rectangle.NO_BORDER);
+//                cell.setColspan(9);
+//                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph(new Phrase("El JEFE DEL ÁREA DESCONCENTRADA DE LA FACULTAD en cumplimiento de los Reglamentos Específicos de Operaciones y Presupuesto, certifica que la solicitud es PROCEDENTE", FontFactory.getFont(FontFactory.TIMES_BOLD, 8))));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setColspan(9);
+//                table.addCell(cell);
+//                cell = new PdfPCell(new Paragraph(new Phrase("FECHA " + fech.getFechahrs(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+//                cell.setBorder(Rectangle.NO_BORDER);
+//                cell.setColspan(9);
+//                table.addCell(cell);
+//Firmas
+//                PdfPTable tableFirm1 = new PdfPTable(9);
+//                tableFirm1.setWidthPercentage(95);
+//
+//                PdfPCell cellf1 = new PdfPCell(new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+//
+//                cellf1 = new PdfPCell(new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cellf1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+//
+//                cellf1 = new PdfPCell(new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cellf1.addElement(new Chunk(png, 30, -26));
+//                cellf1.setHorizontalAlignment(Element.ALIGN_RIGHT);
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+//                //////////////////////////////////////
+//                cellf1 = new PdfPCell(new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+//                cellf1 = new PdfPCell(new Paragraph(new Phrase(M[0][7] + "\n Responsable de tarea", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8)))); //      
+//                cellf1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+////CAMCAM      CAMBIAR POR UN QUERY QUE JALE DE LA BASE DE DATOS LA FIRMA ACTUAL DEL JEFE DE AREA  DATOS COMPLETOS.....
+//                cellf1 = new PdfPCell(new Paragraph(new Phrase("Lic. Victor H. Concha Hermosa\nJEFE UNIDAD ADM.DESCONCENTRADA\nFac.Cs. Puras y Naturales", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
+//                cellf1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//                cellf1.setBorder(Rectangle.NO_BORDER);
+//                cellf1.setColspan(3);
+//                tableFirm1.addCell(cellf1);
+//
+//                cell = new PdfPCell(tableFirm1);
+//                cell.setBorder(Rectangle.NO_BORDER);
+//                cell.setColspan(9);
+//                table.addCell(cell);
+//Fin firmas
 ///////////////////////////////////////////////////////
                 cell = new PdfPCell(new Paragraph(new Phrase("", FontFactory.getFont(FontFactory.TIMES_ROMAN, 9))));
                 cell.setBorder(Rectangle.NO_BORDER);
@@ -1113,8 +983,8 @@ public class cert5 implements Controller {
             document.close();
         }
 
-        orm2.cerrar();
-        return ff;
+        orm.cerrar();
+        return new ModelAndView("certificacion/MosCertProc2", modelo);
     }
 
     private int randomNumber(int min, int max) {

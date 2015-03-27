@@ -15,8 +15,7 @@
                 <form name="form1" method="post" action="<c:url value="/SolCom4.do"/>">
                     <table width="811" height="180" border="1">
                         <tr>
-                            <th colspan="4" rowspan="3"><div align="center"  >Universidad mayor de san andres<br> Facultad de Ciencias Puras y Naturales </div></th>
-                            <th colspan="3" rowspan="3"><div align="center"  >SOLICITUD DE COMPRA </div></th>
+                            <th colspan="7" rowspan="3"><div align="center"  >SOLICITUD DE COMPRA </div></th>
                             <th height="22" colspan="3"><div align="center"  >UNIDAD SOLICITANTE </div></th>
                         </tr>
                         <tr>

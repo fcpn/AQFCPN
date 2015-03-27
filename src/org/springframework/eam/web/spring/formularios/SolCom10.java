@@ -29,6 +29,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.eam.domain.Comprometido;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.ProActTar;
 
 import org.springframework.eam.domain.logic.EamFacade;
@@ -190,6 +191,14 @@ public class SolCom10 implements Controller {
             orm.ejecutarObjeto("beneficiarios_proveedores", "buscar_con_nit", pro, pro);
         }
         
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
+        DatosXml almacen=new DatosXml();
+        almacen.setDato2("ENCARGADO DE ALMACENES");
+        orm.ejecutarObjeto("autoridad", "actual", almacen, almacen);
+        
+        
         if (mont != null) {
             Document document = new Document(PageSize.LETTER);
             // margenes de hoja (lado derecho, lado izquierdo, arriba, abajo)
@@ -221,7 +230,7 @@ public class SolCom10 implements Controller {
                 float[] anchos1 = {0.20f, 0.60f, 0.20f};
                 PdfPTable tabla1 = new PdfPTable(anchos1);
 
-                PdfPCell cell1 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \nFACULTAD DE CIENCIAS PURAS Y NATURALES\nALMACENES", FontFactory.getFont(FontFactory.TIMES_BOLD, 4))));
+                PdfPCell cell1 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n"+autoridad.getDato3().toUpperCase()+"\nALMACENES", FontFactory.getFont(FontFactory.TIMES_BOLD, 4))));
                 cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tabla1.addCell(cell1);
 
@@ -445,12 +454,12 @@ public class SolCom10 implements Controller {
                 cellfirma.setBorder(Rectangle.NO_BORDER);
                 tablafirmas.addCell(cellfirma);
                 
-                cellfirma = new PdfPCell(new Paragraph(new Phrase("JORGE DURAN MONROY\nENCARGADO DE ALMACENES\nF.C.P.N. - UMSA", FontFactory.getFont(FontFactory.TIMES_BOLD, 9))));
+                cellfirma = new PdfPCell(new Paragraph(new Phrase(almacen.getDato1()+"\n"+almacen.getDato2()+"\n"+almacen.getDato4()+" - UMSA", FontFactory.getFont(FontFactory.TIMES_BOLD, 9))));
                 cellfirma.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellfirma.setBorder(0);
                 tablafirmas.addCell(cellfirma);
 
-                cellfirma = new PdfPCell(new Paragraph(new Phrase("Lic. Victor H. Concha Hermosa\nJEFE UNIDAD ADM.DESCONCENTRADA\nF.C.P.N. - UMSA", FontFactory.getFont(FontFactory.TIMES_BOLD, 9))));
+                cellfirma = new PdfPCell(new Paragraph(new Phrase(autoridad.getDato1()+"\n"+autoridad.getDato2()+"\n"+autoridad.getDato3().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 9))));
                 cellfirma.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cellfirma.setBorder(0);
                 tablafirmas.addCell(cellfirma);

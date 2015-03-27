@@ -154,7 +154,7 @@
             $('especificacion').value = '';
         }
         function inicio(){
-            $('resultado').innerHTML = "<table><tr> <th width='20' style='cursor:pointer' onclick='buscar();'><div align='center'>>> Menú Partidas <<</div></th></tr></table>";
+            $('resultado').innerHTML = "<table><tr> <th width='20' style='cursor:pointer' onclick='buscar();'><div align='center'> Menú Partidas </div></th></tr></table>";
         }
         function ok(a, b, c, d, e, f, g, h, i){
             //alert(" Jesus ");
@@ -422,15 +422,12 @@
     </head>
     <body >
         <div id="content" align="center">
-            <form name="form1" method="post" action="<c:url value="/cert5.do"/>">
+            <form name="form1" method="post" action='<c:url value="/cert5.do" />'>
                 <table>
                 <tr>
                     <th colspan="2"><h2 align="center">SOLICITUD DE CERTIFICACI&Oacute;N<br><c:out value="${fech_hora}"/></h2></th>
                 </tr>
-                <tr>
-                    <th>Unidad Ejecutora</th>
-                    <td>Facultad de Ciencias Puras </td>
-                </tr>
+
                 <tr>
                     <th>Apertura Programatica</th>
                     <td><c:out value="${descripCarrera.des_actividad}"/></td>

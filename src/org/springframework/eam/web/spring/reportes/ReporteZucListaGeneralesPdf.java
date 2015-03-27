@@ -23,6 +23,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.FuenteEconomica;
 import org.springframework.eam.domain.MosPresuIng;
 import org.springframework.eam.domain.ProActTar;
@@ -87,6 +88,9 @@ public class ReporteZucListaGeneralesPdf implements Controller {
         } else {
             dia = "" + cal.get(Calendar.DAY_OF_MONTH);
         }
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
         document.setMargins(10, 10, 10, 10);//a,b,c,d,
         int nroFilasTareas = 1;
         String nameFile = "rgenextendido" + System.currentTimeMillis() + ".pdf";
@@ -107,7 +111,7 @@ public class ReporteZucListaGeneralesPdf implements Controller {
             c.setHorizontalAlignment(Element.ALIGN_RIGHT);
             tablaCabecera.addCell(c);
 
-            c = new PdfPCell(new Paragraph(new Phrase("SISTEMA DE PRESUPUESTOS AQUILES FCPN", FontFactory.getFont(FontFactory.TIMES_BOLD, 5))));
+            c = new PdfPCell(new Paragraph(new Phrase("SISTEMA DE PRESUPUESTOS AQUILES "+autoridad.getDato4().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 5))));
             c.setBorder(0);
             c.setColspan(4);
             c.setHorizontalAlignment(Element.ALIGN_LEFT);

@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.eam.domain.Comprometido;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.ProActTar;
 
 import org.springframework.eam.domain.TipoCambio;
@@ -191,7 +192,9 @@ public class SolCom8 implements Controller {
         String me = calendario.getMonth();
         String di = Integer.toString(calendario.getDayOfMonth());
         String an = Integer.toString(calendario.getYear());
-
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
         /*docummento en PDF Orden de compra */
         if (mont_ != null) {
 
@@ -223,7 +226,7 @@ public class SolCom8 implements Controller {
                 /*TABLA PARA LOS ENCABEZADOS*/
                 float[] anchos2 = {0.5f, 0.5f};
                 PdfPTable tabla2 = new PdfPTable(anchos2);
-                PdfPCell cell2 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\nFACULTAD DE CIENCIAS PURAS Y NATURALES\n\n UNIDAD DESCONCENTRADA", FontFactory.getFont(FontFactory.TIMES_BOLD, 7))));
+                PdfPCell cell2 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\n"+autoridad.getDato3().toUpperCase()+"\n\n UNIDAD DESCONCENTRADA", FontFactory.getFont(FontFactory.TIMES_BOLD, 7))));
                 cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tabla2.addCell(cell2);
 
@@ -423,8 +426,8 @@ public class SolCom8 implements Controller {
                 cell = new PdfPCell(new Paragraph(new Phrase("ELABORADO POR:" + "\n  "
                         + "\n\nAPROBADO POR:"
                         + "\n" + ""
-                        + "\n\n\n\n\n\nLic. Victor Hugo Concha Hermosa"
-                        + "\nJEFE UNIDAD DESCONCENTRADA DE LA FACULTAD DE CIENCIAS PURAS Y NATURALES", FontFactory.getFont(FontFactory.TIMES_BOLD, 6))));
+                        + "\n\n\n\n\n\n"+autoridad.getDato1()
+                        + "\n"+autoridad.getDato2().toUpperCase()+" DE LA "+autoridad.getDato3().toUpperCase(), FontFactory.getFont(FontFactory.TIMES_BOLD, 6))));
                 cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                 cell.setColspan(3);
                 table.addCell(cell);
@@ -465,7 +468,7 @@ public class SolCom8 implements Controller {
                 tabla10.addCell(cell10);
 
                 cell10 = new PdfPCell(new Paragraph(new Phrase("\n\n\n\n\n\n- " + ""
-                        + "\nDECANO FCPN RESPONSABLE DEL PROCESO DE CONTRATACIONES", FontFactory.getFont(FontFactory.TIMES_BOLD, 6))));
+                        + "\nDECANO "+autoridad.getDato4().toUpperCase()+" RESPONSABLE DEL PROCESO DE CONTRATACIONES", FontFactory.getFont(FontFactory.TIMES_BOLD, 6))));
                 cell10.setHorizontalAlignment(Element.ALIGN_CENTER);
                 tabla10.addCell(cell10);
                 /*celda para la tabla10*/

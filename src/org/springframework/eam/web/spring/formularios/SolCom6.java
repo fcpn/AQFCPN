@@ -24,6 +24,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.eam.domain.Comprometido;
+import org.springframework.eam.domain.DatosXml;
 import org.springframework.eam.domain.ProActTar;
 
 import org.springframework.eam.domain.TipoCambio;
@@ -141,6 +142,11 @@ public class SolCom6 implements Controller {
 
 
         List monnt = new ArrayList();
+        
+        
+        DatosXml autoridad=new DatosXml();
+        autoridad.setDato2("JEFE UNIDAD ADM.DESCONCENTRADA");
+        orm.ejecutarObjeto("autoridad", "actual", autoridad, autoridad);
         if (mont_ != null) {
             for (int i = 0; i < mont_.size(); i++) {
                 Comprometido kim = (Comprometido) mont_.get(i);
@@ -205,7 +211,7 @@ public class SolCom6 implements Controller {
                     /*TABLA PARA LOS ENCABEZADOS*/
                     float[] anchos2 = {0.3f, 0.34f, 0.36f};
                     PdfPTable tabla2 = new PdfPTable(anchos2);
-                    PdfPCell cell2 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\nFACULTAD DE CIENCIAS PURAS Y NATURALES\n\n UNIDAD DESCONCENTRADA", FontFactory.getFont(FontFactory.TIMES_BOLD, 7))));
+                    PdfPCell cell2 = new PdfPCell(new Paragraph(new Phrase("UNIVERSIDAD MAYOR DE SAN ANDRÉS \n\n"+autoridad.getDato3().toUpperCase()+"\n\n UNIDAD DESCONCENTRADA", FontFactory.getFont(FontFactory.TIMES_BOLD, 7))));
                     cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
                     tabla2.addCell(cell2);
 
@@ -244,7 +250,7 @@ public class SolCom6 implements Controller {
 
 
                     /**/
-                    cell3 = new PdfPCell(new Paragraph(new Phrase(correlativo_unidad + " - FCPN", FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
+                    cell3 = new PdfPCell(new Paragraph(new Phrase(correlativo_unidad + " - "+autoridad.getDato4(), FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));
                     cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
                     tabla3.addCell(cell3);
 //                    cell3 = new PdfPCell(new Paragraph(new Phrase(fecha, FontFactory.getFont(FontFactory.TIMES_ROMAN, 8))));

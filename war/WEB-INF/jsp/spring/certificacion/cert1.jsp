@@ -273,12 +273,6 @@ return (key <= 13 || (key >= 48 && key <= 57));
 
 	<table width="581" border="1" align="center">
         <tr>
-          <td width="176"><span class="Estilo5">Unidad Ejecutora </span></td>
-          <td width="199">Facultad de Ciencias Puras </td>
-          <td width="43">&nbsp;</td>
-          <td width="108">&nbsp;</td>
-        </tr>
-        <tr>
           <td><span class="Estilo5">Apertura Programatica </span></td>
           <td><c:out value="${descripCarrera.idcarrera}"/></td>
           <td>&nbsp;</td>
