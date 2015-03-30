@@ -216,13 +216,13 @@ public class MosCertProc2h implements Controller {
             document.setMargins(30, 30, 25, 25);//a,b,c,d,
             try {
                 String nombre_firma = "firma_actual.png";
-//                Image png = Image.getInstance(System.getenv("AQUILESHOME7") + "/firmasjefearea/" + nombre_firma);////IN  CAMCAM
-                Image png = Image.getInstance("g:/" + nombre_firma);
+                Image png = Image.getInstance(System.getenv("AQUILESHOME7") + "/firmasjefearea/" + nombre_firma);////IN  CAMCAM
+//                Image png = Image.getInstance("g:/" + nombre_firma);
                 png.setAlignment(Image.ALIGN_RIGHT);
                 png.scaleToFit(130f, 230f);
                 String ff = codtar + "_" + num_sol + "_" + System.currentTimeMillis() + ".pdf";
-//                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getenv("AQUILESHOME7") + "/pdf/" + ff));
-                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("g:/" + ff));
+                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(System.getenv("AQUILESHOME7") + "/pdf/" + ff));
+//                PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("g:/" + ff));
                 document.open();
                 Font encabezado = new Font(Font.TIMES_ROMAN, 7, Font.BOLD);
                 Font encabezado2 = new Font(Font.TIMES_ROMAN, 5, Font.BOLD);

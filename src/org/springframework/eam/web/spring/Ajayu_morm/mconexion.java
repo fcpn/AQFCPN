@@ -22,7 +22,7 @@ public class mconexion {
         conexiones = new ArrayList();
 	//  incluir las conexiones y colocarles un nombre
 	//  this.incluirConexion(direccio,usuario,clave,nombre_conexion);                
-        this.incluirConexion("jdbc:postgresql://localhost:5432/aquilesfcpn","postgres","postgres","url1");
+        this.incluirConexion("jdbc:postgresql://localhost:5432/aquiles2015","postgres","postgres","url1");
         
     //this.incluirConexion("jdbc:postgresql://localhost:5432/matriculacion","root","","url2");                
     }
