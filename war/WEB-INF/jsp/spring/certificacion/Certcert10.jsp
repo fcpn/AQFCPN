@@ -1,10 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page language="java" pageEncoding="utf-8" contentType="text/html;charset=utf-8"%>
-
 <link href="tablecloth/tablecloth.css" rel="stylesheet" type="text/css" media="screen" />
-
-
 <c:if test="${nk!=0}">
 <table align="center">
     <c:forEach var="ggt" items="${lista_grupo}">
